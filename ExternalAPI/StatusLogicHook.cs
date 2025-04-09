@@ -1,4 +1,4 @@
-﻿namespace AuthorName.DemoMod;
+﻿namespace XyrilP.VionheartScarlet;
 public partial interface IKokoroApi
 {
     void RegisterStatusLogicHook(IStatusLogicHook hook, double priority);

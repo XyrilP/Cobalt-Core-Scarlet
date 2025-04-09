@@ -3,6 +3,10 @@
     "DemoCharacter": {
       "name": "DemoCharacter",
       "description": "<c=cd6a00>DEMOCHARACTER</c>\nThis is a demo character. <c=boldPink>Am I cool or am I cool?</c>"
+    },
+    "Scarlet": {
+      "name": "Scarlet",
+      "description": "<c=000000>SCARLET</c>\nYour other pilot."
     }
   },
   "artifact": {
