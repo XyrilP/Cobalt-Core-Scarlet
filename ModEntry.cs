@@ -7,6 +7,7 @@ using Nanoray.PluginManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using XyrilP.VionheartScarlet.Cards;
 
 
 
@@ -28,22 +29,39 @@ public sealed class VionheartScarlet : SimpleMod
     internal ISpriteEntry Scarlet_Character_Neutral_2 { get; }
     internal ISpriteEntry Scarlet_Character_Neutral_3 { get; }
     internal ISpriteEntry Scarlet_Character_Neutral_4 { get; }
+    internal ISpriteEntry Scarlet_Character_Gameover { get; }
     internal IDeckEntry Scarlet_Deck { get; }
     internal ISpriteEntry Scarlet_Character_CardBackground { get; }
     internal ISpriteEntry Scarlet_Character_CardFrame { get; }
+    internal IStatusEntry ScarletFade { get; }
 
         /* Scarlet's cards */
     internal static IReadOnlyList<Type> Scarlet_StarterCard_Types { get; } = [
         /* Scarlet's starter cards. */
+        typeof(ScarletVeer),
+        typeof(ScarletDriveBy)
     ];
     internal static IReadOnlyList<Type> Scarlet_CommonCardTypes { get; } = [
         /* Scarlet's common cards. */
+        typeof(ScarletVeer),
+        typeof(ScarletDriveBy),
+        typeof(ScarletThrottleDown),
+        typeof(ScarletThrottleUp),
+        typeof(ScarletSneakAttack)
     ];
     internal static IReadOnlyList<Type> Scarlet_UncommonCardTypes { get; } = [
         /* Scarlet's uncommon cards. */
+        typeof(ScarletArtemisMissile),
+        typeof(ScarletDriftMissile),
+        typeof(ScarletBarrelRoll),
+        typeof(ScarletBlinkStrike),
+        typeof(ScarletTricksOfTheTrade)
     ];
     internal static IReadOnlyList<Type> Scarlet_RareCardTypes { get; } = [
         /* Scarlet's rare cards. */
+        typeof(ScarletFadeCard),
+        typeof(ScarletAileronRoll),
+        typeof(ScarletVendetta)
     ];
 
     /* Concat all Scarlet cards. */
@@ -80,6 +98,9 @@ public sealed class VionheartScarlet : SimpleMod
         Scarlet_Character_Neutral_2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_neutral_2.png"));
         Scarlet_Character_Neutral_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_neutral_3.png"));
         Scarlet_Character_Neutral_4 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_neutral_4.png"));
+        Scarlet_Character_Gameover = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_gameover.png"));
+        Scarlet_Character_CardBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/cardbg_scarlet.png"));
+        Scarlet_Character_CardFrame = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/border_scarlet.png"));
 
         /* Assign decks */
         Scarlet_Deck = helper.Content.Decks.RegisterDeck("ScarletDeck", new DeckConfiguration()
@@ -87,7 +108,7 @@ public sealed class VionheartScarlet : SimpleMod
             Definition = new DeckDef()
             {
                 color = new Color("560319"),
-                titleColor = new Color("000000")
+                titleColor = new Color("FFFFFF")
             },
             DefaultCardArt = Scarlet_Character_CardBackground.Sprite,
             BorderSprite = Scarlet_Character_CardFrame.Sprite,
@@ -112,8 +133,21 @@ public sealed class VionheartScarlet : SimpleMod
         );
 
         helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration(){
+
+            Deck = Scarlet_Deck.Deck,
+
+            LoopTag = "gameover",
+            Frames = new[]
+            {
+                Scarlet_Character_Gameover.Sprite
+            }
+
+        }
+        );
+
+        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration(){
         
-            Scarlet_Deck = Scarlet_Deck.Deck,
+            Deck = Scarlet_Deck.Deck,
             LoopTag = "mini",
             Frames = new[]
             {
@@ -126,12 +160,36 @@ public sealed class VionheartScarlet : SimpleMod
         helper.Content.Characters.RegisterCharacter("Scarlet", new CharacterConfiguration(){
 
             Deck = Scarlet_Deck.Deck,
-            Scarlet_StarterCard_Types = Scarlet_StarterCard_Types,
+            StarterCardTypes = Scarlet_StarterCard_Types,
             Description = AnyLocalizations.Bind(["character", "Scarlet", "description"]).Localize,
             BorderSprite = Scarlet_Character_Panel.Sprite
 
         }
         );
+
+        foreach (var cardType in Scarlet_AllCard_Types)
+            AccessTools.DeclaredMethod(cardType, nameof(IScarletCard.Register))?.Invoke(null, [helper]);
+
+        ScarletFade = helper.Content.Statuses.RegisterStatus("ScarletFade", new()
+        {
+
+            Definition = new()
+            {
+
+                icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/scarletFade.png")).Sprite,
+                color = new("FFFFFF"),
+                isGood = true
+
+            },
+
+            Name = AnyLocalizations.Bind(["status", "ScarletFade", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "ScarletFade", "description"]).Localize
+
+        });
+
+        _ = new ScarletFade();
+
+        
 
     }
 

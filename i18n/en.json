@@ -6,7 +6,7 @@
     },
     "Scarlet": {
       "name": "Scarlet",
-      "description": "<c=000000>SCARLET</c>\nYour other pilot."
+      "description": "<c=560319>SCARLET</c>\nYour other pilot.\n<c=ff9e77>Riggs</c>' boyfriend from the <c=643264>fu</c><c=c864c8>tu</c><c=643264>re</c>?\nHis cards confer <c=ff68ff>unconventional movement</c> with an effective mix of <c=ff68ff>offensive</c> and <c=ff68ff>defensive</c> options."
     }
   },
   "artifact": {
@@ -36,6 +36,46 @@
         "A": "Attack for set amount = 4. On hit, apply 1 <c=status>BOOST</c>.",
         "B": "Attack for set amount = 5. On hit, apply 2 <c=status>BOOST</c>."
       }
+    },
+    "Veer": {
+      "name": "Veer"
+    },
+    "DriveBy": {
+      "name": "Drive-By"
+    },
+    "ThrottleDown": {
+      "name": "Throttle Down"
+    },
+    "ThrottleUp": {
+      "name": "Throttle Up"
+    },
+    "SneakAttack": {
+      "name": "Sneak Attack"
+    },
+    "ArtemisMissile": {
+      "name": "Artemis Missile"
+    },
+    "DriftMissile": {
+      "name": "Drift Missile"
+    },
+    "BarrelRoll": {
+      "name": "Barrel Roll"
+    },
+    "BlinkStrike": {
+      "name": "Blink Strike"
+    },
+    "TricksOfTheTrade": {
+      "name": "Tricks of the Trade",
+      "description": "Wanna see something cool?"
+    },
+    "FadeCard": {
+      "name": "Fade"
+    },
+    "AileronRoll": {
+      "name": "Aileron Roll"
+    },
+    "Vendetta": {
+      "name": "Vendetta"
     }
   },
   "status": {
