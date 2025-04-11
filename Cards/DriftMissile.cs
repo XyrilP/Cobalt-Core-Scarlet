@@ -1,28 +1,27 @@
+using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-internal sealed class ScarletDriveBy : Card, IScarletCard
+public class DriftMissile : Card, IRegisterable
 {
 
-    public static void Register(IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 
-        helper.Content.Cards.RegisterCard("DriveBy", new()
+        helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+            Meta = new CardMeta
             {
-
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.common,
+                rarity = Rarity.uncommon,
+                dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
-
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "DriveBy", "name"]).Localize
-        
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "DriftMissile", "name"]).Localize,
         }
         );
 
@@ -33,6 +32,7 @@ internal sealed class ScarletDriveBy : Card, IScarletCard
 
         CardData data = new CardData();
         {
+
             switch (upgrade)
             {
                 case Upgrade.A:
@@ -42,6 +42,7 @@ internal sealed class ScarletDriveBy : Card, IScarletCard
                     data.cost = 2;
                     break;
             }
+
         }
         return data;
 
@@ -57,84 +58,71 @@ internal sealed class ScarletDriveBy : Card, IScarletCard
             case Upgrade.None:
                 actions = new()
                 {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 3,
                         targetPlayer = true,
                         isRandom = true
                     },
-                    new AAttack()
+                    new ASpawn()
                     {
-                        damage = GetDmg(s, 1)
+                        thing = new Missile
+                        {
+                            yAnimation = 0.0,
+                            missileType = MissileType.seeker
+                        }
                     },
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    }
                 };
                 break;
             case Upgrade.A:
                 actions = new()
                 {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 3,
                         targetPlayer = true,
                         isRandom = true
                     },
-                    new AAttack()
+                    new ASpawn()
                     {
-                        damage = GetDmg(s, 1)
+                        thing = new Missile
+                        {
+                            yAnimation = 0.0,
+                            missileType = MissileType.seeker
+                        }
                     },
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    }
                 };
                 break;
             case Upgrade.B:
                 actions = new()
                 {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2)
-                    },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 4,
                         targetPlayer = true,
                         isRandom = true
                     },
-                    new AAttack()
+                    new ASpawn()
                     {
-                        damage = GetDmg(s, 2)
+                        thing = new Missile
+                        {
+                            yAnimation = 0.0,
+                            missileType = MissileType.seeker
+                        }
+                    },
+                    new ASpawn()
+                    {
+                        thing = new Missile
+                        {
+                            yAnimation = 0.0,
+                            missileType = MissileType.seeker
+                        },
+                        offset = 2
                     }
                 };
                 break;
-
         }
         return actions;
-
 
     }
 

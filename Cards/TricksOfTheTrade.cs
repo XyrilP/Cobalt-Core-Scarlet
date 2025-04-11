@@ -1,29 +1,27 @@
+using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-internal sealed class ScarletTricksOfTheTrade : Card, IScarletCard
+public class TricksOfTheTrade : Card, IRegisterable
 {
 
-    public static void Register(IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 
-        helper.Content.Cards.RegisterCard("TricksOfTheTrade", new()
+        helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+            Meta = new CardMeta
             {
-
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.uncommon,
+                rarity = Rarity.rare,
+                dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
-
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TricksOfTheTrade", "name"]).Localize
-        
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TricksOfTheTrade", "name"]).Localize,
         }
         );
 

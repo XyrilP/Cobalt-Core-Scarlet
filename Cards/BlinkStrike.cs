@@ -1,28 +1,27 @@
+using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-internal sealed class ScarletThrottleDown : Card, IScarletCard
+public class BlinkStrike : Card, IRegisterable
 {
 
-    public static void Register(IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 
-        helper.Content.Cards.RegisterCard("ThrottleDown", new()
+        helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+            Meta = new CardMeta
             {
-
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.common,
+                rarity = Rarity.uncommon,
+                dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
-
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "ThrottleDown", "name"]).Localize
-        
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "BlinkStrike", "name"]).Localize,
         }
         );
 
@@ -33,18 +32,8 @@ internal sealed class ScarletThrottleDown : Card, IScarletCard
 
         CardData data = new CardData();
         {
-            switch (upgrade)
-            {
-                case Upgrade.None:
-                    data.cost = 1;
-                    break;
-                case Upgrade.A:
-                    data.cost = 1;
-                    break;
-                case Upgrade.B:
-                    data.cost = 0;
-                    break;
-            }
+            data.cost = 1;
+            data.flippable = true;
         }
         return data;
 
@@ -60,45 +49,55 @@ internal sealed class ScarletThrottleDown : Card, IScarletCard
             case Upgrade.None:
                 actions = new()
                 {
-                    new AStatus()
+                    new AMove()
                     {
-                        status = Status.engineStall,
-                        statusAmount = 1,
+                        dir = 2,
                         targetPlayer = true
                     },
-                    new AStatus()
+                    new AAttack()
                     {
-                        status = Status.evade,
-                        statusAmount = 1,
-                        targetPlayer = true
+                        damage = GetDmg(s, 1),
+                        piercing = true
                     }
                 };
                 break;
             case Upgrade.A:
                 actions = new()
                 {
-                    new AStatus()
+                    new AMove()
                     {
-                        status = Status.engineStall,
-                        statusAmount = 2,
+                        dir = 2,
                         targetPlayer = true
                     },
-                    new AStatus()
+                    new AAttack()
                     {
-                        status = Status.evade,
-                        statusAmount = 2,
-                        targetPlayer = true
+                        damage = GetDmg(s, 2),
+                        piercing = true
                     }
                 };
                 break;
             case Upgrade.B:
                 actions = new()
                 {
-                    new AStatus()
+                    new AMove()
                     {
-                        status = Status.lockdown,
-                        statusAmount = 1,
+                        dir = 2,
                         targetPlayer = true
+                    },
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1),
+                        piercing = true
+                    },
+                    new AMove()
+                    {
+                        dir = -4,
+                        targetPlayer = true
+                    },
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1),
+                        piercing = true
                     }
                 };
                 break;

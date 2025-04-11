@@ -1,28 +1,27 @@
+using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-internal sealed class ScarletDriftMissile : Card, IScarletCard
+public class ArtemisMissile : Card, IRegisterable
 {
 
-    public static void Register(IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 
-        helper.Content.Cards.RegisterCard("DriftMissile", new()
+        helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+            Meta = new CardMeta
             {
-
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.uncommon,
+                dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
-
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "DriftMissile", "name"]).Localize
-        
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "ArtemisMissile", "name"]).Localize,
         }
         );
 
@@ -59,56 +58,50 @@ internal sealed class ScarletDriftMissile : Card, IScarletCard
             case Upgrade.None:
                 actions = new()
                 {
-                    new AMove()
-                    {
-                        dir = 3,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
                     new ASpawn()
                     {
                         thing = new Missile
                         {
                             yAnimation = 0.0,
-                            missileType = MissileType.seeker
+                            missileType = MissileType.normal
                         }
+                    },
+                    new AMove()
+                    {
+                        dir = 2,
+                        targetPlayer = true,
+                        isRandom = true
                     },
                 };
                 break;
             case Upgrade.A:
                 actions = new()
                 {
-                    new AMove()
-                    {
-                        dir = 3,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
                     new ASpawn()
                     {
                         thing = new Missile
                         {
                             yAnimation = 0.0,
-                            missileType = MissileType.seeker
+                            missileType = MissileType.heavy
                         }
+                    },
+                    new AMove()
+                    {
+                        dir = 2,
+                        targetPlayer = true,
+                        isRandom = true
                     },
                 };
                 break;
             case Upgrade.B:
                 actions = new()
                 {
-                    new AMove()
-                    {
-                        dir = 4,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
                     new ASpawn()
                     {
                         thing = new Missile
                         {
                             yAnimation = 0.0,
-                            missileType = MissileType.seeker
+                            missileType = MissileType.normal
                         }
                     },
                     new ASpawn()
@@ -116,10 +109,16 @@ internal sealed class ScarletDriftMissile : Card, IScarletCard
                         thing = new Missile
                         {
                             yAnimation = 0.0,
-                            missileType = MissileType.seeker
+                            missileType = MissileType.normal
                         },
-                        offset = 2
-                    }
+                        offset = 1
+                    },
+                    new AMove()
+                    {
+                        dir = 2,
+                        targetPlayer = true,
+                        isRandom = true
+                    },
                 };
                 break;
         }

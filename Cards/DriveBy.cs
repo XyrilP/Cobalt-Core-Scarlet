@@ -1,28 +1,27 @@
+using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-internal sealed class ScarletVendetta : Card, IScarletCard
+public class DriveBy : Card, IRegisterable
 {
 
-    public static void Register(IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 
-        helper.Content.Cards.RegisterCard("Vendetta", new()
+        helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+            Meta = new CardMeta
             {
-
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.rare,
+                rarity = Rarity.common,
+                dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
-
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Vendetta", "name"]).Localize
-        
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "DriveBy", "name"]).Localize,
         }
         );
 
@@ -33,15 +32,15 @@ internal sealed class ScarletVendetta : Card, IScarletCard
 
         CardData data = new CardData();
         {
-
-            data.cost = 2;
             switch (upgrade)
             {
                 case Upgrade.A:
-                    data.flippable = true;
+                    data.cost = 1;
+                    break;
+                default:
+                    data.cost = 2;
                     break;
             }
-
         }
         return data;
 
@@ -57,80 +56,77 @@ internal sealed class ScarletVendetta : Card, IScarletCard
             case Upgrade.None:
                 actions = new()
                 {
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1)
+                    },
                     new AMove()
                     {
                         dir = 1,
                         targetPlayer = true,
                         isRandom = true
                     },
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1)
+                    },
                     new AMove()
                     {
-                        dir = 2,
+                        dir = 1,
                         targetPlayer = true,
                         isRandom = true
                     },
                     new AAttack()
                     {
-                        damage = GetDmg(s, 1),
-                        piercing = true,
-                        weaken = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2),
+                        damage = GetDmg(s, 1)
                     }
                 };
                 break;
             case Upgrade.A:
                 actions = new()
                 {
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1)
+                    },
                     new AMove()
                     {
                         dir = 1,
                         targetPlayer = true,
                         isRandom = true
                     },
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 1)
+                    },
                     new AMove()
                     {
-                        dir = 2,
-                        targetPlayer = true
+                        dir = 1,
+                        targetPlayer = true,
+                        isRandom = true
                     },
                     new AAttack()
                     {
-                        damage = GetDmg(s, 1),
-                        piercing = true,
-                        weaken = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2),
+                        damage = GetDmg(s, 1)
                     }
                 };
                 break;
             case Upgrade.B:
                 actions = new()
                 {
+                    new AAttack()
+                    {
+                        damage = GetDmg(s, 2)
+                    },
                     new AMove()
                     {
                         dir = 1,
                         targetPlayer = true,
                         isRandom = true
                     },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
                     new AAttack()
                     {
-                        damage = GetDmg(s, 1),
-                        piercing = true,
-                        brittle = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2),
+                        damage = GetDmg(s, 2)
                     }
                 };
                 break;

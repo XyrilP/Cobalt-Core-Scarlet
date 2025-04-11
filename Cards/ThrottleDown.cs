@@ -1,28 +1,27 @@
+using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-internal sealed class ScarletBarrelRoll : Card, IScarletCard
+public class ThrottleDown : Card, IRegisterable
 {
 
-    public static void Register(IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 
-        helper.Content.Cards.RegisterCard("BarrelRoll", new()
+        helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+            Meta = new CardMeta
             {
-
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.uncommon,
+                rarity = Rarity.common,
+                dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
-
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "BarrelRoll", "name"]).Localize
-        
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "ThrottleDown", "name"]).Localize,
         }
         );
 
@@ -36,14 +35,13 @@ internal sealed class ScarletBarrelRoll : Card, IScarletCard
             switch (upgrade)
             {
                 case Upgrade.None:
-                    data.cost = 2;
+                    data.cost = 1;
                     break;
                 case Upgrade.A:
                     data.cost = 1;
-                    data.flippable = true;
                     break;
                 case Upgrade.B:
-                    data.cost = 2;
+                    data.cost = 0;
                     break;
             }
         }
@@ -61,20 +59,16 @@ internal sealed class ScarletBarrelRoll : Card, IScarletCard
             case Upgrade.None:
                 actions = new()
                 {
-                    new AMove()
+                    new AStatus()
                     {
-                        dir = 1,
+                        status = Status.engineStall,
+                        statusAmount = 1,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
-                        status = Status.tempShield,
-                        statusAmount = 4,
-                        targetPlayer = true
-                    },
-                    new AMove()
-                    {
-                        dir = -2,
+                        status = Status.evade,
+                        statusAmount = 1,
                         targetPlayer = true
                     }
                 };
@@ -82,20 +76,16 @@ internal sealed class ScarletBarrelRoll : Card, IScarletCard
             case Upgrade.A:
                 actions = new()
                 {
-                    new AMove()
+                    new AStatus()
                     {
-                        dir = 1,
+                        status = Status.engineStall,
+                        statusAmount = 2,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
-                        status = Status.tempShield,
-                        statusAmount = 4,
-                        targetPlayer = true
-                    },
-                    new AMove()
-                    {
-                        dir = -2,
+                        status = Status.evade,
+                        statusAmount = 2,
                         targetPlayer = true
                     }
                 };
@@ -103,22 +93,10 @@ internal sealed class ScarletBarrelRoll : Card, IScarletCard
             case Upgrade.B:
                 actions = new()
                 {
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
                     new AStatus()
                     {
-                        status = Status.tempShield,
-                        statusAmount = 4,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.evade,
-                        statusAmount = 2,
+                        status = Status.lockdown,
+                        statusAmount = 1,
                         targetPlayer = true
                     }
                 };

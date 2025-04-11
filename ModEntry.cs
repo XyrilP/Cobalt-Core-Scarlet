@@ -1,87 +1,85 @@
 ﻿using Nickel;
 using HarmonyLib;
-//using AuthorName.DemoMod.Cards;
-//using AuthorName.DemoMod.Artifacts;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using XyrilP.ExternalAPI;
 using XyrilP.VionheartScarlet.Cards;
 
 
 
 namespace XyrilP.VionheartScarlet;
-public sealed class VionheartScarlet : SimpleMod
+internal class VionheartScarlet : SimpleMod
 {
+    /* Declare stuff! */
 
     internal static VionheartScarlet Instance { get; private set; } = null!;
-    internal IKokoroApi KokoroApi { get; }
+    internal Harmony Harmony;
+    internal IKokoroApi.IV2 KokoroApi;
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
 
-    /* Declare stuff! */
-    
-        /* Sprites */
-    internal ISpriteEntry Scarlet_Character_Panel { get; }
-    internal ISpriteEntry Scarlet_Character_Mini { get; }
-    internal ISpriteEntry Scarlet_Character_Neutral_1 { get; }
-    internal ISpriteEntry Scarlet_Character_Neutral_2 { get; }
-    internal ISpriteEntry Scarlet_Character_Neutral_3 { get; }
-    internal ISpriteEntry Scarlet_Character_Neutral_4 { get; }
-    internal ISpriteEntry Scarlet_Character_Gameover { get; }
-    internal IDeckEntry Scarlet_Deck { get; }
-    internal ISpriteEntry Scarlet_Character_CardBackground { get; }
-    internal ISpriteEntry Scarlet_Character_CardFrame { get; }
-    internal IStatusEntry ScarletFade { get; }
+    internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
+    // internal IStatusEntry ScarletFade { get; } //Scarlet's Fade status icon
 
         /* Scarlet's cards */
-    internal static IReadOnlyList<Type> Scarlet_StarterCard_Types { get; } = [
-        /* Scarlet's starter cards. */
-        typeof(ScarletVeer),
-        typeof(ScarletDriveBy)
-    ];
-    internal static IReadOnlyList<Type> Scarlet_CommonCardTypes { get; } = [
+    private static List<Type> Scarlet_CommonCardTypes = [
         /* Scarlet's common cards. */
-        typeof(ScarletVeer),
-        typeof(ScarletDriveBy),
-        typeof(ScarletThrottleDown),
-        typeof(ScarletThrottleUp),
-        typeof(ScarletSneakAttack)
+        typeof(Veer),
+        typeof(DriveBy),
+        typeof(ThrottleDown),
+        typeof(ThrottleUp),
+        typeof(SneakAttack)
     ];
-    internal static IReadOnlyList<Type> Scarlet_UncommonCardTypes { get; } = [
+    private static List<Type> Scarlet_UncommonCardTypes = [
         /* Scarlet's uncommon cards. */
-        typeof(ScarletArtemisMissile),
-        typeof(ScarletDriftMissile),
-        typeof(ScarletBarrelRoll),
-        typeof(ScarletBlinkStrike),
-        typeof(ScarletTricksOfTheTrade)
+        typeof(ArtemisMissile),
+        typeof(DriftMissile),
+        typeof(BarrelRoll),
+        typeof(BlinkStrike),
+        typeof(TricksOfTheTrade)
     ];
-    internal static IReadOnlyList<Type> Scarlet_RareCardTypes { get; } = [
+    private static List<Type> Scarlet_RareCardTypes = [
         /* Scarlet's rare cards. */
-        typeof(ScarletFadeCard),
-        typeof(ScarletAileronRoll),
-        typeof(ScarletVendetta)
+        typeof(FadeCard),
+        typeof(AileronRoll),
+        typeof(Vendetta)
     ];
 
     /* Concat all Scarlet cards. */
-    internal static IEnumerable<Type> Scarlet_AllCard_Types
-    => Scarlet_StarterCard_Types
-    .Concat(Scarlet_CommonCardTypes)
-    .Concat(Scarlet_UncommonCardTypes)
-    .Concat(Scarlet_RareCardTypes);
+    private static IEnumerable<Type> Scarlet_AllCard_Types = 
+        Scarlet_CommonCardTypes
+            .Concat(Scarlet_UncommonCardTypes)
+            .Concat(Scarlet_RareCardTypes);
 
-    internal static IReadOnlyList<Type> Scarlet_CommonArtifact_Types { get; } = [
+    private static List<Type> Scarlet_CommonArtifact_Types = [
         /* Scarlet's common artifacts. */
     ];
+
+    private static List<Type> Scarlet_BossArtifact_Types = [
+        /* Scarlet's boss artifacts. */
+    ];
+
+    /* Concat all Scarlet artifacts. */
+    private static IEnumerable<Type> Scarlet_AllArtifact_Types =
+        Scarlet_CommonArtifact_Types
+            .Concat(Scarlet_BossArtifact_Types);
+
+    /* Concat both Scarlet artifacts and cards. */
+    private static IEnumerable<Type> AllRegisterableTypes =
+        Scarlet_AllCard_Types
+            .Concat(Scarlet_AllArtifact_Types);
 
 
     public VionheartScarlet(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
 
         Instance = this;
-
-        KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
+        KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!.V2; //Updated to V2!
+        Harmony = new Harmony("XyrilP.VionheartScarlet"); //New API? (Harmony)
 
         AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
@@ -91,106 +89,109 @@ public sealed class VionheartScarlet : SimpleMod
             new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(AnyLocalizations)
         );
 
-        /* Assign sprites */
-        Scarlet_Character_Panel = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/char_scarlet.png"));
-        Scarlet_Character_Mini = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_mini.png"));
-        Scarlet_Character_Neutral_1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_neutral_1.png"));
-        Scarlet_Character_Neutral_2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_neutral_2.png"));
-        Scarlet_Character_Neutral_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_neutral_3.png"));
-        Scarlet_Character_Neutral_4 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_neutral_4.png"));
-        Scarlet_Character_Gameover = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/scarlet_gameover.png"));
-        Scarlet_Character_CardBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/cardbg_scarlet.png"));
-        Scarlet_Character_CardFrame = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/border_scarlet.png"));
-
         /* Assign decks */
-        Scarlet_Deck = helper.Content.Decks.RegisterDeck("ScarletDeck", new DeckConfiguration()
+        Scarlet_Deck = helper.Content.Decks.RegisterDeck("ScarletDeck", new DeckConfiguration
         {
-            Definition = new DeckDef()
+            Definition = new DeckDef
             {
                 color = new Color("560319"),
                 titleColor = new Color("FFFFFF")
             },
-            DefaultCardArt = Scarlet_Character_CardBackground.Sprite,
-            BorderSprite = Scarlet_Character_CardFrame.Sprite,
-            Name = AnyLocalizations.Bind(["character", "Scarlet", "name"]).Localize,
+            DefaultCardArt = RegisterSprite(package, "assets/characters/cardbg_scarlet.png").Sprite,
+            BorderSprite = RegisterSprite(package, "assets/characters/border_scarlet.png").Sprite,
+            Name = AnyLocalizations.Bind(["character", "Scarlet", "name"]).Localize
         }
         );
 
-        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration(){
+        /* Register all artifacts and cards into the game, allowing it to be played. (Based on AllRegisterableTypes) */
+        foreach (var type in AllRegisterableTypes)
+            AccessTools.DeclaredMethod(type, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
 
-            Deck = Scarlet_Deck.Deck,
+        /* Scarlet NEUTRAL */
+        RegisterAnimation(package, "neutral", "assets/characters/scarlet_neutral_", 4);
 
-            LoopTag = "neutral",
-            Frames = new[]
-            {
-                Scarlet_Character_Neutral_1.Sprite,
-                Scarlet_Character_Neutral_2.Sprite,
-                Scarlet_Character_Neutral_3.Sprite,
-                Scarlet_Character_Neutral_4.Sprite,
-            }
-
-        }
-        );
-
-        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration(){
-
-            Deck = Scarlet_Deck.Deck,
-
-            LoopTag = "gameover",
-            Frames = new[]
-            {
-                Scarlet_Character_Gameover.Sprite
-            }
-
-        }
-        );
-
-        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration(){
-        
-            Deck = Scarlet_Deck.Deck,
-            LoopTag = "mini",
-            Frames = new[]
-            {
-                Scarlet_Character_Mini.Sprite
-            }
-
-        }
-        );
-
-        helper.Content.Characters.RegisterCharacter("Scarlet", new CharacterConfiguration(){
-
-            Deck = Scarlet_Deck.Deck,
-            StarterCardTypes = Scarlet_StarterCard_Types,
-            Description = AnyLocalizations.Bind(["character", "Scarlet", "description"]).Localize,
-            BorderSprite = Scarlet_Character_Panel.Sprite
-
-        }
-        );
-
-        foreach (var cardType in Scarlet_AllCard_Types)
-            AccessTools.DeclaredMethod(cardType, nameof(IScarletCard.Register))?.Invoke(null, [helper]);
-
-        ScarletFade = helper.Content.Statuses.RegisterStatus("ScarletFade", new()
+        /* Scarlet GAMEOVER */
+        Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
         {
+            CharacterType = Scarlet_Deck.Deck.Key(),
+            LoopTag = "gameover",
+            Frames = [
+                RegisterSprite(package, "assets/characters/scarlet_gameover_0.png").Sprite,
+            ]
+        }
+        );
 
-            Definition = new()
+        /* Scarlet MINI */
+        Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
+        {
+            CharacterType = Scarlet_Deck.Deck.Key(),
+            LoopTag = "mini",
+            Frames = [
+                RegisterSprite(package, "assets/characters/scarlet_mini_0.png").Sprite,
+            ]
+        }
+        );
+
+        helper.Content.Characters.V2.RegisterPlayableCharacter("Scarlet", new PlayableCharacterConfigurationV2
+        {
+            Deck = Scarlet_Deck.Deck,
+            BorderSprite = RegisterSprite(package, "assets/characters/char_scarlet.png").Sprite,
+            Starters = new StarterDeck
             {
+                cards = [
+                    new DriveBy(),
+                    new Veer()
+                ],
+                artifacts = [
 
-                icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/scarletFade.png")).Sprite,
-                color = new("FFFFFF"),
-                isGood = true
-
+                ]
             },
+            Description = AnyLocalizations.Bind(["character", "Scarlet", "description"]).Localize
+        }
+        );
 
-            Name = AnyLocalizations.Bind(["status", "ScarletFade", "name"]).Localize,
-            Description = AnyLocalizations.Bind(["status", "ScarletFade", "description"]).Localize
+        // foreach (var cardType in Scarlet_AllCard_Types)
+        //     AccessTools.DeclaredMethod(cardType, nameof(IScarletCard.Register))?.Invoke(null, [helper]);
 
-        });
+        // ScarletFade = helper.Content.Statuses.RegisterStatus("ScarletFade", new()
+        // {
 
-        _ = new ScarletFade();
+        //     Definition = new()
+        //     {
+
+        //         icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/scarletFade.png")).Sprite,
+        //         color = new("FFFFFF"),
+        //         isGood = true
+
+        //     },
+
+        //     Name = AnyLocalizations.Bind(["status", "ScarletFade", "name"]).Localize,
+        //     Description = AnyLocalizations.Bind(["status", "ScarletFade", "description"]).Localize
+
+        // });
+
+        // _ = new ScarletFade();
 
         
 
+    }
+
+    /* New function to register sprites better (New method). */
+    public static ISpriteEntry RegisterSprite(IPluginPackage<IModManifest> package, string dir)
+    {
+        return Instance.Helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile(dir));
+    }
+    /* New function to register animations better (New method). */
+    public static void RegisterAnimation(IPluginPackage<IModManifest> package, string tag, string dir, int frames)
+    {
+        Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
+        {
+            CharacterType = Instance.Scarlet_Deck.Deck.Key(),
+            LoopTag = tag,
+            Frames = Enumerable.Range(0, frames)
+                .Select(i => RegisterSprite(package, dir + i + ".png").Sprite)
+                .ToImmutableList()
+        });
     }
 
 

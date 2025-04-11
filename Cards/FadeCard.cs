@@ -1,28 +1,27 @@
+using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-internal sealed class ScarletAileronRoll : Card, IScarletCard
+public class FadeCard : Card, IRegisterable
 {
 
-    public static void Register(IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 
-        helper.Content.Cards.RegisterCard("AileronRoll", new()
+        helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+            Meta = new CardMeta
             {
-
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.rare,
+                dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
-
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "AileronRoll", "name"]).Localize
-        
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "FadeCard", "name"]).Localize,
         }
         );
 
@@ -60,23 +59,23 @@ internal sealed class ScarletAileronRoll : Card, IScarletCard
             case Upgrade.None:
                 actions = new()
                 {
+                    new AStunShip(),
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
+                        targetPlayer = true,
+                        isRandom = true
+                    },
+                    new AMove()
+                    {
+                        dir = 4,
                         targetPlayer = true,
                         isRandom = true
                     },
                     new AStatus()
                     {
-                        status = Status.perfectShield,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    },
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
+                        status = Status.lockdown,
+                        statusAmount = 1
                     },
                     new AEndTurn()
                 };
@@ -84,23 +83,23 @@ internal sealed class ScarletAileronRoll : Card, IScarletCard
             case Upgrade.A:
                 actions = new()
                 {
+                    new AStunShip(),
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
+                        targetPlayer = true,
+                        isRandom = true
+                    },
+                    new AMove()
+                    {
+                        dir = 4,
                         targetPlayer = true,
                         isRandom = true
                     },
                     new AStatus()
                     {
-                        status = Status.perfectShield,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    },
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
+                        status = Status.lockdown,
+                        statusAmount = 1
                     },
                     new AEndTurn()
                 };
@@ -108,24 +107,30 @@ internal sealed class ScarletAileronRoll : Card, IScarletCard
             case Upgrade.B:
                 actions = new()
                 {
+                    new AStunShip(),
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
+                        targetPlayer = true,
+                        isRandom = true
+                    },
+                    new AMove()
+                    {
+                        dir = 2,
                         targetPlayer = true,
                         isRandom = true
                     },
                     new AStatus()
                     {
-                        status = Status.perfectShield,
-                        statusAmount = 1,
+                        status = Status.lockdown,
+                        statusAmount = 1
+                    },
+                    new AStatus()
+                    {
+                        status = Status.evade,
+                        statusAmount = 2,
                         targetPlayer = true
                     },
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    }
                 };
                 break;
 

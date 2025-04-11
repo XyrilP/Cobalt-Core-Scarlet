@@ -1,28 +1,27 @@
+using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-internal sealed class ScarletVeer : Card, IScarletCard
+public class ThrottleUp : Card, IRegisterable
 {
 
-    public static void Register(IModHelper helper)
+    public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
 
-        helper.Content.Cards.RegisterCard("Veer", new()
+        helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
-            Meta = new()
+            Meta = new CardMeta
             {
-
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.common,
+                dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
-
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Veer", "name"]).Localize
-        
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "ThrottleUp", "name"]).Localize,
         }
         );
 
@@ -33,21 +32,18 @@ internal sealed class ScarletVeer : Card, IScarletCard
 
         CardData data = new CardData();
         {
-
-            data.cost = 1;
             switch (upgrade)
             {
                 case Upgrade.None:
-                    data.flippable = true;
+                    data.cost = 1;
                     break;
                 case Upgrade.A:
-                    data.flippable = false;
+                    data.cost = 1;
                     break;
                 case Upgrade.B:
-                    data.flippable = false;
+                    data.cost = 0;
                     break;
             }
-
         }
         return data;
 
@@ -63,46 +59,46 @@ internal sealed class ScarletVeer : Card, IScarletCard
             case Upgrade.None:
                 actions = new()
                 {
-                    new AMove()
+                    new AStatus()
                     {
-                        dir = 2,
+                        status = Status.hermes,
+                        statusAmount = 1,
                         targetPlayer = true
                     },
+                    new AStatus()
+                    {
+                        status = Status.evade,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    }
                 };
                 break;
             case Upgrade.A:
                 actions = new()
                 {
-                    new AMove()
-                    { 
-                        dir = -2,
+                    new AStatus()
+                    {
+                        status = Status.hermes,
+                        statusAmount = 1,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
-                        status = Status.autododgeLeft,
-                        statusAmount = 1,
+                        status = Status.evade,
+                        statusAmount = 2,
                         targetPlayer = true
-
-                    },
+                    }
                 };
                 break;
             case Upgrade.B:
                 actions = new()
                 {
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true
-                    },
                     new AStatus()
                     {
-
-                        status = Status.autododgeRight,
+                        status = Status.hermes,
                         statusAmount = 1,
                         targetPlayer = true
-
-                    },
+                    }
                 };
                 break;
 
