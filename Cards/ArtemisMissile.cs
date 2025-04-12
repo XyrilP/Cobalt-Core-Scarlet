@@ -17,7 +17,7 @@ public class ArtemisMissile : Card, IRegisterable
             Meta = new CardMeta
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.uncommon,
+                rarity = Rarity.common,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
@@ -35,10 +35,13 @@ public class ArtemisMissile : Card, IRegisterable
 
             switch (upgrade)
             {
+                case Upgrade.None:
+                    data.cost = 2;
+                    break;
                 case Upgrade.A:
                     data.cost = 1;
                     break;
-                default:
+                case Upgrade.B:
                     data.cost = 2;
                     break;
             }
@@ -71,10 +74,29 @@ public class ArtemisMissile : Card, IRegisterable
                         dir = 2,
                         targetPlayer = true,
                         isRandom = true
-                    },
+                    }
                 };
                 break;
             case Upgrade.A:
+                actions = new()
+                {
+                    new ASpawn()
+                    {
+                        thing = new Missile
+                        {
+                            yAnimation = 0.0,
+                            missileType = MissileType.normal
+                        }
+                    },
+                    new AMove()
+                    {
+                        dir = 2,
+                        targetPlayer = true,
+                        isRandom = true
+                    }
+                };
+                break;
+            case Upgrade.B:
                 actions = new()
                 {
                     new ASpawn()
@@ -90,35 +112,7 @@ public class ArtemisMissile : Card, IRegisterable
                         dir = 2,
                         targetPlayer = true,
                         isRandom = true
-                    },
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
-                {
-                    new ASpawn()
-                    {
-                        thing = new Missile
-                        {
-                            yAnimation = 0.0,
-                            missileType = MissileType.normal
-                        }
-                    },
-                    new ASpawn()
-                    {
-                        thing = new Missile
-                        {
-                            yAnimation = 0.0,
-                            missileType = MissileType.normal
-                        },
-                        offset = 1
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
+                    }
                 };
                 break;
         }

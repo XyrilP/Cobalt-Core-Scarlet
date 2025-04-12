@@ -52,6 +52,9 @@
     "SneakAttack": {
       "name": "Sneak Attack"
     },
+    "AdjustThrottle": {
+      "name": "Adjust Throttle"
+    },
     "ArtemisMissile": {
       "name": "Artemis Missile"
     },
@@ -67,6 +70,12 @@
     "TricksOfTheTrade": {
       "name": "Tricks of the Trade",
       "description": "Wanna see something cool?"
+    },
+    "CutTheEngines": {
+      "name": "Cut the Engines"
+    },
+    "HardlightAfterburn": {
+      "name": "Hardlight Afterburn"
     },
     "FadeCard": {
       "name": "Fade"

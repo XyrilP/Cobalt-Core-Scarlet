@@ -98,7 +98,7 @@ public class DriftMissile : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 4,
+                        dir = 6,
                         targetPlayer = true,
                         isRandom = true
                     },
@@ -109,15 +109,6 @@ public class DriftMissile : Card, IRegisterable
                             yAnimation = 0.0,
                             missileType = MissileType.seeker
                         }
-                    },
-                    new ASpawn()
-                    {
-                        thing = new Missile
-                        {
-                            yAnimation = 0.0,
-                            missileType = MissileType.seeker
-                        },
-                        offset = 2
                     }
                 };
                 break;

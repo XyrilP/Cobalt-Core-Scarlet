@@ -72,7 +72,7 @@ public class DriveBy : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
                         targetPlayer = true,
                         isRandom = true
                     },
@@ -101,7 +101,7 @@ public class DriveBy : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
                         targetPlayer = true,
                         isRandom = true
                     },

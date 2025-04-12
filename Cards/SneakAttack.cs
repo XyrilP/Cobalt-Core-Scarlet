@@ -105,13 +105,13 @@ public class SneakAttack : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
                         targetPlayer = true,
                         isRandom = true
                     },
                     new AAttack()
                     {
-                        damage = GetDmg(s, 1),
+                        damage = GetDmg(s, 2),
                         piercing = true
                     },
                 };

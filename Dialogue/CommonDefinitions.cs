@@ -1,0 +1,52 @@
+using System.Linq;
+using XyrilP.VionheartScarlet;
+using Nickel;
+
+internal static class CommonDefinitions
+{
+	internal static string AmCraig = "craig";
+
+	internal const string AmUnknown = "johndoe";
+
+	internal const string AmCat = "comp";
+
+	internal const string AmVoid = "void";
+
+	internal const string AmShopkeeper = "nerd";
+
+	internal static VionheartScarlet Instance => VionheartScarlet.Instance;
+
+	internal static string AmIScarlet => ((IModOwned)Instance.Scarlet_Deck).UniqueName;
+
+	internal static Deck AmIScarletDeck => Instance.Scarlet_Deck.Deck;
+
+	internal static string AmDizzy => EnumExtensions.Key((Deck)1);
+
+	internal static string AmPeri => EnumExtensions.Key((Deck)3);
+
+	internal static string AmRiggs => EnumExtensions.Key((Deck)2);
+
+	internal static string AmDrake => EnumExtensions.Key((Deck)5);
+
+	internal static string AmIssac => EnumExtensions.Key((Deck)4);
+
+	internal static string AmBooks => EnumExtensions.Key((Deck)7);
+
+	internal static string AmMax => EnumExtensions.Key((Deck)6);
+
+	//internal static Status MissingScarlet => VionheartScarlet.Scarlet.MissingStatus.Status;
+
+	// internal static string Check(this string loopTag)
+	// {
+	// 	if (VionheartScarlet.IlleanaAnims.Contains(loopTag))
+	// 	{
+	// 		return loopTag;
+	// 	}
+	// 	return "placeholder";
+	// }
+
+	// internal static string F(this string Name)
+	// {
+	// 	return Instance.UniqueName + "::" + Name;
+	// }
+}

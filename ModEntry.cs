@@ -21,6 +21,7 @@ internal class VionheartScarlet : SimpleMod
     internal IKokoroApi.IV2 KokoroApi;
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
+    public bool modDialogueInited;
 
     internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
     // internal IStatusEntry ScarletFade { get; } //Scarlet's Fade status icon
@@ -30,17 +31,20 @@ internal class VionheartScarlet : SimpleMod
         /* Scarlet's common cards. */
         typeof(Veer),
         typeof(DriveBy),
-        typeof(ThrottleDown),
-        typeof(ThrottleUp),
-        typeof(SneakAttack)
+        //typeof(ThrottleDown), //replaced by AdjustThrottle
+        //typeof(ThrottleUp), //replaced by AdjustThrottle
+        typeof(AdjustThrottle),
+        typeof(SneakAttack),
+        typeof(BarrelRoll),
+        typeof(ArtemisMissile)
     ];
     private static List<Type> Scarlet_UncommonCardTypes = [
         /* Scarlet's uncommon cards. */
-        typeof(ArtemisMissile),
         typeof(DriftMissile),
-        typeof(BarrelRoll),
         typeof(BlinkStrike),
-        typeof(TricksOfTheTrade)
+        typeof(TricksOfTheTrade),
+        typeof(CutTheEngines),
+        typeof(HardlightAfterburn)
     ];
     private static List<Type> Scarlet_RareCardTypes = [
         /* Scarlet's rare cards. */
@@ -139,7 +143,7 @@ internal class VionheartScarlet : SimpleMod
             Starters = new StarterDeck
             {
                 cards = [
-                    new DriveBy(),
+                    new SneakAttack(),
                     new Veer()
                 ],
                 artifacts = [

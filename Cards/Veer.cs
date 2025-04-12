@@ -1,16 +1,15 @@
 using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
 public class Veer : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -24,7 +23,7 @@ public class Veer : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Veer", "name"]).Localize,
         }
         );
-
+        
     }
 
     public override CardData GetData(State state)
@@ -32,31 +31,36 @@ public class Veer : Card, IRegisterable
 
         CardData data = new CardData();
         {
-
-            data.cost = 1;
             switch (upgrade)
             {
                 case Upgrade.None:
-                    data.flippable = true;
+                    data.cost = 1;
                     break;
                 case Upgrade.A:
-                    data.flippable = false;
+                    data.cost = 0;
                     break;
                 case Upgrade.B:
-                    data.flippable = false;
+                    data.cost = 2;
                     break;
             }
-
+            data.flippable = true;
         }
         return data;
-
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
         List<CardAction> actions = new();
-
+        var veerAutoDodge = Status.autododgeRight;
+        switch (flipped)
+        {
+            case true:
+                veerAutoDodge = Status.autododgeLeft;
+                break;
+            case false:
+                veerAutoDodge = Status.autododgeRight;
+                break;
+        }
         switch (upgrade)
         {
             case Upgrade.None:
@@ -74,16 +78,9 @@ public class Veer : Card, IRegisterable
                 {
                     new AMove()
                     { 
-                        dir = -2,
+                        dir = 2,
                         targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.autododgeLeft,
-                        statusAmount = 1,
-                        targetPlayer = true
-
-                    },
+                    }
                 };
                 break;
             case Upgrade.B:
@@ -96,19 +93,13 @@ public class Veer : Card, IRegisterable
                     },
                     new AStatus()
                     {
-
-                        status = Status.autododgeRight,
+                        status = veerAutoDodge,
                         statusAmount = 1,
-                        targetPlayer = true
-
-                    },
+                        targetPlayer = true,
+                    }
                 };
                 break;
-
         }
         return actions;
-
-
     }
-
 }

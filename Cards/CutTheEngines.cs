@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-public class ThrottleUp : Card, IRegisterable
+public class CutTheEngines : Card, IRegisterable
 {
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -17,11 +17,11 @@ public class ThrottleUp : Card, IRegisterable
             Meta = new CardMeta
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.common,
+                rarity = Rarity.uncommon,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "ThrottleUp", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "CutTheEngines", "name"]).Localize,
         }
         );
 
@@ -61,9 +61,15 @@ public class ThrottleUp : Card, IRegisterable
                 {
                     new AStatus()
                     {
-                        status = Status.hermes,
+                        status = Status.lockdown,
                         statusAmount = 1,
                         targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.loseEvadeNextTurn,
+                        targetPlayer = true,
+                        statusAmount = 1
                     }
                 };
                 break;
@@ -72,9 +78,15 @@ public class ThrottleUp : Card, IRegisterable
                 {
                     new AStatus()
                     {
-                        status = Status.hermes,
+                        status = Status.lockdown,
                         statusAmount = 1,
                         targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.loseEvadeNextTurn,
+                        targetPlayer = true,
+                        statusAmount = 1
                     }
                 };
                 break;
@@ -83,8 +95,8 @@ public class ThrottleUp : Card, IRegisterable
                 {
                     new AStatus()
                     {
-                        status = Status.hermes,
-                        statusAmount = 2,
+                        status = Status.lockdown,
+                        statusAmount = 1,
                         targetPlayer = true
                     }
                 };

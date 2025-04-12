@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-public class ThrottleUp : Card, IRegisterable
+public class AdjustThrottle : Card, IRegisterable
 {
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -21,7 +21,7 @@ public class ThrottleUp : Card, IRegisterable
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "ThrottleUp", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "AdjustThrottle", "name"]).Localize,
         }
         );
 
@@ -44,6 +44,7 @@ public class ThrottleUp : Card, IRegisterable
                     data.cost = 1;
                     break;
             }
+            data.floppable = true;
         }
         return data;
 
@@ -63,7 +64,18 @@ public class ThrottleUp : Card, IRegisterable
                     {
                         status = Status.hermes,
                         statusAmount = 1,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        disabled = flipped
+                    },
+                    new ADummyAction()
+                    {
+                    },
+                    new AStatus()
+                    {
+                        status = Status.engineStall,
+                        statusAmount = 1,
+                        targetPlayer = true,
+                        disabled = !flipped
                     }
                 };
                 break;
@@ -74,7 +86,18 @@ public class ThrottleUp : Card, IRegisterable
                     {
                         status = Status.hermes,
                         statusAmount = 1,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        disabled = flipped
+                    },
+                    new ADummyAction()
+                    {
+                    },
+                    new AStatus()
+                    {
+                        status = Status.engineStall,
+                        statusAmount = 1,
+                        targetPlayer = true,
+                        disabled = !flipped
                     }
                 };
                 break;
@@ -85,7 +108,18 @@ public class ThrottleUp : Card, IRegisterable
                     {
                         status = Status.hermes,
                         statusAmount = 2,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        disabled = flipped
+                    },
+                    new ADummyAction()
+                    {
+                    },
+                    new AStatus()
+                    {
+                        status = Status.engineStall,
+                        statusAmount = 2,
+                        targetPlayer = true,
+                        disabled = !flipped
                     }
                 };
                 break;

@@ -38,10 +38,10 @@ public class ThrottleDown : Card, IRegisterable
                     data.cost = 1;
                     break;
                 case Upgrade.A:
-                    data.cost = 1;
+                    data.cost = 0;
                     break;
                 case Upgrade.B:
-                    data.cost = 0;
+                    data.cost = 1;
                     break;
             }
         }
@@ -64,12 +64,6 @@ public class ThrottleDown : Card, IRegisterable
                         status = Status.engineStall,
                         statusAmount = 1,
                         targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.evade,
-                        statusAmount = 1,
-                        targetPlayer = true
                     }
                 };
                 break;
@@ -79,13 +73,7 @@ public class ThrottleDown : Card, IRegisterable
                     new AStatus()
                     {
                         status = Status.engineStall,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.evade,
-                        statusAmount = 2,
+                        statusAmount = 1,
                         targetPlayer = true
                     }
                 };
@@ -95,8 +83,8 @@ public class ThrottleDown : Card, IRegisterable
                 {
                     new AStatus()
                     {
-                        status = Status.lockdown,
-                        statusAmount = 1,
+                        status = Status.engineStall,
+                        statusAmount = 2,
                         targetPlayer = true
                     }
                 };

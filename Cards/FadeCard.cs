@@ -44,6 +44,7 @@ public class FadeCard : Card, IRegisterable
                     data.cost = 3;
                     break;
             }
+            data.exhaust = true;
         }
         return data;
 
@@ -116,7 +117,7 @@ public class FadeCard : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = 2,
+                        dir = 4,
                         targetPlayer = true,
                         isRandom = true
                     },
@@ -130,7 +131,7 @@ public class FadeCard : Card, IRegisterable
                         status = Status.evade,
                         statusAmount = 2,
                         targetPlayer = true
-                    },
+                    }
                 };
                 break;
 

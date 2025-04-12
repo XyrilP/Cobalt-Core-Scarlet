@@ -17,7 +17,7 @@ public class BarrelRoll : Card, IRegisterable
             Meta = new CardMeta
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.uncommon,
+                rarity = Rarity.common,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
@@ -35,14 +35,13 @@ public class BarrelRoll : Card, IRegisterable
             switch (upgrade)
             {
                 case Upgrade.None:
-                    data.cost = 2;
+                    data.cost = 1;
                     break;
                 case Upgrade.A:
                     data.cost = 1;
-                    data.flippable = true;
                     break;
                 case Upgrade.B:
-                    data.cost = 2;
+                    data.cost = 1;
                     break;
             }
         }
@@ -62,18 +61,18 @@ public class BarrelRoll : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 1,
+                        dir = -1,
                         targetPlayer = true
                     },
                     new AStatus()
                     {
                         status = Status.tempShield,
-                        statusAmount = 4,
+                        statusAmount = 2,
                         targetPlayer = true
                     },
                     new AMove()
                     {
-                        dir = -2,
+                        dir = 2,
                         targetPlayer = true
                     }
                 };
@@ -83,7 +82,7 @@ public class BarrelRoll : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 1,
+                        dir = -1,
                         targetPlayer = true
                     },
                     new AStatus()
@@ -94,7 +93,7 @@ public class BarrelRoll : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = -2,
+                        dir = 2,
                         targetPlayer = true
                     }
                 };
@@ -111,7 +110,7 @@ public class BarrelRoll : Card, IRegisterable
                     new AStatus()
                     {
                         status = Status.tempShield,
-                        statusAmount = 4,
+                        statusAmount = 2,
                         targetPlayer = true
                     },
                     new AStatus()

@@ -32,7 +32,6 @@ public class Vendetta : Card, IRegisterable
 
         CardData data = new CardData();
         {
-
             data.cost = 2;
             switch (upgrade)
             {
@@ -40,7 +39,7 @@ public class Vendetta : Card, IRegisterable
                     data.flippable = true;
                     break;
             }
-
+            data.exhaust = true;
         }
         return data;
 

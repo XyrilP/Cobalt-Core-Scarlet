@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-public class ThrottleUp : Card, IRegisterable
+public class HardlightAfterburn : Card, IRegisterable
 {
 
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -17,11 +17,11 @@ public class ThrottleUp : Card, IRegisterable
             Meta = new CardMeta
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.common,
+                rarity = Rarity.uncommon,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "ThrottleUp", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "HardlightAfterburn", "name"]).Localize,
         }
         );
 
@@ -35,15 +35,16 @@ public class ThrottleUp : Card, IRegisterable
             switch (upgrade)
             {
                 case Upgrade.None:
-                    data.cost = 1;
+                    data.cost = 2;
                     break;
                 case Upgrade.A:
-                    data.cost = 0;
-                    break;
-                case Upgrade.B:
                     data.cost = 1;
                     break;
+                case Upgrade.B:
+                    data.cost = 3;
+                    break;
             }
+            data.exhaust = true;
         }
         return data;
 
@@ -62,8 +63,20 @@ public class ThrottleUp : Card, IRegisterable
                     new AStatus()
                     {
                         status = Status.hermes,
+                        statusAmount = 3,
+                        targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.heat,
                         statusAmount = 1,
                         targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.loseEvadeNextTurn,
+                        targetPlayer = true,
+                        statusAmount = 1
                     }
                 };
                 break;
@@ -73,8 +86,20 @@ public class ThrottleUp : Card, IRegisterable
                     new AStatus()
                     {
                         status = Status.hermes,
+                        statusAmount = 3,
+                        targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.heat,
                         statusAmount = 1,
                         targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.loseEvadeNextTurn,
+                        targetPlayer = true,
+                        statusAmount = 1
                     }
                 };
                 break;
@@ -84,8 +109,20 @@ public class ThrottleUp : Card, IRegisterable
                     new AStatus()
                     {
                         status = Status.hermes,
+                        statusAmount = 4,
+                        targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.heat,
                         statusAmount = 2,
                         targetPlayer = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.loseEvadeNextTurn,
+                        targetPlayer = true,
+                        statusAmount = 1
                     }
                 };
                 break;

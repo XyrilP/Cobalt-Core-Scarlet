@@ -44,6 +44,7 @@ public class AileronRoll : Card, IRegisterable
                     data.cost = 3;
                     break;
             }
+            data.exhaust = true;
         }
         return data;
 
@@ -73,7 +74,7 @@ public class AileronRoll : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
                         targetPlayer = true,
                         isRandom = true
                     },
@@ -97,7 +98,7 @@ public class AileronRoll : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
                         targetPlayer = true,
                         isRandom = true
                     },
@@ -121,9 +122,15 @@ public class AileronRoll : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = 1,
+                        dir = 2,
                         targetPlayer = true,
                         isRandom = true
+                    },
+                    new AStatus()
+                    {
+                        status = Status.evade,
+                        statusAmount = 2,
+                        targetPlayer = true
                     }
                 };
                 break;
