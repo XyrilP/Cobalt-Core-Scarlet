@@ -27,10 +27,6 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
             original: AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.OnBeginTurn)),
             postfix: new HarmonyMethod(GetType(), nameof(Ship_OnBeginTurn_Postfix))
         );
-        VionheartScarlet.VionheartScarlet.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
-            postfix: new HarmonyMethod(GetType(), nameof(AAttack_Begin_Postfix))
-        );
     }
     
     public static bool AAttack_ApplyAutododge_Prefix(AAttack __instance, Combat c, Ship target, RaycastResult ray, ref bool __result)
@@ -58,18 +54,8 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 		}
 		else if (__instance.Get(VionheartScarlet.VionheartScarlet.Instance.Fade.Status) > 0)
 		{
-		    __instance.Add(VionheartScarlet.VionheartScarlet.Instance.Fade.Status, 0);
+		    __instance.Add(VionheartScarlet.VionheartScarlet.Instance.Fade.Status, -1);
 		}
         
-    }
-
-    public static void AAttack_Begin_Postfix(AAttack __instance, G g, State s, Combat c)
-    {
-        Ship ship = __instance.targetPlayer ? s.ship : c.otherShip;
-        Ship ship2 = __instance.targetPlayer ? c.otherShip : s.ship;
-        if (!__instance.isBeam && ship2.Get(VionheartScarlet.VionheartScarlet.Instance.Fade.Status) > 0)
-        {
-            ship2.Add(VionheartScarlet.VionheartScarlet.Instance.Fade.Status, -1);
-        }
     }
 }

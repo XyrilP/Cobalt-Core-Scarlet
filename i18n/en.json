@@ -64,6 +64,9 @@
     "Sneak": {
       "name": "Sneak"
     },
+    "HideAndSneak": {
+      "name": "Hide & Sneak"
+    },
     "DriftMissile": {
       "name": "Drift Missile"
     },
@@ -102,7 +105,7 @@
     },
     "Fade": {
       "name": "Fade",
-      "description": "Next direct hit on this ship will miss. <c=ff687c>Decreases by 1 each turn</c>."
+      "description": "Next direct hit on this ship will miss. <c=ff687c>Decreases by 1 when you attack</c>."
     }
   }
 }

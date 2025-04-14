@@ -41,14 +41,14 @@ internal class VionheartScarlet : SimpleMod
         typeof(SneakAttack),
         typeof(BarrelRoll),
         typeof(ArtemisMissile),
-        typeof(Hide),
-        typeof(Sneak)
+        //typeof(Hide), //replaced by HideAndSneak
+        //typeof(Sneak) //replaced by HideAndSneak
+        typeof(HideAndSneak)
     ];
     private static List<Type> Scarlet_UncommonCardTypes = [
         /* Scarlet's uncommon cards. */
         typeof(DriftMissile),
         typeof(BlinkStrike),
-        typeof(TricksOfTheTrade),
         typeof(CutTheEngines),
         typeof(HardlightAfterburn),
         typeof(UncannyDodge)
@@ -57,7 +57,8 @@ internal class VionheartScarlet : SimpleMod
         /* Scarlet's rare cards. */
         typeof(FadeCard),
         typeof(AileronRoll),
-        typeof(Vendetta)
+        typeof(Vendetta),
+        typeof(TricksOfTheTrade)
     ];
 
     /* Concat all Scarlet cards. */
@@ -152,8 +153,8 @@ internal class VionheartScarlet : SimpleMod
             Starters = new StarterDeck
             {
                 cards = [
-                    new SneakAttack(),
-                    new Veer()
+                    new HideAndSneak(),
+                    new SneakAttack()
                 ],
                 artifacts = [
 
@@ -171,7 +172,7 @@ internal class VionheartScarlet : SimpleMod
             {
                 cards = [
                     new ArtemisMissile(),
-                    new Hide()
+                    new Veer()
                 ],
                 artifacts = [
                 
