@@ -36,13 +36,15 @@ public class ArtemisMissile : Card, IRegisterable
             switch (upgrade)
             {
                 case Upgrade.None:
-                    data.cost = 2;
-                    break;
-                case Upgrade.A:
                     data.cost = 1;
                     break;
+                case Upgrade.A:
+                    data.cost = 0;
+                    data.exhaust = true;
+                    data.retain = true;
+                    break;
                 case Upgrade.B:
-                    data.cost = 2;
+                    data.cost = 1;
                     break;
             }
 
@@ -87,12 +89,6 @@ public class ArtemisMissile : Card, IRegisterable
                             yAnimation = 0.0,
                             missileType = MissileType.normal
                         }
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
                     }
                 };
                 break;

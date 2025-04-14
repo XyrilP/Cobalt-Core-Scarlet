@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-public class _templateCardV2 : Card, IRegisterable
+public class Hide : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -19,7 +19,7 @@ public class _templateCardV2 : Card, IRegisterable
                 dontOffer = false, //Should this card be offered to the player?
                 upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Template", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Hide", "name"]).Localize,
         }
         );
     }
@@ -31,10 +31,13 @@ public class _templateCardV2 : Card, IRegisterable
             switch (upgrade)
             {
                 case Upgrade.None:
+                    data.cost = 1;
                     break;
                 case Upgrade.A:
+                    data.cost = 0;
                     break;
                 case Upgrade.B:
+                    data.cost = 1;
                     break;
             }
         }
@@ -49,16 +52,34 @@ public class _templateCardV2 : Card, IRegisterable
             case Upgrade.None:
                 actions = new()
                 {
+                    new AStatus()
+                    {
+                        status = VionheartScarlet.Instance.Fade.Status,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    }
                 };
                 break;
             case Upgrade.A:
                 actions = new()
                 {
+                    new AStatus()
+                    {
+                        status = VionheartScarlet.Instance.Fade.Status,
+                        statusAmount = 1,
+                        targetPlayer = true
+                    }
                 };
                 break;
             case Upgrade.B:
                 actions = new()
                 {
+                    new AStatus()
+                    {
+                        status = VionheartScarlet.Instance.Fade.Status,
+                        statusAmount = 2,
+                        targetPlayer = true
+                    }
                 };
                 break;
         }

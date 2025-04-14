@@ -1,4 +1,5 @@
 ﻿using Nickel;
+using Nickel.Common;
 using HarmonyLib;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using XyrilP.ExternalAPI;
+using XyrilP.Features;
 using XyrilP.VionheartScarlet.Cards;
 
 
@@ -19,12 +21,14 @@ internal class VionheartScarlet : SimpleMod
     internal static VionheartScarlet Instance { get; private set; } = null!;
     internal Harmony Harmony;
     internal IKokoroApi.IV2 KokoroApi;
+    internal IMoreDifficultiesApi? MoreDifficultiesApi { get; private set; } = null;
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
     public bool modDialogueInited;
 
     internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
     // internal IStatusEntry ScarletFade { get; } //Scarlet's Fade status icon
+    internal IStatusEntry Fade { get; }
 
         /* Scarlet's cards */
     private static List<Type> Scarlet_CommonCardTypes = [
@@ -36,7 +40,9 @@ internal class VionheartScarlet : SimpleMod
         typeof(AdjustThrottle),
         typeof(SneakAttack),
         typeof(BarrelRoll),
-        typeof(ArtemisMissile)
+        typeof(ArtemisMissile),
+        typeof(Hide),
+        typeof(Sneak)
     ];
     private static List<Type> Scarlet_UncommonCardTypes = [
         /* Scarlet's uncommon cards. */
@@ -44,7 +50,8 @@ internal class VionheartScarlet : SimpleMod
         typeof(BlinkStrike),
         typeof(TricksOfTheTrade),
         typeof(CutTheEngines),
-        typeof(HardlightAfterburn)
+        typeof(HardlightAfterburn),
+        typeof(UncannyDodge)
     ];
     private static List<Type> Scarlet_RareCardTypes = [
         /* Scarlet's rare cards. */
@@ -84,6 +91,8 @@ internal class VionheartScarlet : SimpleMod
         Instance = this;
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!.V2; //Updated to V2!
         Harmony = new Harmony("XyrilP.VionheartScarlet"); //New API? (Harmony)
+        MoreDifficultiesApi = helper.ModRegistry.GetApi<IMoreDifficultiesApi>("TheJazMaster.MoreDifficulties", (SemanticVersion?)null);
+        
 
         AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
@@ -154,29 +163,38 @@ internal class VionheartScarlet : SimpleMod
         }
         );
 
-        // foreach (var cardType in Scarlet_AllCard_Types)
-        //     AccessTools.DeclaredMethod(cardType, nameof(IScarletCard.Register))?.Invoke(null, [helper]);
+        /* MoreDifficulties mod - Scarlet's Alternate Starter Cards */
+        if (MoreDifficultiesApi != null)
+	    {
+            Deck Deck = Scarlet_Deck.Deck;
+            StarterDeck altStarters = new StarterDeck
+            {
+                cards = [
+                    new ArtemisMissile(),
+                    new Hide()
+                ],
+                artifacts = [
+                
+                ]
+            };
+            MoreDifficultiesApi.RegisterAltStarters(Deck, altStarters);
+	    }
 
-        // ScarletFade = helper.Content.Statuses.RegisterStatus("ScarletFade", new()
-        // {
-
-        //     Definition = new()
-        //     {
-
-        //         icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/scarletFade.png")).Sprite,
-        //         color = new("FFFFFF"),
-        //         isGood = true
-
-        //     },
-
-        //     Name = AnyLocalizations.Bind(["status", "ScarletFade", "name"]).Localize,
-        //     Description = AnyLocalizations.Bind(["status", "ScarletFade", "description"]).Localize
-
-        // });
-
-        // _ = new ScarletFade();
-
-        
+        /* Fade status */
+        Fade = helper.Content.Statuses.RegisterStatus("Fade", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                affectedByTimestop = false,
+                color = new Color("560319"),
+                icon = RegisterSprite(package, "assets/icons/Fade.png").Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "Fade", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "Fade", "description"]).Localize
+        }
+        );
+        _ = new FadeManager(package, helper);
 
     }
 

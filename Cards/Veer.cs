@@ -40,7 +40,7 @@ public class Veer : Card, IRegisterable
                     data.cost = 0;
                     break;
                 case Upgrade.B:
-                    data.cost = 2;
+                    data.cost = 1;
                     break;
             }
             data.flippable = true;
@@ -51,16 +51,6 @@ public class Veer : Card, IRegisterable
     public override List<CardAction> GetActions(State s, Combat c)
     {
         List<CardAction> actions = new();
-        var veerAutoDodge = Status.autododgeRight;
-        switch (flipped)
-        {
-            case true:
-                veerAutoDodge = Status.autododgeLeft;
-                break;
-            case false:
-                veerAutoDodge = Status.autododgeRight;
-                break;
-        }
         switch (upgrade)
         {
             case Upgrade.None:
@@ -88,15 +78,17 @@ public class Veer : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 2,
+                        dir = 4,
                         targetPlayer = true
                     },
+                    /* v0.2.1
                     new AStatus()
                     {
                         status = veerAutoDodge,
                         statusAmount = 1,
                         targetPlayer = true,
                     }
+                    */
                 };
                 break;
         }

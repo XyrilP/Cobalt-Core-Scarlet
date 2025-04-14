@@ -32,6 +32,7 @@ public class TricksOfTheTrade : Card, IRegisterable
         CardData data = new CardData();
         {
             data.cost = 2;
+            data.exhaust = true;
             switch (upgrade)
             {
                 /* Will localize at some point... pls help */

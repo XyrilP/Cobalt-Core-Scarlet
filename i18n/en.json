@@ -58,6 +58,12 @@
     "ArtemisMissile": {
       "name": "Artemis Missile"
     },
+    "Hide": {
+      "name": "Hide"
+    },
+    "Sneak": {
+      "name": "Sneak"
+    },
     "DriftMissile": {
       "name": "Drift Missile"
     },
@@ -67,9 +73,11 @@
     "BlinkStrike": {
       "name": "Blink Strike"
     },
+    "UncannyDodge": {
+      "name": "Uncanny Dodge"
+    },
     "TricksOfTheTrade": {
-      "name": "Tricks of the Trade",
-      "description": "Wanna see something cool?"
+      "name": "Tricks of the Trade"
     },
     "CutTheEngines": {
       "name": "Cut the Engines"
@@ -78,7 +86,7 @@
       "name": "Hardlight Afterburn"
     },
     "FadeCard": {
-      "name": "Fade"
+      "name": "Fade Away"
     },
     "AileronRoll": {
       "name": "Aileron Roll"
@@ -91,6 +99,10 @@
     "AutododgeLeftNextTurn": {
       "name": "Autododge Left Next Turn",
       "description": "At the start of next turn, gain <c=boldPink>{0}</c> <c=status>AUTODODGE LEFT</c>."
+    },
+    "Fade": {
+      "name": "Fade",
+      "description": "Next direct hit on this ship will miss. <c=ff687c>Decreases by 1 each turn</c>."
     }
   }
 }

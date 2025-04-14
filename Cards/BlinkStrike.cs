@@ -81,7 +81,7 @@ public class BlinkStrike : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 2,
+                        dir = -2,
                         targetPlayer = true
                     },
                     new AAttack()
@@ -91,7 +91,7 @@ public class BlinkStrike : Card, IRegisterable
                     },
                     new AMove()
                     {
-                        dir = -4,
+                        dir = 4,
                         targetPlayer = true
                     },
                     new AAttack()
