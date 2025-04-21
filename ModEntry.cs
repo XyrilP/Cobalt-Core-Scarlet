@@ -229,6 +229,7 @@ internal class VionheartScarlet : SimpleMod
             Description = AnyLocalizations.Bind(["status", "Fade", "description"]).Localize
         }
         );
+        _ = new FadeManager(package, helper);
 
         /* Temporary Strafe status */
         TemporaryStrafe = helper.Content.Statuses.RegisterStatus("Temporary Strafe", new StatusConfiguration

@@ -11,6 +11,7 @@ internal static class Dialogue
 		CombatDialogue.Inject();
 		CardDialogue.Inject();
 		ArtifactDialogue.Inject();
+		
 	}
 
 	public static void ApplyInjections()

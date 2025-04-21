@@ -91,7 +91,7 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
                             dir = 1,
                             isRandom = true,
                             targetPlayer = !__instance.targetPlayer,
-                            timer = 0.0,
+                            timer = 0.0
                         }
                     ]
                 );
