@@ -32,11 +32,17 @@ public class Vendetta : Card, IRegisterable
 
         CardData data = new CardData();
         {
-            data.cost = 2;
             switch (upgrade)
             {
+                case Upgrade.None:
+                    data.cost = 2;
+                    break;
                 case Upgrade.A:
+                    data.cost = 2;
                     data.flippable = true;
+                    break;
+                case Upgrade.B:
+                    data.cost = 3;
                     break;
             }
             data.exhaust = true;
@@ -49,6 +55,7 @@ public class Vendetta : Card, IRegisterable
     {
 
         List<CardAction> actions = new();
+        var isFaded = s.ship is Ship ship && IsFaded(ship);
 
         switch (upgrade)
         {
@@ -57,25 +64,19 @@ public class Vendetta : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AMove()
-                    {
                         dir = 2,
                         targetPlayer = true,
-                        isRandom = true
+                        isRandom = true,
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, 1),
                         piercing = true,
-                        weaken = true
+                        weaken = true,
                     },
                     new AAttack()
                     {
-                        damage = GetDmg(s, 2),
+                        damage = GetDmg(s, 3),
                     }
                 };
                 break;
@@ -84,24 +85,18 @@ public class Vendetta : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AMove()
-                    {
                         dir = 2,
-                        targetPlayer = true
+                        targetPlayer = true,
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, 1),
                         piercing = true,
-                        weaken = true
+                        weaken = true,
                     },
                     new AAttack()
                     {
-                        damage = GetDmg(s, 2),
+                        damage = GetDmg(s, 3),
                     }
                 };
                 break;
@@ -110,25 +105,19 @@ public class Vendetta : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AMove()
-                    {
                         dir = 2,
                         targetPlayer = true,
-                        isRandom = true
+                        isRandom = true,
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, 1),
                         piercing = true,
-                        brittle = true
+                        brittle = true,
                     },
                     new AAttack()
                     {
-                        damage = GetDmg(s, 2),
+                        damage = GetDmg(s, 4),
                     }
                 };
                 break;
@@ -137,6 +126,15 @@ public class Vendetta : Card, IRegisterable
         return actions;
 
 
+    }
+
+    public bool IsFaded(Ship ship)
+    {
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+        {
+            return true;
+        }
+        else return false;
     }
 
 }

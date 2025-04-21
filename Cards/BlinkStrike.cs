@@ -52,7 +52,8 @@ public class BlinkStrike : Card, IRegisterable
                     new AMove()
                     {
                         dir = 2,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        dialogueSelector = ".scarletBlinkStrike"
                     },
                     new AAttack()
                     {
@@ -67,7 +68,8 @@ public class BlinkStrike : Card, IRegisterable
                     new AMove()
                     {
                         dir = 2,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        dialogueSelector = ".scarletBlinkStrike"
                     },
                     new AAttack()
                     {
@@ -82,7 +84,8 @@ public class BlinkStrike : Card, IRegisterable
                     new AMove()
                     {
                         dir = -2,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        dialogueSelector = ".scarletBlinkStrike"
                     },
                     new AAttack()
                     {

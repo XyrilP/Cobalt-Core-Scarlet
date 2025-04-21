@@ -29,18 +29,20 @@ public class UncannyDodge : Card, IRegisterable
     {
         CardData data = new CardData();
         {
-            data.retain = true;
-            data.cost = 0;
             switch (upgrade)
             {
                 case Upgrade.None:
+                    data.retain = true;
                     break;
                 case Upgrade.A:
+                    data.retain = true;
                     break;
                 case Upgrade.B:
-                    data.exhaust = true;
+                    data.recycle = true;
+                    data.buoyant = true;
                     break;
             }
+            data.cost = 1;
         }
         return data;
     }
@@ -54,7 +56,7 @@ public class UncannyDodge : Card, IRegisterable
                 {
                     new AStatus()
                     {
-                        status = Status.autododgeRight,
+                        status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 1,
                         targetPlayer = true,
                     }
@@ -65,7 +67,7 @@ public class UncannyDodge : Card, IRegisterable
                 {
                     new AStatus()
                     {
-                        status = Status.autododgeRight,
+                        status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 2,
                         targetPlayer = true,
                     }
@@ -76,7 +78,7 @@ public class UncannyDodge : Card, IRegisterable
                 {
                     new AStatus()
                     {
-                        status = Status.autododgeLeft,
+                        status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 1,
                         targetPlayer = true,
                     }

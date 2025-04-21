@@ -42,6 +42,7 @@ public class FadeCard : Card, IRegisterable
                     break;
                 case Upgrade.B:
                     data.cost = 3;
+                    data.flippable = true;
                     break;
             }
             data.exhaust = true;
@@ -64,17 +65,12 @@ public class FadeCard : Card, IRegisterable
                     {
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 3,
-                        targetPlayer = true
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
                         targetPlayer = true,
-                        isRandom = true
+                        dialogueSelector = ".scarletFadeAway"
                     },
                     new AMove()
                     {
-                        dir = 4,
+                        dir = 6,
                         targetPlayer = true,
                         isRandom = true
                     },
@@ -93,17 +89,12 @@ public class FadeCard : Card, IRegisterable
                     {
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 3,
-                        targetPlayer = true
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
                         targetPlayer = true,
-                        isRandom = true
+                        dialogueSelector = ".scarletFadeAway"
                     },
                     new AMove()
                     {
-                        dir = 4,
+                        dir = 6,
                         targetPlayer = true,
                         isRandom = true
                     },
@@ -122,13 +113,13 @@ public class FadeCard : Card, IRegisterable
                     {
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 3,
-                        targetPlayer = true
+                        targetPlayer = true,
+                        dialogueSelector = ".scarletFadeAway"
                     },
                     new AMove()
                     {
                         dir = 2,
                         targetPlayer = true,
-                        isRandom = true
                     },
                     new AMove()
                     {

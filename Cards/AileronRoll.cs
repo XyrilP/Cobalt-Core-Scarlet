@@ -35,10 +35,10 @@ public class AileronRoll : Card, IRegisterable
             switch (upgrade)
             {
                 case Upgrade.None:
-                    data.cost = 3;
+                    data.cost = 2;
                     break;
                 case Upgrade.A:
-                    data.cost = 2;
+                    data.cost = 1;
                     break;
                 case Upgrade.B:
                     data.cost = 3;
@@ -62,9 +62,8 @@ public class AileronRoll : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
+                        dir = -1,
+                        targetPlayer = true
                     },
                     new AStatus()
                     {
@@ -75,8 +74,7 @@ public class AileronRoll : Card, IRegisterable
                     new AMove()
                     {
                         dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
+                        targetPlayer = true
                     },
                     new AEndTurn()
                 };
@@ -86,9 +84,8 @@ public class AileronRoll : Card, IRegisterable
                 {
                     new AMove()
                     {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
+                        dir = -1,
+                        targetPlayer = true
                     },
                     new AStatus()
                     {
@@ -99,8 +96,7 @@ public class AileronRoll : Card, IRegisterable
                     new AMove()
                     {
                         dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
+                        targetPlayer = true
                     },
                     new AEndTurn()
                 };
@@ -120,16 +116,10 @@ public class AileronRoll : Card, IRegisterable
                         statusAmount = 1,
                         targetPlayer = true
                     },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
                     new AStatus()
                     {
                         status = Status.evade,
-                        statusAmount = 2,
+                        statusAmount = 4,
                         targetPlayer = true
                     }
                 };

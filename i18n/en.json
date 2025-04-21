@@ -6,7 +6,7 @@
     },
     "Scarlet": {
       "name": "Scarlet",
-      "description": "<c=560319>SCARLET</c>\nYour other pilot.\n<c=ff9e77>Riggs</c>' boyfriend from the <c=643264>fu</c><c=c864c8>tu</c><c=643264>re</c>?\nHis cards confer <c=ff68ff>unconventional movement</c> with an effective mix of <c=ff68ff>offensive</c> and <c=ff68ff>defensive</c> options."
+      "description": "<c=BC2C3D>SCARLET</c>\nYour other pilot.\n<c=ffda87>Riggs</c>' boyfriend from the <c=643264>fu</c><c=c864c8>tu</c><c=643264>re</c>?\nHis cards confer <c=keyword>unconventional movement</c> with an effective mix of <c=keyword>offensive</c> and <c=keyword>defensive</c> options."
     }
   },
   "artifact": {
@@ -17,6 +17,46 @@
     "Counting": {
       "name": "COUNTING",
       "description": "At start of turn, count sheeps. Once you counted 7 sheep, gain 1 <c=status>ENERGY</c> and start counting again."
+    },
+    "Cloak": {
+      "name": "CLOAK",
+      "description": "At start of turn, if you have 0 <c=status>FADE</c>, gain 1 <c=status>FADE</c>."
+    },
+    "Dagger": {
+      "name": "DAGGER",
+      "description": "If you have <c=status>FADE</c>, all of your attacks pierces."
+    },
+    "ElectrolyteSurge": {
+      "name": "ELECTROLYTE SURGE",
+      "description": "Every two times your discard pile is shuffled back into your draw pile, gain 1 <c=energy>ENERGY</c>.\n<c=downside>Caps at 1 per turn.</c>"
+    },
+    "SlowRoll": {
+      "name": "SLOW ROLL",
+      "description": "Draw an additional card after the first turn."
+    },
+    "TrickAction": {
+      "name": "TRICK ACTION",
+      "description": "If you end your turn with 0 <c=status>FADE</c>, gain 1 <c=status>FADE</c>."
+    },
+    "CardEngine": {
+      "name": "CARD ENGINE",
+      "description": "Draw an additional card after the first turn.\nEvery <c=keyword>10th</c> time you draw a card in one turn, draw an additional card."
+    },
+    "VionheartShard_Scarlet": {
+      "name": "VIONHEART SHARD",
+      "description": "At start of combat, gain 4 <c=status>FADE</c>."
+    },
+    "ReactionWheel": {
+      "name": "REACTION WHEEL",
+      "description": "Every <c=keyword>10th</c> time you draw a card, gain 1 <c=status>EVADE</c>.\n<c=downside>Caps at 2 per turn.</c>"
+    },
+    "CloakAndDagger": {
+      "name": "CLOAK AND DAGGER",
+      "description": "At the start of turn, gain 1 <c=status>FADE</c>.\nIf you have <c=status>FADE</c>, all of your attacks pierces."
+    },
+    "HardlightAfterburners": {
+      "name": "HARDLIGHT AFTERBURNERS",
+      "description": "At the start of combat, every two turns, gain 1 <c=status>HERMES</c>."
     }
   },
   "ship": {
@@ -67,8 +107,17 @@
     "HideAndSneak": {
       "name": "Hide & Sneak"
     },
+    "TrickDagger_Missile": {
+      "name": "Trick Dagger"
+    },
+    "TemporaryStrafeCard": {
+      "name": "Temporary Strafe"
+    },
     "DriftMissile": {
       "name": "Drift Missile"
+    },
+    "Serpentine": {
+      "name": "Serpentine"
     },
     "BarrelRoll": {
       "name": "Barrel Roll"
@@ -79,14 +128,20 @@
     "UncannyDodge": {
       "name": "Uncanny Dodge"
     },
+    "TrickDagger_Seeker": {
+      "name": "Trick Dagger (Seeker)"
+    },
     "TricksOfTheTrade": {
-      "name": "Tricks of the Trade"
+      "name": "Tricks of the Trade",
+      "desc": "",
+      "descA": "",
+      "descB": ""
     },
     "CutTheEngines": {
       "name": "Cut the Engines"
     },
-    "HardlightAfterburn": {
-      "name": "Hardlight Afterburn"
+    "Afterburn": {
+      "name": "Afterburn"
     },
     "FadeCard": {
       "name": "Fade Away"
@@ -96,6 +151,12 @@
     },
     "Vendetta": {
       "name": "Vendetta"
+    },
+    "ScarletEXE": {
+      "name": "Scarlet.EXE",
+      "description": "Add 1 of 2 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand.",
+      "descA": "Add 1 of 2 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand.",
+      "descB": "Add 1 of 3 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand."
     }
   },
   "status": {
@@ -105,7 +166,21 @@
     },
     "Fade": {
       "name": "Fade",
-      "description": "Next direct hit on this ship will miss. <c=ff687c>Decreases by 1 when you attack</c>."
+      "description": "Next direct hit on this ship will force the other to move <c=movement>1</c> randomly instead. <c=ff687c>Decreases by 1 per instance or when you attack.</c>"
+    },
+    "TemporaryStrafe": {
+      "name": "Temporary Strafe",
+      "description": "Fire for {0} damage immediately after every move you make. <c=downside>Goes away at start of next turn.</c>"
+    }
+  },
+  "midrow": {
+    "TrickDagger_Missile": {
+      "name": "TRICK DAGGER",
+      "description": "This missile is going to deal <c=damage>2</c> damage.\nIgnores all shields and armor."
+    },
+    "TrickDagger_Seeker": {
+      "name": "TRICK DAGGER (SEEKER)",
+      "description": "This missile is going to deal <c=damage>2</c> damage.\nIgnores all shields and armor.\n<c=downside>It cannot miss!</c>"
     }
   }
 }

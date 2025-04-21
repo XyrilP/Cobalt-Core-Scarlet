@@ -12,42 +12,94 @@ using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace XyrilP.Features;
+namespace XyrilP.VionheartScarlet.Features;
 
 public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 {
     public FadeManager(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        VionheartScarlet.VionheartScarlet.Instance.KokoroApi.StatusRendering.RegisterHook(this);
-        VionheartScarlet.VionheartScarlet.Instance.Harmony.Patch(
+        VionheartScarlet.Instance.KokoroApi.StatusRendering.RegisterHook(this);
+        VionheartScarlet.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.ApplyAutododge)),
             prefix: new HarmonyMethod(GetType(), nameof(AAttack_ApplyAutododge_Prefix))
         );
-        VionheartScarlet.VionheartScarlet.Instance.Harmony.Patch(
+        VionheartScarlet.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.OnBeginTurn)),
             postfix: new HarmonyMethod(GetType(), nameof(Ship_OnBeginTurn_Postfix))
         );
-        VionheartScarlet.VionheartScarlet.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
-            postfix: new HarmonyMethod(GetType(), nameof(AAttack_Begin_Postfix))
+
+        VionheartScarlet.Instance.Helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnPlayerAttack), (State state, Combat combat) =>
+        {
+            var ship = state.ship;
+
+            if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+            {
+                combat.QueueImmediate(
+                    [
+                        new AStatus()
+                        {
+                            status = VionheartScarlet.Instance.Fade.Status,
+                            statusAmount = -1,
+                            targetPlayer = true
+                        }
+                    ]
+                );
+            }
+        }
+        );
+
+        VionheartScarlet.Instance.Helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnEnemyAttack), (State state, Combat combat) =>
+        {
+            var ship = combat.otherShip;
+
+            if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+            {
+                combat.QueueImmediate(
+                    [
+                        new AStatus()
+                        {
+                            status = VionheartScarlet.Instance.Fade.Status,
+                            statusAmount = -1,
+                            targetPlayer = false
+                        }
+                    ]
+                );
+            }
+        }
         );
     }
-    
     public static bool AAttack_ApplyAutododge_Prefix(AAttack __instance, Combat c, Ship target, RaycastResult ray, ref bool __result)
     {
         /////* Uhm... if you have autododge, both fade and autododge will apply... pls fix 👉👈 */
         /* rft50, you were right */
-        if (target.Get(VionheartScarlet.VionheartScarlet.Instance.Fade.Status) > 0)
+
+        if (ray.hitShip && !__instance.isBeam)
         {
-            if (ray.hitShip && !__instance.isBeam)
+            if (target.Get(VionheartScarlet.Instance.Fade.Status) > 0)
             {
                 /* Decrease Fade once attack is evaded. */
-                target.Add(VionheartScarlet.VionheartScarlet.Instance.Fade.Status, -1);
-                __result = true;
-                return false;
+                target.Add(VionheartScarlet.Instance.Fade.Status, -1);
+
+                /* WIP: Instead of cancelling attack, make attack miss. */
+                    /* Code here */
+
+                /* Random Move 1 when Fade triggers. */
+                c.QueueImmediate(
+                    [
+                        new AMove()
+                        {
+                            dir = 1,
+                            isRandom = true,
+                            targetPlayer = !__instance.targetPlayer,
+                            timer = 0.0,
+                        }
+                    ]
+                );
+                __result = true; //This will cause attack to cancel itself.
+                return false; //Stop prefixing plus ignore the prefixed method.
             }
         }
-        return true;
+        return true; //Continue plus run prefixed method code.
     }
 
     public static void Ship_OnBeginTurn_Postfix(Ship __instance, State s, Combat c)
@@ -56,20 +108,9 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 		{
             /* Timestop will decrement itself. */
 		}
-		else if (__instance.Get(VionheartScarlet.VionheartScarlet.Instance.Fade.Status) > 0)
+		else if (__instance.Get(VionheartScarlet.Instance.Fade.Status) > 0)
 		{
-		    __instance.Add(VionheartScarlet.VionheartScarlet.Instance.Fade.Status, 0);
+		    __instance.Add(VionheartScarlet.Instance.Fade.Status, 0);
 		}
-        
-    }
-
-    public static void AAttack_Begin_Postfix(AAttack __instance, G g, State s, Combat c)
-    {
-        Ship ship = __instance.targetPlayer ? s.ship : c.otherShip;
-        Ship ship2 = __instance.targetPlayer ? c.otherShip : s.ship;
-        if (!__instance.isBeam && ship2.Get(VionheartScarlet.VionheartScarlet.Instance.Fade.Status) > 0)
-        {
-            ship2.Add(VionheartScarlet.VionheartScarlet.Instance.Fade.Status, -1);
-        }
     }
 }

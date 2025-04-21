@@ -34,11 +34,15 @@ public class DriveBy : Card, IRegisterable
         {
             switch (upgrade)
             {
+                case Upgrade.None:
+                    data.cost = 2;
+                    break;
                 case Upgrade.A:
                     data.cost = 1;
                     break;
-                default:
+                case Upgrade.B:
                     data.cost = 2;
+                    data.flippable = true;
                     break;
             }
         }
@@ -121,8 +125,7 @@ public class DriveBy : Card, IRegisterable
                     new AMove()
                     {
                         dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
+                        targetPlayer = true
                     },
                     new AAttack()
                     {

@@ -59,23 +59,12 @@ public class HideAndSneak : Card, IRegisterable
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 1,
                         targetPlayer = true,
-                        disabled = isFaded
-                    },
-                    new ADummyAction()
-                    {
-                    },
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                        disabled = !isFaded
+                        dialogueSelector = ".scarletHideAndSneak"
                     },
                     new AMove()
                     {
                         dir = 1,
                         targetPlayer = true,
-                        disabled = !isFaded
                     }
                 };
                 break;
@@ -87,23 +76,12 @@ public class HideAndSneak : Card, IRegisterable
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 1,
                         targetPlayer = true,
-                        disabled = isFaded
-                    },
-                    new ADummyAction()
-                    {
-                    },
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                        disabled = !isFaded
+                        dialogueSelector = ".scarletHideAndSneak"
                     },
                     new AMove()
                     {
                         dir = 1,
                         targetPlayer = true,
-                        disabled = !isFaded
                     }
                 };
                 break;
@@ -115,23 +93,12 @@ public class HideAndSneak : Card, IRegisterable
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 2,
                         targetPlayer = true,
-                        disabled = isFaded
-                    },
-                    new ADummyAction()
-                    {
-                    },
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 2,
-                        targetPlayer = true,
-                        disabled = !isFaded
+                        dialogueSelector = ".scarletHideAndSneak"
                     },
                     new AMove()
                     {
                         dir = 2,
                         targetPlayer = true,
-                        disabled = !isFaded
                     }
                 };
                 break;

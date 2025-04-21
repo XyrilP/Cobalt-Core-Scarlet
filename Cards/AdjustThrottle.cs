@@ -42,9 +42,11 @@ public class AdjustThrottle : Card, IRegisterable
                     break;
                 case Upgrade.B:
                     data.cost = 1;
+                    data.infinite = true;
                     break;
             }
             data.floppable = true;
+            data.retain = true;
         }
         return data;
 
@@ -107,7 +109,7 @@ public class AdjustThrottle : Card, IRegisterable
                     new AStatus()
                     {
                         status = Status.hermes,
-                        statusAmount = 2,
+                        statusAmount = 1,
                         targetPlayer = true,
                         disabled = flipped
                     },
@@ -117,7 +119,7 @@ public class AdjustThrottle : Card, IRegisterable
                     new AStatus()
                     {
                         status = Status.engineStall,
-                        statusAmount = 2,
+                        statusAmount = 1,
                         targetPlayer = true,
                         disabled = !flipped
                     }

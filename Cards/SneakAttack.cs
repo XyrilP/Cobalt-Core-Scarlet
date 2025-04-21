@@ -32,6 +32,16 @@ public class SneakAttack : Card, IRegisterable
 
         CardData data = new CardData();
         {
+            switch (upgrade)
+            {
+                case Upgrade.None:
+                    break;
+                case Upgrade.A:
+                    break;
+                case Upgrade.B:
+                    data.flippable = true;
+                    break;
+            }
             data.cost = 1;
         }
         return data;
@@ -42,6 +52,7 @@ public class SneakAttack : Card, IRegisterable
     {
 
         List<CardAction> actions = new();
+        var isFaded = s.ship is Ship ship && IsFaded(ship);
 
         switch (upgrade)
         {
@@ -52,16 +63,19 @@ public class SneakAttack : Card, IRegisterable
                     {
                         dir = 1,
                         targetPlayer = true,
-                        isRandom = true
+                        isRandom = true,
+                        dialogueSelector = ".scarletSneakAttack"
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, 1),
+                        piercing = true,
                     },
-                    new AAttack()
+                    new AStatus()
                     {
-                        damage = GetDmg(s, 1),
-                        piercing = true
+                        status = VionheartScarlet.Instance.Fade.Status,
+                        statusAmount = 1,
+                        targetPlayer = true,
                     }
                 };
                 break;
@@ -72,16 +86,19 @@ public class SneakAttack : Card, IRegisterable
                     {
                         dir = 1,
                         targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1),
+                        isRandom = true,
+                        dialogueSelector = ".scarletSneakAttack"
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, 2),
-                        piercing = true
+                        piercing = true,
+                    },
+                    new AStatus()
+                    {
+                        status = VionheartScarlet.Instance.Fade.Status,
+                        statusAmount = 1,
+                        targetPlayer = true,
                     }
                 };
                 break;
@@ -92,35 +109,33 @@ public class SneakAttack : Card, IRegisterable
                     {
                         dir = 1,
                         targetPlayer = true,
-                        isRandom = true
+                        dialogueSelector = ".scarletSneakAttack"
                     },
                     new AAttack()
                     {
                         damage = GetDmg(s, 1),
+                        piercing = true,
                     },
-                    new AAttack()
+                    new AStatus()
                     {
-                        damage = GetDmg(s, 1),
-                        piercing = true
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
+                        status = VionheartScarlet.Instance.Fade.Status,
+                        statusAmount = 1,
                         targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2),
-                        piercing = true
-                    },
+                    }
                 };
                 break;
 
         }
         return actions;
+    }
 
-
+    public bool IsFaded(Ship ship)
+    {
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+        {
+            return true;
+        }
+        else return false;
     }
 
 }

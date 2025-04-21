@@ -44,6 +44,7 @@ public class CutTheEngines : Card, IRegisterable
                     data.cost = 1;
                     break;
             }
+            data.retain = true;
         }
         return data;
 
