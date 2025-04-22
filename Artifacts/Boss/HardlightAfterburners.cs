@@ -36,7 +36,8 @@ public class HardlightAfterburners : Artifact, IRegisterable
                 status = Status.hermes,
                 statusAmount = 1,
                 targetPlayer = true,
-                artifactPulse = Key()
+                artifactPulse = Key(),
+                dialogueSelector = ".HardlightAfterburnersTrigger"
             }
             );
             counter = 0;

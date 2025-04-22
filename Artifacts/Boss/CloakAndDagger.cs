@@ -36,7 +36,17 @@ public class CloakAndDagger : Artifact, IRegisterable
 
     public override bool? OnPlayerAttackMakeItPierce(State state, Combat combat)
     {
-        if (state.ship.Get(VionheartScarlet.Instance.Fade.Status) > 0) return true;
+        if (state.ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+        {
+            combat.QueueImmediate
+            (
+                new ADummyAction
+                {
+                    dialogueSelector = ".CloakAndDaggerTrigger"
+                }
+            );
+            return true;
+        }
         return null;
     }
 }

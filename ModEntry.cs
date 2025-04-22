@@ -24,6 +24,7 @@ internal class VionheartScarlet : SimpleMod
     internal Harmony Harmony;
     internal IKokoroApi.IV2 KokoroApi;
     internal IMoreDifficultiesApi? MoreDifficultiesApi { get; private set; } = null;
+    internal IDuoArtifactsApi? DuoArtifactsApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
     public bool modDialogueInited;
@@ -76,7 +77,8 @@ internal class VionheartScarlet : SimpleMod
         typeof(AileronRoll),
         typeof(Vendetta),
         //typeof(TricksOfTheTrade) //replaced by TricksOfTheTradeRemastered
-        typeof(TricksOfTheTradeRemastered)
+        typeof(TricksOfTheTradeRemastered),
+        typeof(Backstab)
     ];
 
     /* Concat all Scarlet cards. */
@@ -96,7 +98,9 @@ internal class VionheartScarlet : SimpleMod
         /* Scarlet's boss artifacts. */
         typeof(CloakAndDagger),
         typeof(ReactionWheel),
-        typeof(HardlightAfterburners)
+        typeof(HardlightAfterburners),
+        typeof(Twinsticks),
+        typeof(EngagementRings)
     ];
 
     /* Concat all Scarlet artifacts. */
@@ -117,6 +121,7 @@ internal class VionheartScarlet : SimpleMod
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!.V2; //Updated to V2!
         Harmony = new Harmony("XyrilP.VionheartScarlet"); //New API? (Harmony)
         MoreDifficultiesApi = helper.ModRegistry.GetApi<IMoreDifficultiesApi>("TheJazMaster.MoreDifficulties", (SemanticVersion?)null);
+        DuoArtifactsApi = helper.ModRegistry.GetApi<IDuoArtifactsApi>("Shockah.DuoArtifacts");
         modDialogueInited = false;
         UniqueName = package.Manifest.UniqueName;
         

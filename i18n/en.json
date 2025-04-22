@@ -40,7 +40,7 @@
     },
     "CardEngine": {
       "name": "CARD ENGINE",
-      "description": "Draw an additional card after the first turn.\nEvery <c=keyword>10th</c> time you draw a card in one turn, draw an additional card."
+      "description": "Draw an additional card after the first turn.\nEvery <c=keyword>10th</c> time you draw a card in one turn, draw two additional cards."
     },
     "VionheartShard_Scarlet": {
       "name": "VIONHEART SHARD",
@@ -57,6 +57,14 @@
     "HardlightAfterburners": {
       "name": "HARDLIGHT AFTERBURNERS",
       "description": "At the start of combat, every two turns, gain 1 <c=status>HERMES</c>."
+    },
+    "Twinsticks": {
+      "name": "TWINSTICKS",
+      "description": "At start of turn, gain 1 <c=status>EVADE</c>. Every other turn, gain 1 <c=status>FADE</c>."
+    },
+    "EngagementRings": {
+      "name": "ENGAGEMENT RINGS",
+      "description": "At start of turn, gain 1 <c=status>RAGE</c>. Every other turn, gain 1 <c=status>TEMPORARY STRAFE</c>."
     }
   },
   "ship": {
@@ -129,7 +137,7 @@
       "name": "Uncanny Dodge"
     },
     "TrickDagger_Seeker": {
-      "name": "Trick Dagger (Seeker)"
+      "name": "Trick Seeker"
     },
     "TricksOfTheTrade": {
       "name": "Tricks of the Trade",
@@ -151,6 +159,12 @@
     },
     "Vendetta": {
       "name": "Vendetta"
+    },
+    "Backstab": {
+      "name": "Backstab",
+      "description": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=hurt>1</c> + X <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0.",
+      "descA": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=hurt>1</c> + X <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0.",
+      "descB": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=hurt>1</c> + 2X <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0."
     },
     "ScarletEXE": {
       "name": "Scarlet.EXE",
@@ -179,7 +193,7 @@
       "description": "This missile is going to deal <c=damage>2</c> damage.\nIgnores all shields and armor."
     },
     "TrickDagger_Seeker": {
-      "name": "TRICK DAGGER (SEEKER)",
+      "name": "TRICK SEEKER",
       "description": "This missile is going to deal <c=damage>2</c> damage.\nIgnores all shields and armor.\n<c=downside>It cannot miss!</c>"
     }
   }

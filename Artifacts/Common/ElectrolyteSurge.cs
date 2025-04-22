@@ -61,7 +61,8 @@ public class ElectrolyteSurge : Artifact, IRegisterable
                 new AEnergy()
                 {
                     changeAmount = 1,
-                    artifactPulse = Key()
+                    artifactPulse = Key(),
+                    dialogueSelector = ".ElectrolyteSurgeTrigger"
                 }
             ]
             );

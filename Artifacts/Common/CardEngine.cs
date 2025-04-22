@@ -40,8 +40,9 @@ public class CardEngine : Artifact, IRegisterable
             [
                 new ADrawCard()
                 {
-                    count = 1,
-                    artifactPulse = Key()
+                    count = 2,
+                    artifactPulse = Key(),
+                    dialogueSelector = ".CardEngineGoalTrigger"
                 }
             ]
             );
@@ -59,7 +60,8 @@ public class CardEngine : Artifact, IRegisterable
                     new ADrawCard()
                     {
                         count = 1,
-                        artifactPulse = Key()
+                        artifactPulse = Key(),
+                        dialogueSelector = ".CardEngineTrigger"
                     }
                 ]
             );

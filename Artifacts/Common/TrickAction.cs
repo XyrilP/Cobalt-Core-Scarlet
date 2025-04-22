@@ -31,7 +31,8 @@ public class TrickAction : Artifact, IRegisterable
             state.ship.Add(VionheartScarlet.Instance.Fade.Status, 1);
             combat.Queue(new ADummyAction
             {
-                artifactPulse = Key()
+                artifactPulse = Key(),
+                dialogueSelector = ".TrickActionTrigger"
             }
             );
         }

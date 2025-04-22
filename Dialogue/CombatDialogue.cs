@@ -497,6 +497,59 @@ internal static class CombatDialogue
             }
 		};
 
+		DB.story.all["Scarlet_TemporaryStrafeGeneric_0"] = new()
+		{
+			type = NodeType.combat,
+            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.TemporaryStrafe.Status ],
+			oncePerCombatTags = [ "TemporaryStrafeTag" ],
+			allPresent = [ Scarlet ],
+			lines = new()
+            {
+                new CustomSay
+			    {
+				    who = Scarlet,
+				    Text = "Run and Gun!",
+				    loopTag = "neutral"
+			    }
+            }
+		};
+
+		DB.story.all["Scarlet_TemporaryStrafeGeneric_1"] = new()
+		{
+			type = NodeType.combat,
+            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.TemporaryStrafe.Status ],
+			oncePerCombatTags = [ "TemporaryStrafeTag" ],
+			allPresent = [ Scarlet ],
+			lines = new()
+            {
+                new CustomSay
+			    {
+				    who = Scarlet,
+				    Text = "Lemme do a snap shot!",
+				    loopTag = "neutral"
+			    }
+            }
+		};
+
+		DB.story.all["Scarlet_StrafeShot_0"] = new()
+		{
+			type = NodeType.combat,
+			playerShotJustHit = true,
+			minDamageDealtToEnemyThisAction = 1,
+			playerShotWasFromStrafe = true,
+			oncePerCombat = true,
+			allPresent = [ Scarlet ],
+			lines = new()
+            {
+                new CustomSay
+			    {
+				    who = Scarlet,
+				    Text = "Strafing!",
+				    loopTag = "neutral"
+			    }
+            }
+		};
+
         DB.story.all["Scarlet_OverheatGeneric_0"] = new()
 		{
 			type = NodeType.combat,

@@ -59,7 +59,8 @@ public class ReactionWheel : Artifact, IRegisterable
                     status = Status.evade,
                     statusAmount = 1,
                     targetPlayer = true,
-                    artifactPulse = Key()
+                    artifactPulse = Key(),
+                    dialogueSelector = ".ReactionWheelTrigger"
                 }
             ]
             );

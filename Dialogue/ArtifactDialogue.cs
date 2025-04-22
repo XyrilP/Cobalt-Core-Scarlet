@@ -24,6 +24,7 @@ internal static class ArtifactDialogue
             type = NodeType.combat,
             allPresent = [ Scarlet ],
             hasArtifacts = [ $"CloakAndDagger".F() ],
+            oncePerRunTags = [ "CloakAndDaggerTag" ],
             turnStart = true,
             lines = new()
             {
@@ -41,7 +42,8 @@ internal static class ArtifactDialogue
             type = NodeType.combat,
             allPresent = [ Scarlet ],
             hasArtifacts = [ $"CloakAndDagger".F() ],
-            minDamageDealtToEnemyThisAction = 1,
+            playerJustPiercedEnemyArmor = true,
+            lookup = [ "CloakAndDaggerTrigger" ],
             lines = new()
             {
                 new CustomSay
@@ -58,14 +60,242 @@ internal static class ArtifactDialogue
             type = NodeType.combat,
             allPresent = [ Scarlet ],
             hasArtifacts = [ $"HardlightAfterburners".F() ],
-            oncePerCombatTags = [ "HardlightAfterburnersTag" ],
+            oncePerRunTags = [ "HardlightAfterburnersTag" ],
+            maxTurnsThisCombat = 1,
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Hardlight Afterburners on stand by.",
+                    loopTag = "neutral"
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_HardlightAfterburners_Multi_1"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"HardlightAfterburners".F() ],
+            lookup = [ "HardlightAfterburnersTrigger" ],
             turnStart = true,
             lines = new()
             {
                 new CustomSay
                 {
                     who = Scarlet,
-                    Text = "Poppin' the afterburners!",
+                    Text = "Hardlight Afterburners engaged!",
+                    loopTag = "neutral"
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_ElectrolyteSurge_Multi_0"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"ElectrolyteSurge".F() ],
+            lookup = [ "ElectrolyteSurgeTrigger" ],
+            oncePerCombat = true,
+            priority = true,
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Nothin' like good ol' soda pop!",
+                    loopTag = "neutral" //requires drinking emote
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_ElectrolyteSurge_Multi_1"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"ElectrolyteSurge".F() ],
+            lookup = [ "ElectrolyteSurgeTrigger" ],
+            oncePerCombat = true,
+            priority = true,
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "I'll drink to that.",
+                    loopTag = "neutral" //requires drinking emote
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_ElectrolyteSurge_Multi_2"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"ElectrolyteSurge".F() ],
+            lookup = [ "ElectrolyteSurgeTrigger" ],
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Again!",
+                    loopTag = "neutral" //requires drinking emote
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_ElectrolyteSurge_Multi_3"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"ElectrolyteSurge".F() ],
+            lookup = [ "ElectrolyteSurgeTrigger" ],
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "And again!",
+                    loopTag = "neutral" //requires drinking emote
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_ElectrolyteSurge_Multi_4"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"ElectrolyteSurge".F() ],
+            lookup = [ "ElectrolyteSurgeTrigger" ],
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "... Again!",
+                    loopTag = "neutral" //requires drinking emote
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_ReactionWheel_Multi_0"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"ReactionWheel".F() ],
+            oncePerRunTags = [ "ReactionWheelTag" ],
+            turnStart = true,
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Reaction Wheel active, let's roll.",
+                    loopTag = "neutral"
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_ReactionWheel_Multi_1"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"ReactionWheel".F() ],
+            lookup = [ "ReactionWheelTrigger" ],
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Rollin' and rollin'!",
+                    loopTag = "neutral"
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_ReactionWheel_Multi_2"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"ReactionWheel".F() ],
+            lookup = [ "ReactionWheelTrigger" ],
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Keep it rollin'!",
+                    loopTag = "neutral"
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_TrickAction_Multi_0"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"TrickAction".F() ],
+            oncePerRunTags = [ "TrickActionTag" ],
+            turnStart = true,
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Just remembered a few tricks, let's see it in action.",
+                    loopTag = "neutral"
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_TrickAction_Multi_1"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"TrickAction".F() ],
+            lookup = [ "TrickActionTrigger" ],
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Trick!",
+                    loopTag = "neutral"
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_TrickAction_Multi_2"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"TrickAction".F() ],
+            lookup = [ "TrickActionTrigger" ],
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Peace out!",
+                    loopTag = "neutral"
+                }
+            }
+        };
+
+        DB.story.all["Scarlet_Artifact_TrickAction_Multi_3"] = new()
+        {
+            type = NodeType.combat,
+            allPresent = [ Scarlet ],
+            hasArtifacts = [ $"TrickAction".F() ],
+            lookup = [ "TrickActionTrigger" ],
+            lines = new()
+            {
+                new CustomSay
+                {
+                    who = Scarlet,
+                    Text = "Phasing!",
                     loopTag = "neutral"
                 }
             }
