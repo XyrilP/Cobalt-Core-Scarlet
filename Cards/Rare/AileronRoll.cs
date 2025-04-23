@@ -7,10 +7,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class AileronRoll : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -24,12 +22,9 @@ public class AileronRoll : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "AileronRoll", "name"]).Localize,
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
         CardData data = new CardData();
         {
             switch (upgrade)
@@ -47,14 +42,10 @@ public class AileronRoll : Card, IRegisterable
             data.exhaust = true;
         }
         return data;
-
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
         List<CardAction> actions = new();
-
         switch (upgrade)
         {
             case Upgrade.None:
@@ -124,11 +115,7 @@ public class AileronRoll : Card, IRegisterable
                     }
                 };
                 break;
-
         }
         return actions;
-
-
     }
-
 }

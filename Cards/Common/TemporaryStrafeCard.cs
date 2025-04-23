@@ -8,10 +8,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class TemporaryStrafeCard : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -23,76 +21,62 @@ public class TemporaryStrafeCard : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TemporaryStrafeCard", "name"]).Localize,
+            Art = null
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    data.cost = 2;
-                    break;
-                case Upgrade.A:
-                    data.cost = 1;
-                    break;
-                case Upgrade.B:
-                    data.cost = 2;
-                    break;
-            }
-        }
-        return data;
-
+                cost = 2
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 1
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 0,
+                exhaust = true
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
-        List<CardAction> actions = new();
-
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AStatus
                 {
-                    new AStatus
-                    {
-                        status = VionheartScarlet.Instance.TemporaryStrafe.Status,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    status = VionheartScarlet.Instance.TemporaryStrafe.Status,
+                    statusAmount = 1,
+                    targetPlayer = true
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AStatus
                 {
-                    new AStatus
-                    {
-                        status = VionheartScarlet.Instance.TemporaryStrafe.Status,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    status = VionheartScarlet.Instance.TemporaryStrafe.Status,
+                    statusAmount = 1,
+                    targetPlayer = true
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AStatus
                 {
-                    new AStatus
-                    {
-                        status = VionheartScarlet.Instance.TemporaryStrafe.Status,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    }
-                };
-                break;
-        }
-        return actions;
-
+                    status = VionheartScarlet.Instance.TemporaryStrafe.Status,
+                    statusAmount = 1,
+                    targetPlayer = true
+                }
+            ],
+            _ => []
+        };
     }
-
 }

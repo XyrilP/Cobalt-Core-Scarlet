@@ -7,10 +7,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class AdjustThrottle : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -22,114 +20,101 @@ public class AdjustThrottle : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "AdjustThrottle", "name"]).Localize,
+            Art = null
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    data.cost = 1;
-                    break;
-                case Upgrade.A:
-                    data.cost = 0;
-                    break;
-                case Upgrade.B:
-                    data.cost = 1;
-                    data.infinite = true;
-                    break;
-            }
-            data.floppable = true;
-            data.retain = true;
-        }
-        return data;
-
+                cost = 1,
+                floppable = true,
+                retain = true
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 0,
+                floppable = true,
+                retain = true
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 1,
+                floppable = true,
+                retain = true,
+                infinite = true
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
-        List<CardAction> actions = new();
-
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = Status.hermes,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                        disabled = flipped
-                    },
-                    new ADummyAction()
-                    {
-                    },
-                    new AStatus()
-                    {
-                        status = Status.engineStall,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                        disabled = !flipped
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    status = Status.hermes,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                    disabled = flipped
+                },
+                new ADummyAction
                 {
-                    new AStatus()
-                    {
-                        status = Status.hermes,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                        disabled = flipped
-                    },
-                    new ADummyAction()
-                    {
-                    },
-                    new AStatus()
-                    {
-                        status = Status.engineStall,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                        disabled = !flipped
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                },
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = Status.hermes,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                        disabled = flipped
-                    },
-                    new ADummyAction()
-                    {
-                    },
-                    new AStatus()
-                    {
-                        status = Status.engineStall,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                        disabled = !flipped
-                    }
-                };
-                break;
-
-        }
-        return actions;
-
-
+                    status = Status.engineStall,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                    disabled = !flipped
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AStatus
+                {
+                    status = Status.hermes,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                    disabled = flipped
+                },
+                new ADummyAction
+                {
+                },
+                new AStatus
+                {
+                    status = Status.engineStall,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                    disabled = !flipped
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AStatus
+                {
+                    status = Status.hermes,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                    disabled = flipped
+                },
+                new ADummyAction
+                {
+                },
+                new AStatus
+                {
+                    status = Status.engineStall,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                    disabled = !flipped
+                }
+            ],
+            _ => []
+        };
     }
-
 }

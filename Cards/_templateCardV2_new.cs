@@ -1,12 +1,11 @@
 using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 
 namespace XyrilP.VionheartScarlet.Cards;
 
-public class Veer : Card, IRegisterable
+public class _templateCardV2_new : Card, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
@@ -15,13 +14,13 @@ public class Veer : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.common,
-                dontOffer = false,
-                upgradesTo = [Upgrade.A, Upgrade.B]
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck, //Which deck should this card go to?
+                rarity = Rarity.common, //What rarity should this card be?
+                dontOffer = false, //Should this card be offered to the player?
+                upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Veer", "name"]).Localize,
-            Art = null
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Template", "name"]).Localize, //Card's name, localized.
+            Art = null //Card art
         }
         );
     }
@@ -31,18 +30,12 @@ public class Veer : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 1,
-                flippable = true
             },
             Upgrade.A => new CardData
             {
-                cost = 0,
-                flippable = true
             },
             Upgrade.B => new CardData
             {
-                cost = 1,
-                flippable = true
             },
             _ => new CardData{}
         };
@@ -53,27 +46,12 @@ public class Veer : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AMove
-                {
-                    dir = 2,
-                    targetPlayer = true
-                }
             ],
             Upgrade.A =>
             [
-                new AMove
-                { 
-                    dir = 2,
-                    targetPlayer = true
-                }
             ],
             Upgrade.B =>
             [
-                new AMove
-                {
-                    dir = 4,
-                    targetPlayer = true
-                }
             ],
             _ => []
         };

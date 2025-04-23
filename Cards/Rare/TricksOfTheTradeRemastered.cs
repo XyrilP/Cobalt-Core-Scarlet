@@ -8,10 +8,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class TricksOfTheTradeRemastered : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -25,9 +23,7 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TricksOfTheTrade", "name"]).Localize,
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
         CardData data = new CardData();
@@ -47,14 +43,10 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
             data.exhaust = true;
         }
         return data;
-
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
         List<CardAction> actions = new();
-
         switch (upgrade)
         {
             case Upgrade.None:
@@ -165,11 +157,7 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     new AEndTurn()
                 };
                 break;
-
         }
         return actions;
-
-
     }
-
 }

@@ -23,12 +23,10 @@ public class Serpentine : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Serpentine", "name"]).Localize,
         }
         );
-        
     }
 
     public override CardData GetData(State state)
     {
-
         CardData data = new CardData();
         {
             switch (upgrade)

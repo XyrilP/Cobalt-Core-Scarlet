@@ -23,7 +23,6 @@ public class UncannyDodge : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "UncannyDodge", "name"]).Localize,
         }
         );
-        
     }
     public override CardData GetData(State state)
     {
@@ -87,5 +86,4 @@ public class UncannyDodge : Card, IRegisterable
         }
         return actions;
     }
-
 }

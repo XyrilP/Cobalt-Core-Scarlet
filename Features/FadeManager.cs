@@ -27,11 +27,9 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
             original: AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.OnBeginTurn)),
             postfix: new HarmonyMethod(GetType(), nameof(Ship_OnBeginTurn_Postfix))
         );
-
         VionheartScarlet.Instance.Helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnPlayerAttack), (State state, Combat combat) =>
         {
             var ship = state.ship;
-
             if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
             {
                 combat.QueueImmediate(
@@ -47,7 +45,6 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
             }
         }
         );
-
         VionheartScarlet.Instance.Helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnEnemyAttack), (State state, Combat combat) =>
         {
             var ship = combat.otherShip;
@@ -101,7 +98,6 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         }
         return true; //Continue plus run prefixed method code.
     }
-
     public static void Ship_OnBeginTurn_Postfix(Ship __instance, State s, Combat c)
     {
         if (__instance.Get(Status.timeStop) > 0)
@@ -112,5 +108,13 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 		{
 		    __instance.Add(VionheartScarlet.Instance.Fade.Status, 0);
 		}
+    }
+    public bool hasFade(Ship ship)
+    {
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+        {
+            return true;
+        }
+        else return false;
     }
 }

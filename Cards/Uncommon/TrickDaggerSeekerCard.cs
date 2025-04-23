@@ -8,10 +8,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class TrickDaggerSeekerCard : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -25,12 +23,10 @@ public class TrickDaggerSeekerCard : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TrickDagger_Seeker", "name"]).Localize,
         }
         );
-
     }
 
     public override CardData GetData(State state)
     {
-
         CardData data = new CardData();
         {
             switch (upgrade)
@@ -50,9 +46,7 @@ public class TrickDaggerSeekerCard : Card, IRegisterable
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
         List<CardAction> actions = new();
-
         switch (upgrade)
         {
             case Upgrade.None:
@@ -117,7 +111,5 @@ public class TrickDaggerSeekerCard : Card, IRegisterable
                 break;
         }
         return actions;
-
     }
-
 }

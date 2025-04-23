@@ -7,10 +7,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class BarrelRoll : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -22,110 +20,93 @@ public class BarrelRoll : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "BarrelRoll", "name"]).Localize,
+            Art = null
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    data.cost = 1;
-                    break;
-                case Upgrade.A:
-                    data.cost = 1;
-                    break;
-                case Upgrade.B:
-                    data.cost = 1;
-                    break;
-            }
-        }
-        return data;
-
+                cost = 1
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 1
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 1
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
-        List<CardAction> actions = new();
-
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AMove()
                 {
-                    new AMove()
-                    {
-                        dir = -1,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.tempShield,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    dir = -1,
+                    targetPlayer = true
+                },
+                new AStatus()
                 {
-                    new AMove()
-                    {
-                        dir = -1,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.tempShield,
-                        statusAmount = 4,
-                        targetPlayer = true
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    status = Status.tempShield,
+                    statusAmount = 2,
+                    targetPlayer = true
+                },
+                new AMove()
                 {
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.tempShield,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.evade,
-                        statusAmount = 2,
-                        targetPlayer = true
-                    }
-                };
-                break;
-
-        }
-        return actions;
-
-
+                    dir = 2,
+                    targetPlayer = true
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AMove()
+                {
+                    dir = -1,
+                    targetPlayer = true
+                },
+                new AStatus()
+                {
+                    status = Status.tempShield,
+                    statusAmount = 4,
+                    targetPlayer = true
+                },
+                new AMove()
+                {
+                    dir = 2,
+                    targetPlayer = true
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AMove()
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
+                },
+                new AStatus()
+                {
+                    status = Status.tempShield,
+                    statusAmount = 2,
+                    targetPlayer = true
+                },
+                new AStatus()
+                {
+                    status = Status.evade,
+                    statusAmount = 2,
+                    targetPlayer = true
+                }
+            ],
+            _ => []
+        };
     }
-
 }

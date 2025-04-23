@@ -7,10 +7,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class DriveBy : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -22,122 +20,106 @@ public class DriveBy : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "DriveBy", "name"]).Localize,
+            Art = null
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    data.cost = 2;
-                    break;
-                case Upgrade.A:
-                    data.cost = 1;
-                    break;
-                case Upgrade.B:
-                    data.cost = 2;
-                    data.flippable = true;
-                    break;
-            }
-        }
-        return data;
-
+                cost = 2
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 1
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 2,
+                flippable = true
+            },
+            _ => new CardData{}
+        };
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
-        List<CardAction> actions = new();
-
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AAttack
                 {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    },
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    damage = GetDmg(s, 1)
+                },
+                new AMove
                 {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    },
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1)
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
+                },
+                new AAttack
                 {
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2)
-                    },
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2)
-                    }
-                };
-                break;
-
-        }
-        return actions;
-
-
+                    damage = GetDmg(s, 1)
+                },
+                new AMove
+                {
+                    dir = 2,
+                    targetPlayer = true,
+                    isRandom = true
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 1)
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AAttack
+                {
+                    damage = GetDmg(s, 1)
+                },
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 1)
+                },
+                new AMove
+                {
+                    dir = 2,
+                    targetPlayer = true,
+                    isRandom = true
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 1)
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AAttack
+                {
+                    damage = GetDmg(s, 2)
+                },
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 2)
+                }
+            ],
+            _ => []
+        };
     }
-
 }

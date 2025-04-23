@@ -7,10 +7,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class SneakAttack : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -22,120 +20,97 @@ public class SneakAttack : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "SneakAttack", "name"]).Localize,
+            Art = null
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    break;
-                case Upgrade.A:
-                    break;
-                case Upgrade.B:
-                    data.flippable = true;
-                    break;
-            }
-            data.cost = 1;
-        }
-        return data;
-
+                cost = 1
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 1
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 1,
+                flippable = true
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
-        List<CardAction> actions = new();
-        var isFaded = s.ship is Ship ship && IsFaded(ship);
-
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AMove
                 {
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true,
-                        dialogueSelector = ".scarletSneakAttack"
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1),
-                        piercing = true,
-                    },
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true,
+                    dialogueSelector = ".scarletSneakAttack"
+                },
+                new AAttack
                 {
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        isRandom = true,
-                        dialogueSelector = ".scarletSneakAttack"
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2),
-                        piercing = true,
-                    },
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    damage = GetDmg(s, 1),
+                    piercing = true,
+                },
+                new AStatus
                 {
-                    new AMove()
-                    {
-                        dir = 1,
-                        targetPlayer = true,
-                        dialogueSelector = ".scarletSneakAttack"
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1),
-                        piercing = true,
-                    },
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                    }
-                };
-                break;
-
-        }
-        return actions;
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true,
+                    dialogueSelector = ".scarletSneakAttack"
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 2),
+                    piercing = true,
+                },
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    dialogueSelector = ".scarletSneakAttack"
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 1),
+                    piercing = true,
+                },
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                }
+            ],
+            _ => []
+        };
     }
-
-    public bool IsFaded(Ship ship)
-    {
-        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
-        {
-            return true;
-        }
-        else return false;
-    }
-
 }

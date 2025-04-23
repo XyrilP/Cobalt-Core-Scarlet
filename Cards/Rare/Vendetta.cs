@@ -7,10 +7,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class Vendetta : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -24,12 +22,9 @@ public class Vendetta : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Vendetta", "name"]).Localize,
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
         CardData data = new CardData();
         {
             switch (upgrade)
@@ -48,15 +43,11 @@ public class Vendetta : Card, IRegisterable
             data.exhaust = true;
         }
         return data;
-
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
         List<CardAction> actions = new();
         var isFaded = s.ship is Ship ship && IsFaded(ship);
-
         switch (upgrade)
         {
             case Upgrade.None:
@@ -121,13 +112,9 @@ public class Vendetta : Card, IRegisterable
                     }
                 };
                 break;
-
         }
         return actions;
-
-
     }
-
     public bool IsFaded(Ship ship)
     {
         if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
@@ -136,5 +123,4 @@ public class Vendetta : Card, IRegisterable
         }
         else return false;
     }
-
 }

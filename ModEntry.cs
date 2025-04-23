@@ -173,7 +173,7 @@ internal class VionheartScarlet : SimpleMod
             CharacterType = Scarlet_Deck.Deck.Key(),
             LoopTag = "mini",
             Frames = [
-                RegisterSprite(package, "assets/characters/scarlet_mini_0.png").Sprite,
+                RegisterSprite(package, "assets/characters/scarlet_mini_1.png").Sprite,
             ]
         }
         );

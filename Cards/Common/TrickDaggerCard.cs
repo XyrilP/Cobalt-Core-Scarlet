@@ -8,10 +8,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class TrickDaggerCard : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -23,102 +21,89 @@ public class TrickDaggerCard : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TrickDagger_Missile", "name"]).Localize,
+            Art = null
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    break;
-                case Upgrade.A:
-                    break;
-                case Upgrade.B:
-                    data.flippable = true;
-                    break;
-            }
-            data.cost = 1;
-        }
-        return data;
-
+                cost = 1
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 1
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 1,
+                flippable = true
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
-        List<CardAction> actions = new();
-
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new ASpawn
                 {
-                    new ASpawn()
+                    thing = new TrickDagger_Missile
                     {
-                        thing = new TrickDagger_Missile
-                        {
-                            targetPlayer = false
-                        }
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
+                        targetPlayer = false
                     }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                },
+                new AMove
                 {
-                    new ASpawn()
-                    {
-                        thing = new TrickDagger_Missile
-                        {
-                            targetPlayer = false
-                        }
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        isRandom = true
-                    },
-                    new ASpawn()
-                    {
-                        thing = new TrickDagger_Missile
-                        {
-                            targetPlayer = false
-                        }
-                    },
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    dir = 2,
+                    targetPlayer = true,
+                    isRandom = true
+                }
+            ],
+            Upgrade.A =>
+            [
+                new ASpawn()
                 {
-                    new ASpawn()
+                    thing = new TrickDagger_Missile
                     {
-                        thing = new TrickDagger_Missile
-                        {
-                            targetPlayer = false
-                        }
-                    },
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true
+                        targetPlayer = false
                     }
-                };
-                break;
-        }
-        return actions;
-
+                },
+                new AMove()
+                {
+                    dir = 2,
+                    targetPlayer = true,
+                    isRandom = true
+                },
+                new ASpawn()
+                {
+                    thing = new TrickDagger_Missile
+                    {
+                        targetPlayer = false
+                    }
+                }
+            ],
+            Upgrade.B =>
+            [
+                new ASpawn
+                {
+                    thing = new TrickDagger_Missile
+                    {
+                        targetPlayer = false
+                    }
+                },
+                new AMove
+                {
+                    dir = 2,
+                    targetPlayer = true
+                }
+            ],
+            _ => []
+        };
     }
-
 }

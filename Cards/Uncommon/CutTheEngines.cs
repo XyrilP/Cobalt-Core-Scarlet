@@ -7,10 +7,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class CutTheEngines : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -24,12 +22,10 @@ public class CutTheEngines : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "CutTheEngines", "name"]).Localize,
         }
         );
-
     }
 
     public override CardData GetData(State state)
     {
-
         CardData data = new CardData();
         {
             switch (upgrade)
@@ -47,14 +43,11 @@ public class CutTheEngines : Card, IRegisterable
             data.retain = true;
         }
         return data;
-
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
         List<CardAction> actions = new();
-
         switch (upgrade)
         {
             case Upgrade.None:
@@ -102,11 +95,7 @@ public class CutTheEngines : Card, IRegisterable
                     }
                 };
                 break;
-
         }
         return actions;
-
-
     }
-
 }

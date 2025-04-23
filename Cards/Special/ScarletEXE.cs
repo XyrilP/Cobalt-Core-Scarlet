@@ -22,12 +22,9 @@ public class ScarletEXE : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "ScarletEXE", "name"]).Localize
         }
         );
-        
     }
-
     public override CardData GetData(State state)
     {
-
         CardData data = new CardData();
         {
             switch (upgrade)
@@ -50,7 +47,6 @@ public class ScarletEXE : Card, IRegisterable
         }
         return data;
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
         List<CardAction> actions = new();

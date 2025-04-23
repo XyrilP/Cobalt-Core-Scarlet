@@ -7,10 +7,8 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class Backstab : Card, IRegisterable
 {
-
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -24,12 +22,9 @@ public class Backstab : Card, IRegisterable
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Backstab", "name"]).Localize,
         }
         );
-
     }
-
     public override CardData GetData(State state)
     {
-
         CardData data = new CardData();
         {
             switch (upgrade)
@@ -51,12 +46,9 @@ public class Backstab : Card, IRegisterable
             }
         }
         return data;
-
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-
         List<CardAction> actions = new();
         switch (upgrade)
         {
@@ -114,10 +106,7 @@ public class Backstab : Card, IRegisterable
                     }
                 };
                 break;
-
         }
         return actions;
-
-
     }
 }

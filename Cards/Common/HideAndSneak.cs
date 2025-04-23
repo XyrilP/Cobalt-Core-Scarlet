@@ -20,35 +20,35 @@ public class HideAndSneak : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "HideAndSneak", "name"]).Localize,
+            Art = null
         }
         );
     }
-
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    data.cost = 1;
-                    break;
-                case Upgrade.A:
-                    data.cost = 0;
-                    break;
-                case Upgrade.B:
-                    data.cost = 1;
-                    break;
-            }
-            data.flippable = true;
-        }
-        return data;
+                cost = 1,
+                flippable = true
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 0,
+                flippable = true
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 1,
+                flippable = true
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
         List<CardAction> actions = new();
-        var isFaded = s.ship is Ship ship && IsFaded(ship);
         switch (upgrade)
         {
             case Upgrade.None:
@@ -105,14 +105,4 @@ public class HideAndSneak : Card, IRegisterable
         }
         return actions;
     }
-
-    public bool IsFaded(Ship ship)
-    {
-        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
-        {
-            return true;
-        }
-        else return false;
-    }
-
 }
