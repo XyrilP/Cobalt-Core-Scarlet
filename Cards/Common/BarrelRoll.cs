@@ -7,8 +7,10 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class BarrelRoll : Card, IRegisterable
 {
+    private static ISpriteEntry? BaseArt { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/BarrelRoll.png")); //Art used.
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -20,7 +22,7 @@ public class BarrelRoll : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "BarrelRoll", "name"]).Localize,
-            Art = null
+            Art = BaseArt.Sprite
         }
         );
     }

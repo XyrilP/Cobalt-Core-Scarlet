@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using XyrilP.VionheartScarlet;
 using Microsoft.Extensions.Logging;
 using Nickel;
+using static XyrilP.VionheartScarlet.Dialogue.CommonDefinitions;
 
 namespace XyrilP.VionheartScarlet.Dialogue;
 
@@ -11,10 +12,6 @@ internal static class CardDialogue
 {
     internal static void Inject()
     {
-        var Scarlet = VionheartScarlet.Instance.Scarlet_Deck.UniqueName;
-        var Cat = "comp";
-        var Riggs = Deck.riggs.Key();
-
         DB.story.all["Scarlet_SneakAttack_Multi_0"] = new()
         {
             type = NodeType.combat,

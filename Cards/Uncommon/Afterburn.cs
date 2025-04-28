@@ -23,86 +23,99 @@ public class Afterburn : Card, IRegisterable
         }
         );
     }
-
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    data.cost = 2;
-                    break;
-                case Upgrade.A:
-                    data.cost = 1;
-                    break;
-                case Upgrade.B:
-                    data.cost = 3;
-                    break;
-            }
-            data.exhaust = true;
-            data.retain = true;
-        }
-        return data;
+                cost = 2,
+                exhaust = true,
+                retain = true
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 1,
+                exhaust = true,
+                retain = true
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 3,
+                exhaust = true,
+                retain = true
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        List<CardAction> actions = new();
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = Status.hermes,
-                        statusAmount = 3,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.loseEvadeNextTurn,
-                        targetPlayer = true,
-                        statusAmount = 1
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    status = Status.hermes,
+                    statusAmount = 2,
+                    targetPlayer = true
+                },
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = Status.hermes,
-                        statusAmount = 3,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.loseEvadeNextTurn,
-                        targetPlayer = true,
-                        statusAmount = 1
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    status = VionheartScarlet.Instance.scarletBarrage.Status,
+                    statusAmount = 2,
+                    targetPlayer = true
+                },
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = Status.hermes,
-                        statusAmount = 4,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.loseEvadeNextTurn,
-                        targetPlayer = true,
-                        statusAmount = 1
-                    }
-                };
-                break;
-        }
-        return actions;
+                    status = Status.loseEvadeNextTurn,
+                    targetPlayer = true,
+                    statusAmount = 1
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AStatus
+                {
+                    status = Status.hermes,
+                    statusAmount = 2,
+                    targetPlayer = true
+                },
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.scarletBarrage.Status,
+                    statusAmount = 2,
+                    targetPlayer = true
+                },
+                new AStatus
+                {
+                    status = Status.loseEvadeNextTurn,
+                    targetPlayer = true,
+                    statusAmount = 1
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AStatus
+                {
+                    status = Status.hermes,
+                    statusAmount = 3,
+                    targetPlayer = true
+                },
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.scarletBarrage.Status,
+                    statusAmount = 2,
+                    targetPlayer = true
+                },
+                new AStatus
+                {
+                    status = Status.loseEvadeNextTurn,
+                    targetPlayer = true,
+                    statusAmount = 1
+                }
+            ],
+            _ => []
+        };
     }
 }

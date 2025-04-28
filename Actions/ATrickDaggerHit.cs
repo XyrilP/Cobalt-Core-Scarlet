@@ -1,9 +1,10 @@
 using FSPRO;
+using XyrilP.VionheartScarlet.Midrow;
 
 namespace XyrilP.VionheartScarlet.Actions;
 
 public class ATrickDaggerHit : AMissileHit
-  {
+{
     public override void Update(G g, State s, Combat c)
     {
         c.stuff.TryGetValue(worldX, out StuffBase? value);
@@ -112,7 +113,8 @@ public class ATrickDaggerHit : AMissileHit
                     damage = Card.GetActualDamage(s, ship.Get(Status.payback) + ship.Get(Status.tempPayback), !targetPlayer),
                     targetPlayer = !targetPlayer,
                     fast = true
-                });
+                }
+                );
             }
         }
 
@@ -122,4 +124,4 @@ public class ATrickDaggerHit : AMissileHit
             c.stuffOutro.Add(missile);
         }
     }
-  }
+}

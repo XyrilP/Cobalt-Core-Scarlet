@@ -26,64 +26,75 @@ public class UncannyDodge : Card, IRegisterable
     }
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    data.retain = true;
-                    break;
-                case Upgrade.A:
-                    data.retain = true;
-                    break;
-                case Upgrade.B:
-                    data.recycle = true;
-                    data.buoyant = true;
-                    break;
-            }
-            data.cost = 1;
-        }
-        return data;
+                cost = 1,
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 1,
+                retain = true
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 2,
+                recycle = true
+            },
+            _ => new CardData{}
+        };
     }
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        List<CardAction> actions = new();
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    statusAmount = 2,
+                    targetPlayer = true,
+                },
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 2,
-                        targetPlayer = true,
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    status = Status.evade,
+                    statusAmount = 1,
+                    targetPlayer = true
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = VionheartScarlet.Instance.Fade.Status,
-                        statusAmount = 1,
-                        targetPlayer = true,
-                    }
-                };
-                break;
-        }
-        return actions;
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    statusAmount = 2,
+                    targetPlayer = true,
+                },
+                new AStatus
+                {
+                    status = Status.evade,
+                    statusAmount = 1,
+                    targetPlayer = true
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    statusAmount = 2,
+                    targetPlayer = true,
+                },
+                new AStatus
+                {
+                    status = Status.evade,
+                    statusAmount = 1,
+                    targetPlayer = true
+                }
+            ],
+            _ => []
+        };
     }
 }

@@ -8,8 +8,12 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class Veer : Card, IRegisterable
 {
+    private static ISpriteEntry? FlippedArt1 { get; set; }
+    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Veer_Right.png")); //Art used when card is flipped or flopped.
+        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Veer_Left.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -31,16 +35,19 @@ public class Veer : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
                 cost = 1,
                 flippable = true
             },
             Upgrade.A => new CardData
             {
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
                 cost = 0,
                 flippable = true
             },
             Upgrade.B => new CardData
             {
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
                 cost = 1,
                 flippable = true
             },
@@ -69,6 +76,11 @@ public class Veer : Card, IRegisterable
             ],
             Upgrade.B =>
             [
+                new AMove
+                {
+                    dir = -1,
+                    targetPlayer = true
+                },
                 new AMove
                 {
                     dir = 4,

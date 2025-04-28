@@ -23,81 +23,85 @@ public class BlinkStrike : Card, IRegisterable
         }
         );
     }
-
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
+        return upgrade switch
         {
-            data.cost = 1;
-            data.flippable = true;
-        }
-        return data;
+            Upgrade.None => new CardData
+            {
+                cost = 1,
+                flippable = true
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 1,
+                flippable = true
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 1,
+                flippable = true
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        List<CardAction> actions = new();
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AMove
                 {
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        dialogueSelector = ".scarletBlinkStrike"
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1),
-                        piercing = true
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    dir = 2,
+                    targetPlayer = true,
+                    dialogueSelector = ".scarletBlinkStrike"
+                },
+                new AAttack
                 {
-                    new AMove()
-                    {
-                        dir = 2,
-                        targetPlayer = true,
-                        dialogueSelector = ".scarletBlinkStrike"
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 2),
-                        piercing = true
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    damage = GetDmg(s, 1),
+                    piercing = true
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AMove
                 {
-                    new AMove()
-                    {
-                        dir = -2,
-                        targetPlayer = true,
-                        dialogueSelector = ".scarletBlinkStrike"
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1),
-                        piercing = true
-                    },
-                    new AMove()
-                    {
-                        dir = 4,
-                        targetPlayer = true
-                    },
-                    new AAttack()
-                    {
-                        damage = GetDmg(s, 1),
-                        piercing = true
-                    }
-                };
-                break;
-        }
-        return actions;
+                    dir = 2,
+                    targetPlayer = true,
+                    dialogueSelector = ".scarletBlinkStrike"
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 2),
+                    piercing = true
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AMove
+                {
+                    dir = -2,
+                    targetPlayer = true,
+                    dialogueSelector = ".scarletBlinkStrike"
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 1),
+                    piercing = true
+                },
+                new AMove
+                {
+                    dir = 4,
+                    targetPlayer = true
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 1),
+                    piercing = true
+                }
+            ],
+            _ => []
+        };
     }
 }

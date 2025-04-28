@@ -34,19 +34,28 @@ public class CloakAndDagger : Artifact, IRegisterable
         );
     }
 
-    public override bool? OnPlayerAttackMakeItPierce(State state, Combat combat)
+    // public override bool? OnPlayerAttackMakeItPierce(State state, Combat combat)
+    // {
+    //     if (state.ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+    //     {
+    //         combat.QueueImmediate
+    //         (
+    //             new ADummyAction
+    //             {
+    //                 dialogueSelector = ".CloakAndDaggerTrigger"
+    //             }
+    //         );
+    //         return true;
+    //     }
+    //     return null;
+    // }
+    public override int ModifyBaseDamage(int baseDamage, Card? card, State state, Combat? combat, bool fromPlayer)
     {
-        if (state.ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+        Ship ship = state.ship;
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0 && fromPlayer)
         {
-            combat.QueueImmediate
-            (
-                new ADummyAction
-                {
-                    dialogueSelector = ".CloakAndDaggerTrigger"
-                }
-            );
-            return true;
+            return 1;
         }
-        return null;
+        return 0;
     }
 }

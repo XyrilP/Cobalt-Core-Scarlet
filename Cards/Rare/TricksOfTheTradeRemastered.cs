@@ -34,7 +34,7 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     data.cost = 3;
                     break;
                 case Upgrade.A:
-                    data.cost = 2;
+                    data.cost = 3;
                     break;
                 case Upgrade.B:
                     data.cost = 3;
@@ -63,14 +63,12 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     {
                         thing = new TrickDagger_Missile
                         {
-                            targetPlayer = false
                         }
                     },
                     new ASpawn()
                     {
                         thing = new TrickDagger_Missile
                         {
-                            targetPlayer = false
                         },
                         offset = -1
                     },
@@ -78,7 +76,6 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     {
                         thing = new TrickDagger_Missile
                         {
-                            targetPlayer = false
                         },
                         offset = 1
                     },
@@ -97,24 +94,21 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     },
                     new ASpawn()
                     {
-                        thing = new TrickDagger_Missile
+                        thing = new YashaDagger_Missile
                         {
-                            targetPlayer = false
                         },
                     },
                     new ASpawn()
                     {
-                        thing = new TrickDagger_Missile
+                        thing = new YashaDagger_Missile
                         {
-                            targetPlayer = false
                         },
                         offset = -1
                     },
                     new ASpawn()
                     {
-                        thing = new TrickDagger_Missile
+                        thing = new YashaDagger_Missile
                         {
-                            targetPlayer = false
                         },
                         offset = 1
                     },
@@ -133,24 +127,21 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     },
                     new ASpawn()
                     {
-                        thing = new TrickDagger_Seeker
+                        thing = new SangeDagger_Missile
                         {
-                            targetPlayer = false
                         },
                     },
                     new ASpawn()
                     {
-                        thing = new TrickDagger_Seeker
+                        thing = new SangeDagger_Missile
                         {
-                            targetPlayer = false
                         },
                         offset = -1
                     },
                     new ASpawn()
                     {
-                        thing = new TrickDagger_Seeker
+                        thing = new SangeDagger_Missile
                         {
-                            targetPlayer = false
                         },
                         offset = 1
                     },

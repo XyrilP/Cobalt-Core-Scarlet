@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using XyrilP.VionheartScarlet;
+using static XyrilP.VionheartScarlet.Dialogue.CommonDefinitions;
 
 namespace XyrilP.VionheartScarlet.Dialogue;
 
@@ -8,11 +9,6 @@ internal static class StoryDialogue
 {
     internal static void Inject()
     {
-        var Scarlet = VionheartScarlet.Instance.Scarlet_Deck.UniqueName;
-		var Cat = "comp";
-		var Riggs = Deck.riggs.Key();
-		var EvilRiggs = "pirateBoss";
-
         DB.story.all["Scarlet_Riggs_Intro_0"] = new()
 		{
 			type = NodeType.@event,

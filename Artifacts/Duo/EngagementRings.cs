@@ -71,7 +71,7 @@ public class EngagementRings : Artifact, IRegisterable
             (
                 new AStatus
                 {
-                    status = VionheartScarlet.Instance.TemporaryStrafe.Status,
+                    status = VionheartScarlet.Instance.scarletBarrage.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                     artifactPulse = Key()

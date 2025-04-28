@@ -16,9 +16,14 @@ namespace XyrilP.VionheartScarlet.Features;
 
 public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 {
+    public static int fadeDodgeStack = 0;
     public FadeManager(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         VionheartScarlet.Instance.KokoroApi.StatusRendering.RegisterHook(this);
+        VionheartScarlet.Instance.Harmony.Patch(
+            original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
+            prefix: new HarmonyMethod(GetType(), nameof(AAttack_Begin_Prefix))
+        );
         VionheartScarlet.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.ApplyAutododge)),
             prefix: new HarmonyMethod(GetType(), nameof(AAttack_ApplyAutododge_Prefix))
@@ -27,53 +32,19 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
             original: AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.OnBeginTurn)),
             postfix: new HarmonyMethod(GetType(), nameof(Ship_OnBeginTurn_Postfix))
         );
-        VionheartScarlet.Instance.Helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnPlayerAttack), (State state, Combat combat) =>
-        {
-            var ship = state.ship;
-            if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
-            {
-                combat.QueueImmediate(
-                    [
-                        new AStatus()
-                        {
-                            status = VionheartScarlet.Instance.Fade.Status,
-                            statusAmount = -1,
-                            targetPlayer = true
-                        }
-                    ]
-                );
-            }
-        }
-        );
-        VionheartScarlet.Instance.Helper.Events.RegisterBeforeArtifactsHook(nameof(Artifact.OnEnemyAttack), (State state, Combat combat) =>
-        {
-            var ship = combat.otherShip;
-
-            if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
-            {
-                combat.QueueImmediate(
-                    [
-                        new AStatus()
-                        {
-                            status = VionheartScarlet.Instance.Fade.Status,
-                            statusAmount = -1,
-                            targetPlayer = false
-                        }
-                    ]
-                );
-            }
-        }
-        );
+    }
+    public static void AAttack_Begin_Prefix(AAttack __instance, G g, State s, Combat c)
+    {
+        Ship ship = __instance.targetPlayer ? c.otherShip : s.ship;
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0) __instance.piercing = true; ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
     }
     public static bool AAttack_ApplyAutododge_Prefix(AAttack __instance, Combat c, Ship target, RaycastResult ray, ref bool __result)
     {
-        /////* Uhm... if you have autododge, both fade and autododge will apply... pls fix 👉👈 */
-        /* rft50, you were right */
-
         if (ray.hitShip && !__instance.isBeam)
         {
             if (target.Get(VionheartScarlet.Instance.Fade.Status) > 0)
             {
+                fadeDodgeStack++; // Multiple instances of Fade activation will increase distance travelled.
                 /* Decrease Fade once attack is evaded. */
                 target.Add(VionheartScarlet.Instance.Fade.Status, -1);
 
@@ -85,7 +56,7 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
                     [
                         new AMove()
                         {
-                            dir = 1,
+                            dir = 0 + fadeDodgeStack,
                             isRandom = true,
                             targetPlayer = !__instance.targetPlayer,
                             timer = 0.0
@@ -100,6 +71,7 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
     }
     public static void Ship_OnBeginTurn_Postfix(Ship __instance, State s, Combat c)
     {
+        fadeDodgeStack = 0; // Set fadeDodgeStack to 0 at the start of turn.
         if (__instance.Get(Status.timeStop) > 0)
 		{
             /* Timestop will decrement itself. */
@@ -108,13 +80,5 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 		{
 		    __instance.Add(VionheartScarlet.Instance.Fade.Status, 0);
 		}
-    }
-    public bool hasFade(Ship ship)
-    {
-        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
-        {
-            return true;
-        }
-        else return false;
     }
 }

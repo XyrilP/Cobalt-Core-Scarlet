@@ -15,7 +15,7 @@ public class Backstab : Card, IRegisterable
             Meta = new CardMeta
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.rare,
+                rarity = Rarity.uncommon,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
@@ -30,17 +30,20 @@ public class Backstab : Card, IRegisterable
             switch (upgrade)
             {
                 case Upgrade.None:
-                data.cost = 1;
+                data.cost = 2;
                 data.exhaust = true;
+                data.retain = true;
                 data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "description"]);
                     break;
                 case Upgrade.A:
-                data.cost = 1;
+                data.cost = 2;
+                data.retain = true;
                 data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "descA"]);
                     break;
                 case Upgrade.B:
-                data.cost = 2;
+                data.cost = 3;
                 data.exhaust = true;
+                data.retain = true;
                 data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "descB"]);
                     break;
             }

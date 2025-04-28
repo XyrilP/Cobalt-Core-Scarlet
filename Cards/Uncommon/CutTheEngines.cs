@@ -23,79 +23,112 @@ public class CutTheEngines : Card, IRegisterable
         }
         );
     }
-
     public override CardData GetData(State state)
     {
-        CardData data = new CardData();
+        return upgrade switch
         {
-            switch (upgrade)
+            Upgrade.None => new CardData
             {
-                case Upgrade.None:
-                    data.cost = 1;
-                    break;
-                case Upgrade.A:
-                    data.cost = 0;
-                    break;
-                case Upgrade.B:
-                    data.cost = 1;
-                    break;
-            }
-            data.retain = true;
-        }
-        return data;
+                cost = 1
+            },
+            Upgrade.A => new CardData
+            {
+                cost = 0
+            },
+            Upgrade.B => new CardData
+            {
+                cost = 1,
+                retain = true
+            },
+            _ => new CardData{}
+        };
     }
-
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        List<CardAction> actions = new();
-        switch (upgrade)
+        return upgrade switch
         {
-            case Upgrade.None:
-                actions = new()
+            Upgrade.None =>
+            [
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = Status.lockdown,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.loseEvadeNextTurn,
-                        targetPlayer = true,
-                        statusAmount = 1
-                    }
-                };
-                break;
-            case Upgrade.A:
-                actions = new()
+                    status = Status.lockdown,
+                    statusAmount = 1,
+                    targetPlayer = true
+                },
+                new AVariableHint
                 {
-                    new AStatus()
-                    {
-                        status = Status.lockdown,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    },
-                    new AStatus()
-                    {
-                        status = Status.loseEvadeNextTurn,
-                        targetPlayer = true,
-                        statusAmount = 1
-                    }
-                };
-                break;
-            case Upgrade.B:
-                actions = new()
+                    status = Status.evade
+                },
+                new AStatus
                 {
-                    new AStatus()
-                    {
-                        status = Status.lockdown,
-                        statusAmount = 1,
-                        targetPlayer = true
-                    }
-                };
-                break;
-        }
-        return actions;
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    targetPlayer = true,
+                    statusAmount = s.ship.Get(Status.evade),
+                    xHint = 1
+                },
+                new AStatus
+                {
+                    status = Status.evade,
+                    targetPlayer = true,
+                    statusAmount = 0,
+                    mode = AStatusMode.Set
+                }
+            ],
+            Upgrade.A =>
+            [
+                new AStatus
+                {
+                    status = Status.lockdown,
+                    statusAmount = 1,
+                    targetPlayer = true
+                },
+                new AVariableHint
+                {
+                    status = Status.evade
+                },
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    targetPlayer = true,
+                    statusAmount = s.ship.Get(Status.evade),
+                    xHint = 1
+                },
+                new AStatus
+                {
+                    status = Status.evade,
+                    targetPlayer = true,
+                    statusAmount = 0,
+                    mode = AStatusMode.Set
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AStatus
+                {
+                    status = Status.lockdown,
+                    statusAmount = 1,
+                    targetPlayer = true
+                },
+                new AVariableHint
+                {
+                    status = Status.evade
+                },
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    targetPlayer = true,
+                    statusAmount = s.ship.Get(Status.evade),
+                    xHint = 1
+                },
+                new AStatus
+                {
+                    status = Status.evade,
+                    targetPlayer = true,
+                    statusAmount = 0,
+                    mode = AStatusMode.Set
+                }
+            ],
+            _ => []
+        };
     }
 }

@@ -7,8 +7,14 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class DriveBy : Card, IRegisterable
 {
+    private static ISpriteEntry? BaseArt { get; set; }
+    private static ISpriteEntry? FlippedArt1 { get; set; }
+    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/DriveBy.png")); //Art used.
+        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/DriveBy_Right.png")); //Art used when card is flipped or flopped.
+        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/DriveBy_Left.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -20,7 +26,7 @@ public class DriveBy : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "DriveBy", "name"]).Localize,
-            Art = null
+            Art = BaseArt?.Sprite
         }
         );
     }
@@ -38,6 +44,7 @@ public class DriveBy : Card, IRegisterable
             },
             Upgrade.B => new CardData
             {
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
                 cost = 2,
                 flippable = true
             },

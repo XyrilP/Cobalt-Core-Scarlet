@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using XyrilP.VionheartScarlet;
 using Microsoft.Extensions.Logging;
 using Nickel;
+using static XyrilP.VionheartScarlet.Dialogue.CommonDefinitions;
 
 namespace XyrilP.VionheartScarlet.Dialogue;
 
@@ -19,11 +20,7 @@ internal static class CombatDialogue
 
     private static void MainExtensions()
     {
-        var Scarlet = VionheartScarlet.Instance.Scarlet_Deck.UniqueName;
-        var Scarlet_Deck = VionheartScarlet.Instance.Scarlet_Deck.Deck;
-        var Eunice = Deck.eunice.Key();
-        var Eunice_Deck = Deck.eunice;
-        var Riggs = Deck.riggs.Key();
+        
 
         DB.story.all["Scarlet_JustHitGeneric_0"] = new()
 		{
@@ -500,7 +497,7 @@ internal static class CombatDialogue
 		DB.story.all["Scarlet_TemporaryStrafeGeneric_0"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.TemporaryStrafe.Status ],
+            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.scarletBarrage.Status ],
 			oncePerCombatTags = [ "TemporaryStrafeTag" ],
 			allPresent = [ Scarlet ],
 			lines = new()
@@ -517,7 +514,7 @@ internal static class CombatDialogue
 		DB.story.all["Scarlet_TemporaryStrafeGeneric_1"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.TemporaryStrafe.Status ],
+            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.scarletBarrage.Status ],
 			oncePerCombatTags = [ "TemporaryStrafeTag" ],
 			allPresent = [ Scarlet ],
 			lines = new()

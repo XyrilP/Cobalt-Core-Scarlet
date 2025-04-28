@@ -8,8 +8,14 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class TrickDaggerCard : Card, IRegisterable
 {
+    private static ISpriteEntry? BaseArt { get; set; }
+    private static ISpriteEntry? FlippedArt1 { get; set; }
+    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/TrickDagger.png")); //Art used.
+        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/TrickDagger_Right.png")); //Art used when card is flipped or flopped.
+        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/TrickDagger_Left.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -20,8 +26,8 @@ public class TrickDaggerCard : Card, IRegisterable
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TrickDagger_Missile", "name"]).Localize,
-            Art = null
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TrickDaggerCard", "name"]).Localize,
+            Art = BaseArt.Sprite
         }
         );
     }
@@ -31,16 +37,22 @@ public class TrickDaggerCard : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 1
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
+                cost = 1,
+                flippable = true
             },
             Upgrade.A => new CardData
             {
-                cost = 1
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
+                cost = 1,
+                flippable = true
             },
             Upgrade.B => new CardData
             {
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
                 cost = 1,
-                flippable = true
+                flippable = true,
+                exhaust = true
             },
             _ => new CardData{}
         };
@@ -55,37 +67,30 @@ public class TrickDaggerCard : Card, IRegisterable
                 {
                     thing = new TrickDagger_Missile
                     {
-                        targetPlayer = false
-                    }
+                    },
+                    offset = 1
                 },
-                new AMove
+                new AStatus
                 {
-                    dir = 2,
-                    targetPlayer = true,
-                    isRandom = true
+                    status = Status.droneShift,
+                    statusAmount = 1,
+                    targetPlayer = true
                 }
             ],
             Upgrade.A =>
             [
-                new ASpawn()
+                new ASpawn
                 {
                     thing = new TrickDagger_Missile
                     {
-                        targetPlayer = false
-                    }
+                    },
+                    offset = 1
                 },
-                new AMove()
+                new AStatus
                 {
-                    dir = 2,
-                    targetPlayer = true,
-                    isRandom = true
-                },
-                new ASpawn()
-                {
-                    thing = new TrickDagger_Missile
-                    {
-                        targetPlayer = false
-                    }
+                    status = Status.droneShift,
+                    statusAmount = 2,
+                    targetPlayer = true
                 }
             ],
             Upgrade.B =>
@@ -94,12 +99,13 @@ public class TrickDaggerCard : Card, IRegisterable
                 {
                     thing = new TrickDagger_Missile
                     {
-                        targetPlayer = false
-                    }
+                    },
+                    offset = 1
                 },
-                new AMove
+                new AStatus
                 {
-                    dir = 2,
+                    status = Status.droneShift,
+                    statusAmount = 3,
                     targetPlayer = true
                 }
             ],

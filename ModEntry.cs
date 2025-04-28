@@ -12,6 +12,7 @@ using XyrilP.VionheartScarlet.Features;
 using XyrilP.VionheartScarlet.Cards;
 using XyrilP.VionheartScarlet.Dialogue;
 using XyrilP.VionheartScarlet.Artifacts;
+using XyrilP.VionheartScarlet.Events;
 
 
 
@@ -29,11 +30,12 @@ internal class VionheartScarlet : SimpleMod
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
     public bool modDialogueInited;
     internal string UniqueName { get; private set; }
+    public LocalDB localDB { get; set; } = null!;
 
     internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
     // internal IStatusEntry ScarletFade { get; } //Scarlet's Fade status icon
     internal IStatusEntry Fade { get; }
-    internal IStatusEntry TemporaryStrafe { get; }
+    internal IStatusEntry scarletBarrage { get; }
 
     internal ISpriteEntry TrickDagger { get; }
     internal ISpriteEntry TrickDagger_Icon { get; }
@@ -42,59 +44,105 @@ internal class VionheartScarlet : SimpleMod
     internal ISpriteEntry TrickDagger_Seeker_Angled { get; }
     internal ISpriteEntry TrickDagger_Seeker_Icon { get; }
 
-        /* Scarlet's cards */
-    private static List<Type> Scarlet_CommonCardTypes = [
+    /* Vionheart Content */
+    private static List<Type> Colorless_Common_Card_Types = [
+        /* Common cards. */
+    ];
+    private static List<Type> Colorless_Uncommon_Card_Types = [
+        /* Uncommon cards. */
+    ];
+    private static List<Type> Colorless_Rare_Card_Types = [
+        /* Rare cards. */
+    ];
+    private static List<Type> Colorless_Special_Card_Types = [
+        /* Special cards. */
+    ];
+    private static IEnumerable<Type> Colorless_All_Card_Types =
+        Colorless_Common_Card_Types
+            .Concat(Colorless_Uncommon_Card_Types)
+            .Concat(Colorless_Rare_Card_Types)
+            .Concat(Colorless_Special_Card_Types);
+    private static List<Type> Colorless_Common_Artifact_Types = [
+        /* Common artifacts. */
+    ];
+    private static List<Type> Colorless_Boss_Artifact_Types = [
+        /* Boss artifacts. */
+    ];
+    private static List<Type> Colorless_Event_Artifact_Types = [
+        /* Event artifacts. */
+        typeof(TwoPilots)
+    ];
+    private static IEnumerable<Type> Colorless_All_Artifact_Types =
+        Colorless_Common_Artifact_Types
+            .Concat(Colorless_Boss_Artifact_Types)
+            .Concat(Colorless_Event_Artifact_Types);
+    private static List<Type> Ship_Artifact_Types = [
+        /* Ship artifacts */
+        typeof(VanguardBerthing)
+    ];
+    internal static IReadOnlyList<Type> Event_Types { get; } = [
+        /* Events */
+        typeof(VanguardBerthingEvent),
+        typeof(Scarlet_Riggs_Date)
+    ];
+    private static IEnumerable<Type> Vionheart_Content =
+        Colorless_All_Card_Types
+            .Concat(Colorless_All_Artifact_Types)
+            .Concat(Ship_Artifact_Types)
+            .Concat(Event_Types);
+    /* Vionheart Content */
+    /* Scarlet Content */
+    private static List<Type> Scarlet_Common_Card_Types = [
         /* Scarlet's common cards. */
         typeof(Veer),
         typeof(DriveBy),
-        //typeof(ThrottleDown), //replaced by AdjustThrottle
-        //typeof(ThrottleUp), //replaced by AdjustThrottle
         typeof(AdjustThrottle),
         typeof(SneakAttack),
         typeof(BarrelRoll),
-        // typeof(ArtemisMissile), //replaced by TrickDaggerCard
-        //typeof(Hide), //replaced by HideAndSneak
-        //typeof(Sneak) //replaced by HideAndSneak
         typeof(HideAndSneak),
         typeof(TrickDaggerCard),
-        typeof(TemporaryStrafeCard),
+        typeof(RunAndGun),
+        typeof(StepAway),
+        typeof(Patience)
     ];
-    private static List<Type> Scarlet_UncommonCardTypes = [
+    private static List<Type> Scarlet_Uncommon_Card_Types = [
         /* Scarlet's uncommon cards. */
-        // typeof(DriftMissile), //replaced by TrickDaggerSeekerCard
         typeof(BlinkStrike),
         typeof(CutTheEngines),
         typeof(Afterburn),
         typeof(UncannyDodge),
-        typeof(TrickDaggerSeekerCard),
-        typeof(Serpentine),
-
-        typeof(ScarletEXE) //Cat's EXE card for Scarlet.
+        typeof(SangeDaggerCard),
+        typeof(Backstab),
+        typeof(YashaDaggerCard),
+        typeof(FlankingManeuver),
+        typeof(DefensivePiloting)
     ];
-    private static List<Type> Scarlet_RareCardTypes = [
+    private static List<Type> Scarlet_Rare_Card_Types = [
         /* Scarlet's rare cards. */
         typeof(FadeCard),
         typeof(AileronRoll),
         typeof(Vendetta),
-        //typeof(TricksOfTheTrade) //replaced by TricksOfTheTradeRemastered
         typeof(TricksOfTheTradeRemastered),
-        typeof(Backstab)
+        typeof(BulletHell),
+        typeof(Reevaluate)
     ];
-
-    /* Concat all Scarlet cards. */
-    private static IEnumerable<Type> Scarlet_AllCard_Types = 
-        Scarlet_CommonCardTypes
-            .Concat(Scarlet_UncommonCardTypes)
-            .Concat(Scarlet_RareCardTypes);
-
-    private static List<Type> Scarlet_CommonArtifact_Types = [
+    private static List<Type> Scarlet_Special_Card_Types = [
+        /* Scarlet's special cards. */
+        typeof(ScarletEXE) //Cat's EXE card for Scarlet.
+    ];
+        /* Concat all Scarlet cards. */
+    private static IEnumerable<Type> Scarlet_All_Card_Types = 
+        Scarlet_Common_Card_Types
+            .Concat(Scarlet_Uncommon_Card_Types)
+            .Concat(Scarlet_Rare_Card_Types)
+            .Concat(Scarlet_Special_Card_Types);
+    private static List<Type> Scarlet_Common_Artifact_Types = [
         /* Scarlet's common artifacts. */
         typeof(ElectrolyteSurge),
         typeof(TrickAction),
         typeof(CardEngine)
     ];
-
-    private static List<Type> Scarlet_BossArtifact_Types = [
+    private static List<Type> Scarlet_Boss_Artifact_Types = [
         /* Scarlet's boss artifacts. */
         typeof(CloakAndDagger),
         typeof(ReactionWheel),
@@ -102,18 +150,18 @@ internal class VionheartScarlet : SimpleMod
         typeof(Twinsticks),
         typeof(EngagementRings)
     ];
-
-    /* Concat all Scarlet artifacts. */
-    private static IEnumerable<Type> Scarlet_AllArtifact_Types =
-        Scarlet_CommonArtifact_Types
-            .Concat(Scarlet_BossArtifact_Types);
-
-    /* Concat both Scarlet artifacts and cards. */
+        /* Concat all Scarlet artifacts. */
+    private static IEnumerable<Type> Scarlet_All_Artifact_Types =
+        Scarlet_Common_Artifact_Types
+            .Concat(Scarlet_Boss_Artifact_Types);
+    private static IEnumerable<Type> Scarlet_Content =
+        Scarlet_All_Card_Types
+            .Concat(Scarlet_All_Artifact_Types);
+    /* Scarlet Content */
+    /* Concat everything for registration. */
     private static IEnumerable<Type> AllRegisterableTypes =
-        Scarlet_AllCard_Types
-            .Concat(Scarlet_AllArtifact_Types);
-
-
+        Vionheart_Content
+            .Concat(Scarlet_Content);
     public VionheartScarlet(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
 
@@ -124,8 +172,21 @@ internal class VionheartScarlet : SimpleMod
         DuoArtifactsApi = helper.ModRegistry.GetApi<IDuoArtifactsApi>("Shockah.DuoArtifacts");
         modDialogueInited = false;
         UniqueName = package.Manifest.UniqueName;
-        
-
+        /* Urufudoggo's new Dialogue Machine */
+        helper.Events.OnModLoadPhaseFinished += (_, phase) =>
+        {
+            if (phase == ModLoadPhase.AfterDbInit)
+            {
+                localDB = new(helper, package);
+            }
+        };
+        helper.Events.OnLoadStringsForLocale += (_, thing) =>
+        {
+            foreach (KeyValuePair<string, string> entry in localDB.GetLocalizationResults())
+            {
+                thing.Localizations[entry.Key] = entry.Value;
+            }
+        };
         AnyLocalizations = new JsonLocalizationProvider(
             tokenExtractor: new SimpleLocalizationTokenExtractor(),
             localeStreamFunction: locale => package.PackageRoot.GetRelativeFile($"i18n/{locale}.json").OpenRead()
@@ -133,6 +194,7 @@ internal class VionheartScarlet : SimpleMod
         Localizations = new MissingPlaceholderLocalizationProvider<IReadOnlyList<string>>(
             new CurrentLocaleOrEnglishLocalizationProvider<IReadOnlyList<string>>(AnyLocalizations)
         );
+        /* Urufudoggo's new Dialogue Machine */
 
         /* Assign decks */
         Scarlet_Deck = helper.Content.Decks.RegisterDeck("ScarletDeck", new DeckConfiguration
@@ -142,8 +204,8 @@ internal class VionheartScarlet : SimpleMod
                 color = new Color("BC2C3D"), //old color: 560319
                 titleColor = new Color("FFFFFF")
             },
-            DefaultCardArt = RegisterSprite(package, "assets/characters/cardbg_scarlet.png").Sprite,
-            BorderSprite = RegisterSprite(package, "assets/characters/border_scarlet.png").Sprite,
+            DefaultCardArt = RegisterSprite(package, "assets/cards/cardbg_blank.png").Sprite,
+            BorderSprite = RegisterSprite(package, "assets/cards/border_scarlet.png").Sprite,
             Name = AnyLocalizations.Bind(["character", "Scarlet", "name"]).Localize
         }
         );
@@ -196,10 +258,10 @@ internal class VionheartScarlet : SimpleMod
                     new SneakAttack()
                 ],
                 artifacts = [
-
                 ]
             },
-            Description = AnyLocalizations.Bind(["character", "Scarlet", "description"]).Localize
+            Description = AnyLocalizations.Bind(["character", "Scarlet", "description"]).Localize,
+            ExeCardType = typeof(ScarletEXE)
         }
         );
 
@@ -211,10 +273,9 @@ internal class VionheartScarlet : SimpleMod
             {
                 cards = [
                     new TrickDaggerCard(),
-                    new TemporaryStrafeCard()
+                    new RunAndGun()
                 ],
                 artifacts = [
-                
                 ]
             };
             MoreDifficultiesApi.RegisterAltStarters(Deck, altStarters);
@@ -237,20 +298,20 @@ internal class VionheartScarlet : SimpleMod
         _ = new FadeManager(package, helper);
 
         /* Temporary Strafe status */
-        TemporaryStrafe = helper.Content.Statuses.RegisterStatus("Temporary Strafe", new StatusConfiguration
+        scarletBarrage = helper.Content.Statuses.RegisterStatus("Scarlet Barrage", new StatusConfiguration
         {
+            Name = AnyLocalizations.Bind(["status", "scarletBarrage", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "scarletBarrage", "description"]).Localize,
             Definition = new StatusDef
             {
                 isGood = true,
                 affectedByTimestop = true,
                 color = new Color("BC2C3D"),
                 icon = RegisterSprite(package, "assets/icons/Temporary-Strafe.png").Sprite
-            },
-            Name = AnyLocalizations.Bind(["status", "TemporaryStrafe", "name"]).Localize,
-            Description = AnyLocalizations.Bind(["status", "TemporaryStrafe", "description"]).Localize
+            }
         }
         );
-        _ = new TemporaryStrafeManager(package, helper);
+        _ = new scarletBarrageManager(package, helper);
 
         /* Trick Dagger midrow + icon */
         TrickDagger = RegisterSprite(package, "assets/midrow/Trick-Dagger.png");
@@ -259,7 +320,6 @@ internal class VionheartScarlet : SimpleMod
         TrickDagger_Seeker = RegisterSprite(package, "assets/midrow/Trick-Dagger_Seeker_0.png");
         TrickDagger_Seeker_Angled = RegisterSprite(package, "assets/midrow/Trick-Dagger_Seeker_1.png");
         TrickDagger_Seeker_Icon = RegisterSprite(package, "assets/icons/Trick-Dagger_Seeker_Icon.png");
-
         /* Trick Dagger Seeker midrow + icon */
 
         /* Inject Dialogue */

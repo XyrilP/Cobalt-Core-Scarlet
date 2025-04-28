@@ -7,8 +7,14 @@ namespace XyrilP.VionheartScarlet.Cards;
 
 public class _templateCardV2_new : Card, IRegisterable
 {
+    private static ISpriteEntry? BaseArt { get; set; }
+    private static ISpriteEntry? FlippedArt1 { get; set; }
+    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        BaseArt = null; //Art used.
+        FlippedArt1 = null; //Art used when card is flipped or flopped.
+        FlippedArt2 = null;
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -20,7 +26,7 @@ public class _templateCardV2_new : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Template", "name"]).Localize, //Card's name, localized.
-            Art = null //Card art
+            Art = BaseArt?.Sprite //Card art
         }
         );
     }
@@ -30,12 +36,15 @@ public class _templateCardV2_new : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite
             },
             Upgrade.A => new CardData
             {
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite
             },
             Upgrade.B => new CardData
             {
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite
             },
             _ => new CardData{}
         };

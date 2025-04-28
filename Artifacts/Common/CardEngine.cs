@@ -40,7 +40,7 @@ public class CardEngine : Artifact, IRegisterable
             [
                 new ADrawCard()
                 {
-                    count = 2,
+                    count = 1,
                     artifactPulse = Key(),
                     dialogueSelector = ".CardEngineGoalTrigger"
                 }
@@ -52,7 +52,7 @@ public class CardEngine : Artifact, IRegisterable
 
     public override void OnTurnStart(State state, Combat combat)
     {
-        counter = 0;
+        //counter = 0;
         if (combat.turn > 1)
         {
             combat.QueueImmediate(
@@ -69,6 +69,6 @@ public class CardEngine : Artifact, IRegisterable
     }
     public override void OnCombatEnd(State state)
     {
-        counter = 0;
+        //counter = 0;
     }
 }

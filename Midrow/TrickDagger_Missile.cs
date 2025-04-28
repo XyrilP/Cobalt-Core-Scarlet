@@ -74,5 +74,23 @@ namespace XyrilP.VionheartScarlet.Midrow
         }
       };
     }
+    public override bool Invincible()
+    {
+        return true;
+    }
+    public override List<CardAction>? GetActionsOnShotWhileInvincible(State s, Combat c, bool wasPlayer, int damage)
+    {
+      var dir = s.rngActions.Next();
+      if (dir < 0.5) dir = -1;
+      else dir = 1;
+      return new List<CardAction>
+      {
+        new AKickMiette
+        {
+          x = x,
+          dir = Convert.ToInt32(dir)
+        }
+      };
+    }
   }
 }

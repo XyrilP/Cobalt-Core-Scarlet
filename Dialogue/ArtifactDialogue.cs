@@ -5,6 +5,7 @@ using XyrilP.VionheartScarlet;
 using Microsoft.Extensions.Logging;
 using Nickel;
 using XyrilP.VionheartScarlet.Artifacts;
+using static XyrilP.VionheartScarlet.Dialogue.CommonDefinitions;
 
 namespace XyrilP.VionheartScarlet.Dialogue;
 
@@ -17,8 +18,6 @@ internal static class ArtifactDialogue
     }
     internal static void Inject()
     {
-        var Scarlet = VionheartScarlet.Instance.Scarlet_Deck.UniqueName;
-
         DB.story.all["Scarlet_Artifact_CloakAndDagger_Multi_0"] = new()
         {
             type = NodeType.combat,
