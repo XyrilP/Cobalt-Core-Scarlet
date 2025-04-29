@@ -42,7 +42,7 @@ public class AdjustThrottle : Card, IRegisterable
             Upgrade.A => new CardData
             {
                 art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 0,
+                cost = 1,
                 floppable = true,
                 retain = true
             },
@@ -76,7 +76,7 @@ public class AdjustThrottle : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.engineStall,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     targetPlayer = true,
                     disabled = !flipped
                 },
@@ -103,7 +103,7 @@ public class AdjustThrottle : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.engineStall,
-                    statusAmount = 1,
+                    statusAmount = 2,
                     targetPlayer = true,
                     disabled = !flipped
                 },
@@ -130,7 +130,7 @@ public class AdjustThrottle : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.engineStall,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     targetPlayer = true,
                     disabled = !flipped
                 },

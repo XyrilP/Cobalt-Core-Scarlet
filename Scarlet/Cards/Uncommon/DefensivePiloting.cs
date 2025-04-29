@@ -8,13 +8,9 @@ namespace Vionheart.Cards;
 public class DefensivePiloting : Card, IRegisterable
 {
     private static ISpriteEntry? BaseArt { get; set; }
-    private static ISpriteEntry? FlippedArt1 { get; set; }
-    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        BaseArt = null; //Art used.
-        FlippedArt1 = null; //Art used when card is flipped or flopped.
-        FlippedArt2 = null;
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/DefensivePiloting.png"));; //Art used.
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,

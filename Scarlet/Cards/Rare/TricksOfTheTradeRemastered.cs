@@ -8,8 +8,10 @@ namespace Vionheart.Cards;
 
 public class TricksOfTheTradeRemastered : Card, IRegisterable
 {
+    private static ISpriteEntry? BaseArt { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/TricksOfTheTrade.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -21,6 +23,7 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "TricksOfTheTrade", "name"]).Localize,
+            Art = BaseArt?.Sprite
         }
         );
     }
@@ -30,17 +33,17 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 3,
+                cost = 2,
                 exhaust = true
             },
             Upgrade.A => new CardData
             {
-                cost = 3,
+                cost = 2,
                 exhaust = true
             },
             Upgrade.B => new CardData
             {
-                cost = 3,
+                cost = 2,
                 exhaust = true
             },
             _ => new CardData{}
@@ -70,17 +73,14 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     thing = new TrickDagger_Missile
                     {
                     },
-                    offset = -1
+                    offset = -2
                 },
                 new ASpawn
                 {
                     thing = new TrickDagger_Missile
                     {
                     },
-                    offset = 1
-                },
-                new AEndTurn
-                {
+                    offset = 2
                 }
             ],
             Upgrade.A =>
@@ -103,17 +103,14 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     thing = new YashaDagger_Missile
                     {
                     },
-                    offset = -1
+                    offset = -2
                 },
                 new ASpawn
                 {
                     thing = new YashaDagger_Missile
                     {
                     },
-                    offset = 1
-                },
-                new AEndTurn
-                {
+                    offset = 2
                 }
             ],
             Upgrade.B =>
@@ -136,17 +133,14 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     thing = new SangeDagger_Missile
                     {
                     },
-                    offset = -1
+                    offset = -2
                 },
                 new ASpawn
                 {
                     thing = new SangeDagger_Missile
                     {
                     },
-                    offset = 1
-                },
-                new AEndTurn
-                {
+                    offset = 2
                 }
             ],
             _ => []

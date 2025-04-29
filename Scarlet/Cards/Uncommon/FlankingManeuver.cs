@@ -12,7 +12,7 @@ public class FlankingManeuver : Card, IRegisterable
     private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        BaseArt = null; //Art used.
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/FlankingManeuver.png"));; //Art used.
         FlippedArt1 = null; //Art used when card is flipped or flopped.
         FlippedArt2 = null;
         helper.Content.Cards.RegisterCard(new CardConfiguration

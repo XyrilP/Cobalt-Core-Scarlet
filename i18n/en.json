@@ -3,6 +3,10 @@
     "Scarlet": {
       "name": "Scarlet",
       "description": "<c=BC2C3D>SCARLET</c>\nYour other pilot.\n<c=riggs>Riggs</c>' boyfriend from the <c=643264>fu</c><c=c864c8>tu</c><c=643264>re</c>?\nHis cards confer <c=keyword>unconventional movement</c> with an effective mix of <c=keyword>offensive</c> and <c=keyword>defensive</c> options."
+    },
+    "Sweetroll": {
+      "name": "Sweetroll",
+      "description": "<c=5F00BC>SWEETROLL</c>\nYour captain."
     }
   },
   "artifact": {
@@ -61,6 +65,10 @@
     "TwoPilots": {
       "name": "TWO PILOTS",
       "description" : "At the start of combat, gain 1 <c=energy>ENERGY</c>, 1 <c=status>EVADE</c>, 1 <c=status>FADE</c>, draw an additional card and 1 <c=status>DRAW NEXT TURN</c>.\nLove motivates you to do your best.\nLet's get out of this mess.\nTogether."
+    },
+    "Foresight": {
+      "name": "FORESIGHT",
+      "description": "At the start of combat, choose a card in your draw pile to add to your hand."
     }
   },
   "ship": {
@@ -70,6 +78,10 @@
     }
   },
   "card": {
+    "placeholder": {
+      "name": "PLACEHOLDER",
+      "description": "placeholder"
+    },
     "Veer": {
       "name": "Veer"
     },
@@ -168,6 +180,15 @@
       "description": "Add 1 of 2 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand.",
       "descA": "Add 1 of 2 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand.",
       "descB": "Add 1 of 3 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand."
+    },
+    "Directive": {
+      "name": "Directive"
+    },
+    "VulcanShotgun": {
+      "name": "Vulcan Shotgun"
+    },
+    "ReloadVulcanShotgun": {
+      "name": "Reload Vulcan"
     }
   },
   "status": {
@@ -177,7 +198,7 @@
     },
     "scarletBarrage": {
       "name": "Scarlet Barrage",
-      "description": "<c=downside>Inaccurately</c> fire {0} times for <c=keyword>0</c> damage immediately after every attack or move you make, applies <c=keyword>1</c> <c=status>SATURATION</c>. <c=downside>Goes away at start of next turn.</c>"
+      "description": "<c=downside>Inaccurately</c> fire {0} times for <c=keyword>0</c> damage immediately after every attack or move you make that applies <c=keyword>1</c> <c=status>SATURATION</c>. <c=downside>Goes away at start of next turn.</c>"
     },
     "Saturation": {
       "name": "Saturation",

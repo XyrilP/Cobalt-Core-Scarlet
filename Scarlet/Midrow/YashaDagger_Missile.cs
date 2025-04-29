@@ -12,10 +12,11 @@ namespace Vionheart.Midrow
     public static readonly string MIDROW_OBJECT_NAME = "YashaDagger_Missile";
     public static readonly int BASE_DAMAGE = 3;
     public static readonly Color exhaustColor = new Color("919191");
+    public static int juggleDamage = 0;
 
     static YashaDagger_Missile()
     {
-      DB.drones[MIDROW_OBJECT_NAME] = Vionheart.Instance.TrickDagger.Sprite;
+      DB.drones[MIDROW_OBJECT_NAME] = Vionheart.Instance.TrickDagger_Heavy.Sprite;
     }
 
     public YashaDagger_Missile() => this.skin = MIDROW_OBJECT_NAME;
@@ -26,7 +27,7 @@ namespace Vionheart.Midrow
 
     public override string GetDialogueTag() => MIDROW_OBJECT_NAME;
 
-    public override Spr? GetIcon() => new Spr?(Vionheart.Instance.TrickDagger_Icon.Sprite);
+    public override Spr? GetIcon() => new Spr?(Vionheart.Instance.TrickDagger_Heavy_Icon.Sprite);
 
     public override void Render(G g, Vec v)
     {
@@ -56,7 +57,7 @@ namespace Vionheart.Midrow
     {
       return [new GlossaryTooltip($"{Vionheart.Instance.Package.Manifest.UniqueName}::Midrow::YashaDagger_Missile")
 			{
-				Icon = Vionheart.Instance.TrickDagger_Icon.Sprite,
+				Icon = Vionheart.Instance.TrickDagger_Heavy_Icon.Sprite,
 				TitleColor = Colors.midrow,
 				Title = Vionheart.Instance.Localizations.Localize(["midrow", "YashaDagger_Missile", "name"]),
 				Description = Vionheart.Instance.Localizations.Localize(["midrow", "YashaDagger_Missile", "description"])
@@ -70,7 +71,7 @@ namespace Vionheart.Midrow
         new ATrickDaggerHit()
         {
           worldX = x,
-          outgoingDamage = BASE_DAMAGE,
+          outgoingDamage = BASE_DAMAGE + juggleDamage,
           targetPlayer = targetPlayer
         }
       };
