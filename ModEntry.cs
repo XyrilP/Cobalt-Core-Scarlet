@@ -8,20 +8,20 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using XyrilP.ExternalAPI;
-using XyrilP.VionheartScarlet.Features;
-using XyrilP.VionheartScarlet.Cards;
-using XyrilP.VionheartScarlet.Dialogue;
-using XyrilP.VionheartScarlet.Artifacts;
-using XyrilP.VionheartScarlet.Events;
+using Vionheart.Features;
+using Vionheart.Cards;
+using Vionheart.Dialogue;
+using Vionheart.Artifacts;
+using Vionheart.Events;
 
 
 
-namespace XyrilP.VionheartScarlet;
-internal class VionheartScarlet : SimpleMod
+namespace Vionheart;
+internal class Vionheart : SimpleMod
 {
     /* Declare stuff! */
 
-    internal static VionheartScarlet Instance { get; private set; } = null!;
+    internal static Vionheart Instance { get; private set; } = null!;
     internal Harmony Harmony;
     internal IKokoroApi.IV2 KokoroApi;
     internal IMoreDifficultiesApi? MoreDifficultiesApi { get; private set; } = null;
@@ -36,6 +36,7 @@ internal class VionheartScarlet : SimpleMod
     // internal IStatusEntry ScarletFade { get; } //Scarlet's Fade status icon
     internal IStatusEntry Fade { get; }
     internal IStatusEntry scarletBarrage { get; }
+    internal IStatusEntry Saturation { get; }
 
     internal ISpriteEntry TrickDagger { get; }
     internal ISpriteEntry TrickDagger_Icon { get; }
@@ -162,12 +163,12 @@ internal class VionheartScarlet : SimpleMod
     private static IEnumerable<Type> AllRegisterableTypes =
         Vionheart_Content
             .Concat(Scarlet_Content);
-    public VionheartScarlet(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
+    public Vionheart(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
 
         Instance = this;
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!.V2; //Updated to V2!
-        Harmony = new Harmony("XyrilP.VionheartScarlet"); //New API? (Harmony)
+        Harmony = new Harmony("Vionheart"); //New API? (Harmony)
         MoreDifficultiesApi = helper.ModRegistry.GetApi<IMoreDifficultiesApi>("TheJazMaster.MoreDifficulties", (SemanticVersion?)null);
         DuoArtifactsApi = helper.ModRegistry.GetApi<IDuoArtifactsApi>("Shockah.DuoArtifacts");
         modDialogueInited = false;
@@ -297,7 +298,7 @@ internal class VionheartScarlet : SimpleMod
         );
         _ = new FadeManager(package, helper);
 
-        /* Temporary Strafe status */
+        /* Scarlet Barrage status */
         scarletBarrage = helper.Content.Statuses.RegisterStatus("Scarlet Barrage", new StatusConfiguration
         {
             Name = AnyLocalizations.Bind(["status", "scarletBarrage", "name"]).Localize,
@@ -312,6 +313,22 @@ internal class VionheartScarlet : SimpleMod
         }
         );
         _ = new scarletBarrageManager(package, helper);
+
+        /* Saturation status */
+        Saturation = helper.Content.Statuses.RegisterStatus("Saturation", new StatusConfiguration
+        {
+            Name = AnyLocalizations.Bind(["status", "Saturation", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "Saturation", "description"]).Localize,
+            Definition = new StatusDef
+            {
+                isGood = false,
+                affectedByTimestop = false,
+                color = new Color("BC2C3D"),
+                icon = RegisterSprite(package, "assets/icons/Temporary-Strafe.png").Sprite
+            }
+        }
+        );
+        _ = new SaturationManager(package, helper);
 
         /* Trick Dagger midrow + icon */
         TrickDagger = RegisterSprite(package, "assets/midrow/Trick-Dagger.png");

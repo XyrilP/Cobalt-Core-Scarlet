@@ -2,7 +2,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using Nickel;
 
-namespace XyrilP.VionheartScarlet.Dialogue;
+namespace Vionheart.Dialogue;
 internal static class Dialogue
 {
 	internal static void Inject()
@@ -18,15 +18,15 @@ internal static class Dialogue
 	{
 		try
 		{
-			if (!VionheartScarlet.Instance.modDialogueInited)
+			if (!Vionheart.Instance.modDialogueInited)
 			{
-				VionheartScarlet.Instance.modDialogueInited = true;
-				VionheartScarlet.Instance.Logger.LogInformation("I have a mouth... and I can now speak!");
+				Vionheart.Instance.modDialogueInited = true;
+				Vionheart.Instance.Logger.LogInformation("I have a mouth... and I can now speak!");
 			}
 		}
 		catch (Exception exception)
 		{
-			VionheartScarlet.Instance.Logger.LogError(exception, "Failed to inject dialogue for modded stuff");
+			Vionheart.Instance.Logger.LogError(exception, "Failed to inject dialogue for modded stuff");
 		}
 	}
 }

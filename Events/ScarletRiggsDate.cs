@@ -4,10 +4,10 @@ using System.Reflection;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using static XyrilP.VionheartScarlet.Dialogue.CommonDefinitions;
-using XyrilP.VionheartScarlet.Artifacts;
+using static Vionheart.Dialogue.CommonDefinitions;
+using Vionheart.Artifacts;
 
-namespace XyrilP.VionheartScarlet.Events;
+namespace Vionheart.Events;
 
 internal sealed class Scarlet_Riggs_Date : IRegisterable
 {

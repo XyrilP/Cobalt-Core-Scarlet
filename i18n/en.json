@@ -177,7 +177,11 @@
     },
     "scarletBarrage": {
       "name": "Scarlet Barrage",
-      "description": "Fire {0} times for <c=keyword>1</c> damage immediately after every move you make. <c=downside>Goes away at start of next turn.</c>"
+      "description": "<c=downside>Inaccurately</c> fire {0} times for <c=keyword>0</c> damage immediately after every attack or move you make, applies <c=keyword>1</c> <c=status>SATURATION</c>. <c=downside>Goes away at start of next turn.</c>"
+    },
+    "Saturation": {
+      "name": "Saturation",
+      "description": "When this ship reaches <c=keyword>2</c> Saturation, it takes <c=damage>1</c> damage!"
     }
   },
   "midrow": {

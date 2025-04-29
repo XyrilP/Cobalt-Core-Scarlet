@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using XyrilP.VionheartScarlet;
-using static XyrilP.VionheartScarlet.Dialogue.CommonDefinitions;
+using Vionheart;
+using static Vionheart.Dialogue.CommonDefinitions;
 
-namespace XyrilP.VionheartScarlet.Dialogue;
+namespace Vionheart.Dialogue;
 
 internal static class StoryDialogue
 {

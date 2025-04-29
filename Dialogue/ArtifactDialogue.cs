@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using XyrilP.VionheartScarlet;
+using Vionheart;
 using Microsoft.Extensions.Logging;
 using Nickel;
-using XyrilP.VionheartScarlet.Artifacts;
-using static XyrilP.VionheartScarlet.Dialogue.CommonDefinitions;
+using Vionheart.Artifacts;
+using static Vionheart.Dialogue.CommonDefinitions;
 
-namespace XyrilP.VionheartScarlet.Dialogue;
+namespace Vionheart.Dialogue;
 
 internal static class ArtifactDialogue
 {
-    internal static VionheartScarlet Instance => VionheartScarlet.Instance;
+    internal static Vionheart Instance => Vionheart.Instance;
     internal static string F(this string Name)
     {
         return $"{Instance.UniqueName}::{Name}";

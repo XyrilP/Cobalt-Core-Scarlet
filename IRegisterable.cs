@@ -1,7 +1,7 @@
 ﻿using Nanoray.PluginManager;
 using Nickel;
 
-namespace XyrilP.VionheartScarlet;
+namespace Vionheart;
 
 internal interface IRegisterable
 {
