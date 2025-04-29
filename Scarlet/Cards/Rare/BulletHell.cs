@@ -7,8 +7,10 @@ namespace Vionheart.Cards;
 
 public class BulletHell : Card, IRegisterable
 {
+    private static ISpriteEntry? BaseArt { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/BulletHell.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -20,7 +22,7 @@ public class BulletHell : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
             Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "BulletHell", "name"]).Localize, //Card's name, localized.
-            Art = null //Card art
+            Art = BaseArt?.Sprite //Card art
         }
         );
     }
@@ -56,19 +58,18 @@ public class BulletHell : Card, IRegisterable
                 {
                     status = Vionheart.Instance.scarletBarrage.Status,
                     statusAmount = 3,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s,1)
                 },
                 new AMove
                 {
                     dir = 1,
                     targetPlayer = true,
                     isRandom = true
-                },
-                new AStatus
-                {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true
                 }
             ],
             Upgrade.A =>
@@ -77,7 +78,32 @@ public class BulletHell : Card, IRegisterable
                 {
                     status = Vionheart.Instance.scarletBarrage.Status,
                     statusAmount = 3,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s,1)
+                },
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AStatus
+                {
+                    status = Vionheart.Instance.scarletBarrage.Status,
+                    statusAmount = 3,
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s,1)
                 },
                 new AMove
                 {
@@ -89,27 +115,6 @@ public class BulletHell : Card, IRegisterable
                 {
                     status = Status.evade,
                     statusAmount = 1,
-                    targetPlayer = true
-                }
-            ],
-            Upgrade.B =>
-            [
-                new AStatus
-                {
-                    status = Vionheart.Instance.scarletBarrage.Status,
-                    statusAmount = 3,
-                    targetPlayer = true
-                },
-                new AMove
-                {
-                    dir = 1,
-                    targetPlayer = true,
-                    isRandom = true
-                },
-                new AStatus
-                {
-                    status = Status.evade,
-                    statusAmount = 2,
                     targetPlayer = true
                 }
             ],

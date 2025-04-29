@@ -7,8 +7,10 @@ namespace Vionheart.Cards;
 
 public class Afterburn : Card, IRegisterable
 {
+    private static ISpriteEntry? BaseArt { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Afterburn.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -20,6 +22,7 @@ public class Afterburn : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Afterburn", "name"]).Localize,
+            Art = BaseArt?.Sprite
         }
         );
     }
@@ -41,7 +44,7 @@ public class Afterburn : Card, IRegisterable
             },
             Upgrade.B => new CardData
             {
-                cost = 3,
+                cost = 2,
                 exhaust = true,
                 retain = true
             },
@@ -57,14 +60,21 @@ public class Afterburn : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.hermes,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     targetPlayer = true
                 },
                 new AStatus
                 {
                     status = Vionheart.Instance.scarletBarrage.Status,
                     statusAmount = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
+                },
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
                 },
                 new AStatus
                 {
@@ -78,14 +88,21 @@ public class Afterburn : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.hermes,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     targetPlayer = true
                 },
                 new AStatus
                 {
                     status = Vionheart.Instance.scarletBarrage.Status,
                     statusAmount = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
+                },
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
                 },
                 new AStatus
                 {
@@ -99,14 +116,21 @@ public class Afterburn : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.hermes,
-                    statusAmount = 3,
+                    statusAmount = 2,
                     targetPlayer = true
                 },
                 new AStatus
                 {
                     status = Vionheart.Instance.scarletBarrage.Status,
                     statusAmount = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
+                },
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
                 },
                 new AStatus
                 {

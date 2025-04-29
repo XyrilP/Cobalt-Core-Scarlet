@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Vionheart.Cards;
 
-public class _templateCardV2_new : Card, IRegisterable
+public class ReloadVulcanShotgun : Card, IRegisterable
 {
     private static ISpriteEntry? BaseArt { get; set; }
     private static ISpriteEntry? FlippedArt1 { get; set; }
@@ -20,12 +20,12 @@ public class _templateCardV2_new : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck, //Which deck should this card go to?
+                deck = Vionheart.Instance.Sweetroll_Deck.Deck, //Which deck should this card go to?
                 rarity = Rarity.common, //What rarity should this card be?
-                dontOffer = false, //Should this card be offered to the player?
+                dontOffer = true, //Should this card be offered to the player?
                 upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Template", "name"]).Localize, //Card's name, localized.
+            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "ReloadVulcanShotgun", "name"]).Localize, //Card's name, localized.
             Art = BaseArt?.Sprite //Card art
         }
         );
@@ -40,12 +40,18 @@ public class _templateCardV2_new : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
+                cost = 2,
+                singleUse = true
             },
             Upgrade.A => new CardData
             {
+                cost = 1,
+                singleUse = true
             },
             Upgrade.B => new CardData
             {
+                cost = 2,
+                singleUse = true
             },
             _ => new CardData{}
         };
@@ -56,12 +62,35 @@ public class _templateCardV2_new : Card, IRegisterable
         {
             Upgrade.None =>
             [
+                new AAddCard
+                {
+                    card = new VulcanShotgun
+                    {
+                    },
+                    destination = CardDestination.Hand
+                }
             ],
             Upgrade.A =>
             [
+                new AAddCard
+                {
+                    card = new VulcanShotgun
+                    {
+                        upgrade = Upgrade.A
+                    },
+                    destination = CardDestination.Hand
+                }
             ],
             Upgrade.B =>
             [
+                new AAddCard
+                {
+                    card = new VulcanShotgun
+                    {
+                        upgrade = Upgrade.B
+                    },
+                    destination = CardDestination.Hand
+                }
             ],
             _ => []
         };

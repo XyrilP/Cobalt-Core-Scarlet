@@ -22,7 +22,7 @@ public class VanguardBerthing : Artifact, IRegisterable
             },
             Name = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "name"]).Localize,
             Description = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "description"]).Localize,
-            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/vionheart_shard.png")).Sprite
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/artifact_placeholder.png")).Sprite
         }
         );
     }

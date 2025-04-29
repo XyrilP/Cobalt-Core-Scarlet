@@ -20,8 +20,6 @@ internal static class CombatDialogue
 
     private static void MainExtensions()
     {
-        
-
         DB.story.all["Scarlet_JustHitGeneric_0"] = new()
 		{
 			type = NodeType.combat,
@@ -38,7 +36,7 @@ internal static class CombatDialogue
 			    }
             }
 		};
-
+		
         DB.story.all["Scarlet_JustHitGeneric_1"] = new()
 		{
 			type = NodeType.combat,

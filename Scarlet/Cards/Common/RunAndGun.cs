@@ -57,7 +57,8 @@ public class RunAndGun : Card, IRegisterable
                 {
                     status = Vionheart.Instance.scarletBarrage.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 }
             ],
             Upgrade.A =>
@@ -66,7 +67,8 @@ public class RunAndGun : Card, IRegisterable
                 {
                     status = Vionheart.Instance.scarletBarrage.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 }
             ],
             Upgrade.B =>
@@ -75,7 +77,8 @@ public class RunAndGun : Card, IRegisterable
                 {
                     status = Vionheart.Instance.scarletBarrage.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 }
             ],
             _ => []

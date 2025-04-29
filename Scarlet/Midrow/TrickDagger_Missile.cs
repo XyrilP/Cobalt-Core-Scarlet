@@ -12,6 +12,7 @@ namespace Vionheart.Midrow
     public static readonly string MIDROW_OBJECT_NAME = "TrickDagger_Missile";
     public static readonly int BASE_DAMAGE = 2;
     public static readonly Color exhaustColor = new Color("919191");
+    public static int juggleDamage = 0;
 
     static TrickDagger_Missile()
     {
@@ -69,7 +70,7 @@ namespace Vionheart.Midrow
         new ATrickDaggerHit()
         {
           worldX = x,
-          outgoingDamage = BASE_DAMAGE,
+          outgoingDamage = BASE_DAMAGE + juggleDamage,
           targetPlayer = targetPlayer
         }
       };

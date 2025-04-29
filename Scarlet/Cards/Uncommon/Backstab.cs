@@ -7,8 +7,10 @@ namespace Vionheart.Cards;
 
 public class Backstab : Card, IRegisterable
 {
+    private static ISpriteEntry? BaseArt { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Backstab.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -20,6 +22,7 @@ public class Backstab : Card, IRegisterable
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Backstab", "name"]).Localize,
+            Art = BaseArt?.Sprite
         }
         );
     }

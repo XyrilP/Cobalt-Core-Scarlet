@@ -7,8 +7,12 @@ namespace Vionheart.Cards;
 
 public class BlinkStrike : Card, IRegisterable
 {
+    private static ISpriteEntry? FlippedArt1 { get; set; }
+    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
+        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/BlinkStrike_Right.png"));
+        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/BlinkStrike_Left.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -30,17 +34,20 @@ public class BlinkStrike : Card, IRegisterable
             Upgrade.None => new CardData
             {
                 cost = 1,
-                flippable = true
+                flippable = true,
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite
             },
             Upgrade.A => new CardData
             {
                 cost = 1,
-                flippable = true
+                flippable = true,
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite
             },
             Upgrade.B => new CardData
             {
                 cost = 1,
-                flippable = true
+                flippable = true,
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite
             },
             _ => new CardData{}
         };

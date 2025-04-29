@@ -5,29 +5,37 @@ using System.Reflection;
 
 namespace Vionheart.Cards;
 
-public class Patience : Card, IRegisterable
+public class Directive : Card, IRegisterable
 {
     private static ISpriteEntry? BaseArt { get; set; }
+    private static ISpriteEntry? FlippedArt1 { get; set; }
+    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         BaseArt = null; //Art used.
+        FlippedArt1 = null; //Art used when card is flipped or flopped.
+        FlippedArt2 = null;
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck, //Which deck should this card go to?
+                deck = Vionheart.Instance.Sweetroll_Deck.Deck, //Which deck should this card go to?
                 rarity = Rarity.common, //What rarity should this card be?
                 dontOffer = false, //Should this card be offered to the player?
                 upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Patience", "name"]).Localize, //Card's name, localized.
+            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Directive", "name"]).Localize, //Card's name, localized.
             Art = BaseArt?.Sprite //Card art
         }
         );
     }
     public override CardData GetData(State state)
     {
+        /*
+        Add this for flipped art 
+        art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite
+        */
         return upgrade switch
         {
             Upgrade.None => new CardData
@@ -40,8 +48,7 @@ public class Patience : Card, IRegisterable
             },
             Upgrade.B => new CardData
             {
-                cost = 1,
-                exhaust = true
+                cost = 1
             },
             _ => new CardData{}
         };
@@ -52,47 +59,35 @@ public class Patience : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AStatus
+                new ACardSelect
                 {
-                    status = Vionheart.Instance.Fade.Status,
-                    statusAmount = 1,
-                    targetPlayer = true
-                },
-                new AStatus
-                {
-                    status = Status.drawNextTurn,
-                    statusAmount = 3,
-                    targetPlayer = true
+                    browseAction = new ChooseCardToPutInHand
+                    {
+                    },
+                    browseSource = CardBrowse.Source.DrawPile,
+                    filterUUID = uuid
                 }
             ],
             Upgrade.A =>
             [
-                new AStatus
+                new ACardSelect
                 {
-                    status = Vionheart.Instance.Fade.Status,
-                    statusAmount = 1,
-                    targetPlayer = true
-                },
-                new AStatus
-                {
-                    status = Status.drawNextTurn,
-                    statusAmount = 3,
-                    targetPlayer = true
+                    browseAction = new ChooseCardToPutInHand
+                    {
+                    },
+                    browseSource = CardBrowse.Source.DrawPile,
+                    filterUUID = uuid
                 }
             ],
             Upgrade.B =>
             [
-                new AStatus
+                new ACardSelect
                 {
-                    status = Vionheart.Instance.Fade.Status,
-                    statusAmount = 2,
-                    targetPlayer = true
-                },
-                new AStatus
-                {
-                    status = Status.drawNextTurn,
-                    statusAmount = 5,
-                    targetPlayer = true
+                    browseAction = new ChooseCardToPutInHand
+                    {
+                    },
+                    browseSource = CardBrowse.Source.DrawOrDiscardPile,
+                    filterUUID = uuid
                 }
             ],
             _ => []

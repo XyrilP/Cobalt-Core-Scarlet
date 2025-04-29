@@ -1,10 +1,10 @@
 {
-  "UniqueName": "Vionheart",
+  "UniqueName": "VionheartContent",
   "Version": "0.8",
   "Author": "XyrilP.",
   "Description": "Vionheart content for Cobalt Core",
   "RequiredApiVersion": "1.5.7",
-  "EntryPointAssembly": "Vionheart.dll",
+  "EntryPointAssembly": "VionheartContent.dll",
   "LoadPhase": "AfterDbInit",
   "Dependencies": [
     {
