@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using XyrilP.VionheartScarlet.Dialogue;
+using Vionheart.Dialogue;
 
-namespace XyrilP.VionheartScarlet;
+namespace Vionheart;
 
 internal sealed class CustomSay : Say
 {

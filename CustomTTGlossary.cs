@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace XyrilP.VionheartScarlet;
+namespace Vionheart;
 
 internal sealed class CustomTTGlossary : TTGlossary
 {
@@ -12,7 +12,7 @@ internal sealed class CustomTTGlossary : TTGlossary
 		midrow, status, cardtrait, action, parttrait, destination, actionMisc, part, env
 	}
 
-	private static VionheartScarlet Instance => VionheartScarlet.Instance;
+	private static Vionheart Instance => Vionheart.Instance;
 
 	private static readonly Stack<TTGlossary> ContextStack = new();
 

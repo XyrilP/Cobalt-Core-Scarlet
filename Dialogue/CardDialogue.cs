@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using XyrilP.VionheartScarlet;
+using Vionheart;
 using Microsoft.Extensions.Logging;
 using Nickel;
-using static XyrilP.VionheartScarlet.Dialogue.CommonDefinitions;
+using static Vionheart.Dialogue.CommonDefinitions;
 
-namespace XyrilP.VionheartScarlet.Dialogue;
+namespace Vionheart.Dialogue;
 
 internal static class CardDialogue
 {

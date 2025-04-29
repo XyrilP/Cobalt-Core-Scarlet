@@ -1,10 +1,10 @@
 {
-  "UniqueName": "XyrilP.VionheartScarlet",
-  "Version": "0.7.6",
+  "UniqueName": "Vionheart",
+  "Version": "0.8",
   "Author": "XyrilP.",
-  "Description": "Scarlet joins the Cobalt crew!",
+  "Description": "Vionheart content for Cobalt Core",
   "RequiredApiVersion": "1.5.7",
-  "EntryPointAssembly": "VionheartScarlet.dll",
+  "EntryPointAssembly": "Vionheart.dll",
   "LoadPhase": "AfterDbInit",
   "Dependencies": [
     {

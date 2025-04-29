@@ -1,7 +1,7 @@
 using FSPRO;
-using XyrilP.VionheartScarlet.Midrow;
+using Vionheart.Midrow;
 
-namespace XyrilP.VionheartScarlet.Actions;
+namespace Vionheart.Actions;
 
 public class ATrickDaggerHit : AMissileHit
 {

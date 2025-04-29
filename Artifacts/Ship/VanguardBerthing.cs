@@ -5,7 +5,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 
-namespace XyrilP.VionheartScarlet.Artifacts;
+namespace Vionheart.Artifacts;
 
 public class VanguardBerthing : Artifact, IRegisterable
 {
@@ -20,8 +20,8 @@ public class VanguardBerthing : Artifact, IRegisterable
                 owner = Deck.colorless,
                 unremovable = true
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "name"]).Localize,
-            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "description"]).Localize,
+            Name = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "name"]).Localize,
+            Description = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "description"]).Localize,
             Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/vionheart_shard.png")).Sprite
         }
         );
