@@ -3,7 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class Backstab : Card, IRegisterable
 {
@@ -16,12 +16,12 @@ public class Backstab : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck,
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.uncommon,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Backstab", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Backstab", "name"]).Localize,
             Art = BaseArt?.Sprite
         }
         );
@@ -36,18 +36,18 @@ public class Backstab : Card, IRegisterable
                 data.cost = 2;
                 data.exhaust = true;
                 data.retain = true;
-                data.description = Vionheart.Instance.Localizations.Localize(["card", "Backstab", "description"]);
+                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "description"]);
                     break;
                 case Upgrade.A:
                 data.cost = 2;
                 data.retain = true;
-                data.description = Vionheart.Instance.Localizations.Localize(["card", "Backstab", "descA"]);
+                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "descA"]);
                     break;
                 case Upgrade.B:
                 data.cost = 3;
                 data.exhaust = true;
                 data.retain = true;
-                data.description = Vionheart.Instance.Localizations.Localize(["card", "Backstab", "descB"]);
+                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "descB"]);
                     break;
             }
         }
@@ -63,13 +63,13 @@ public class Backstab : Card, IRegisterable
                 {
                     new AAttack
                     {
-                        damage = GetDmg(s,1) + s.ship.Get(Vionheart.Instance.Fade.Status),
+                        damage = GetDmg(s,1) + s.ship.Get(VionheartScarlet.Instance.Fade.Status),
                         piercing = true,
                         stunEnemy = true
                     },
                     new AStatus
                     {
-                        status = Vionheart.Instance.Fade.Status,
+                        status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 0,
                         mode = AStatusMode.Set,
                         targetPlayer = true
@@ -81,13 +81,13 @@ public class Backstab : Card, IRegisterable
                 {
                     new AAttack
                     {
-                        damage = GetDmg(s,1) + s.ship.Get(Vionheart.Instance.Fade.Status),
+                        damage = GetDmg(s,1) + s.ship.Get(VionheartScarlet.Instance.Fade.Status),
                         piercing = true,
                         stunEnemy = true
                     },
                     new AStatus
                     {
-                        status = Vionheart.Instance.Fade.Status,
+                        status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 0,
                         mode = AStatusMode.Set,
                         targetPlayer = true
@@ -99,13 +99,13 @@ public class Backstab : Card, IRegisterable
                 {
                     new AAttack
                     {
-                        damage = GetDmg(s,1) + (s.ship.Get(Vionheart.Instance.Fade.Status) * 2),
+                        damage = GetDmg(s,1) + (s.ship.Get(VionheartScarlet.Instance.Fade.Status) * 2),
                         piercing = true,
                         stunEnemy = true
                     },
                     new AStatus
                     {
-                        status = Vionheart.Instance.Fade.Status,
+                        status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 0,
                         mode = AStatusMode.Set,
                         targetPlayer = true

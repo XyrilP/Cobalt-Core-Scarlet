@@ -3,7 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class BlinkStrike : Card, IRegisterable
 {
@@ -18,12 +18,12 @@ public class BlinkStrike : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck,
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.uncommon,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "BlinkStrike", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "BlinkStrike", "name"]).Localize,
         }
         );
     }

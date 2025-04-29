@@ -3,13 +3,13 @@ using JetBrains.Annotations;
 using Nanoray.PluginManager;
 using Nickel;
 
-namespace Vionheart.Artifacts;
+namespace VionheartScarlet.Artifacts;
 
 public class Twinsticks : Artifact, IRegisterable
 {
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        if (Vionheart.Instance.DuoArtifactsApi is not { } api) return; //Do not register if Duo artifacts are not installed.
+        if (VionheartScarlet.Instance.DuoArtifactsApi is not { } api) return; //Do not register if Duo artifacts are not installed.
 
         helper.Content.Artifacts.RegisterArtifact(new ArtifactConfiguration
         {
@@ -17,15 +17,15 @@ public class Twinsticks : Artifact, IRegisterable
             Meta = new ArtifactMeta
             {
                 pools = [ArtifactPool.Common],
-                owner = Vionheart.Instance.DuoArtifactsApi.DuoArtifactVanillaDeck
+                owner = VionheartScarlet.Instance.DuoArtifactsApi.DuoArtifactVanillaDeck
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "Twinsticks", "name"]).Localize,
-            Description = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "Twinsticks", "description"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "Twinsticks", "name"]).Localize,
+            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "Twinsticks", "description"]).Localize,
             Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/twinsticks.png")).Sprite
         }
         );
 
-        var duoCharacter1 = Vionheart.Instance.Scarlet_Deck.Deck;
+        var duoCharacter1 = VionheartScarlet.Instance.Scarlet_Deck.Deck;
         var duoCharacter2 = Deck.riggs;
         api.RegisterDuoArtifact(MethodBase.GetCurrentMethod()!.DeclaringType!, [duoCharacter1, duoCharacter2]);
     }
@@ -59,7 +59,7 @@ public class Twinsticks : Artifact, IRegisterable
             (
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                     artifactPulse = Key()

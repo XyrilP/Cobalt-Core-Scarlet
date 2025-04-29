@@ -2,9 +2,9 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using Vionheart.Midrow;
+using VionheartScarlet.Midrow;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class SangeDaggerCard : Card, IRegisterable
 {
@@ -21,12 +21,12 @@ public class SangeDaggerCard : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck,
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.uncommon,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "SangeDaggerCard", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "SangeDaggerCard", "name"]).Localize,
             Art = BaseArt?.Sprite
         }
         );

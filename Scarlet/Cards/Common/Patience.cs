@@ -3,7 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class Patience : Card, IRegisterable
 {
@@ -16,12 +16,12 @@ public class Patience : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck, //Which deck should this card go to?
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck, //Which deck should this card go to?
                 rarity = Rarity.common, //What rarity should this card be?
                 dontOffer = false, //Should this card be offered to the player?
                 upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Patience", "name"]).Localize, //Card's name, localized.
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Patience", "name"]).Localize, //Card's name, localized.
             Art = BaseArt?.Sprite //Card art
         }
         );
@@ -54,7 +54,7 @@ public class Patience : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true
                 },
@@ -69,7 +69,7 @@ public class Patience : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true
                 },
@@ -84,7 +84,7 @@ public class Patience : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 2,
                     targetPlayer = true
                 },

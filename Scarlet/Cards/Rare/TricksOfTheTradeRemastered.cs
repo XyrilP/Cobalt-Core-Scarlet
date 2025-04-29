@@ -2,9 +2,9 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using Vionheart.Midrow;
+using VionheartScarlet.Midrow;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class TricksOfTheTradeRemastered : Card, IRegisterable
 {
@@ -17,12 +17,12 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck,
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.rare,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "TricksOfTheTrade", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TricksOfTheTrade", "name"]).Localize,
             Art = BaseArt?.Sprite
         }
         );
@@ -57,7 +57,7 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                     dialogueSelector = ".scarletTricksOfTheTrade"
@@ -87,7 +87,7 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                     dialogueSelector = ".scarletTricksOfTheTrade"
@@ -117,7 +117,7 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                     dialogueSelector = ".scarletTricksOfTheTrade"

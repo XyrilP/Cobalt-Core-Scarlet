@@ -11,16 +11,16 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Vionheart.Actions;
+using VionheartScarlet.Actions;
 
-namespace Vionheart.Features;
+namespace VionheartScarlet.Features;
 
 public class SaturationManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 {
     public SaturationManager(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        Vionheart.Instance.KokoroApi.StatusRendering.RegisterHook(this);
-        Vionheart.Instance.Harmony.Patch(
+        VionheartScarlet.Instance.KokoroApi.StatusRendering.RegisterHook(this);
+        VionheartScarlet.Instance.Harmony.Patch(
         original: AccessTools.DeclaredMethod(typeof(AStatus), nameof(AStatus.Begin)),
         postfix: new HarmonyMethod(GetType(), nameof(AStatus_Begin_Postfix))
         );
@@ -29,10 +29,10 @@ public class SaturationManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
     {
         Ship ship = __instance.targetPlayer ? s.ship : c.otherShip;
         Ship otherShip = __instance.targetPlayer ? c.otherShip : s.ship;
-        var statusValue = ship.Get(Vionheart.Instance.Saturation.Status);
-        if (ship.Get(Vionheart.Instance.Saturation.Status) >= 2)
+        var statusValue = ship.Get(VionheartScarlet.Instance.Saturation.Status);
+        if (ship.Get(VionheartScarlet.Instance.Saturation.Status) >= 2)
         {
-            ship.Add(Vionheart.Instance.Saturation.Status, -2);
+            ship.Add(VionheartScarlet.Instance.Saturation.Status, -2);
             // c.QueueImmediate(
             // [
             //     new AHurt

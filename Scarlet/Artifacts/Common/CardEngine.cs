@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Nanoray.PluginManager;
 using Nickel;
 
-namespace Vionheart.Artifacts;
+namespace VionheartScarlet.Artifacts;
 
 public class CardEngine : Artifact, IRegisterable
 {
@@ -15,10 +15,10 @@ public class CardEngine : Artifact, IRegisterable
             Meta = new ArtifactMeta
             {
                 pools = [ArtifactPool.Common],
-                owner = Vionheart.Instance.Scarlet_Deck.Deck
+                owner = VionheartScarlet.Instance.Scarlet_Deck.Deck
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "CardEngine", "name"]).Localize,
-            Description = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "CardEngine", "description"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "CardEngine", "name"]).Localize,
+            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "CardEngine", "description"]).Localize,
             Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/card_engine_2.png")).Sprite
         }
         );

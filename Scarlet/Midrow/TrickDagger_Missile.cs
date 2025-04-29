@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Nickel;
 using System;
 using System.Collections.Generic;
-using Vionheart.Actions;
+using VionheartScarlet.Actions;
 
-namespace Vionheart.Midrow
+namespace VionheartScarlet.Midrow
 {
   public class TrickDagger_Missile : Missile
   {
@@ -16,7 +16,7 @@ namespace Vionheart.Midrow
 
     static TrickDagger_Missile()
     {
-      DB.drones[MIDROW_OBJECT_NAME] = Vionheart.Instance.TrickDagger.Sprite;
+      DB.drones[MIDROW_OBJECT_NAME] = VionheartScarlet.Instance.TrickDagger.Sprite;
     }
 
     public TrickDagger_Missile() => this.skin = MIDROW_OBJECT_NAME;
@@ -27,7 +27,7 @@ namespace Vionheart.Midrow
 
     public override string GetDialogueTag() => MIDROW_OBJECT_NAME;
 
-    public override Spr? GetIcon() => new Spr?(Vionheart.Instance.TrickDagger_Icon.Sprite);
+    public override Spr? GetIcon() => new Spr?(VionheartScarlet.Instance.TrickDagger_Icon.Sprite);
 
     public override void Render(G g, Vec v)
     {
@@ -46,7 +46,7 @@ namespace Vionheart.Midrow
       bool flag1 = flipX;
       bool flag2 = !targetPlayer;
       // Color? nullable3 = new Color?(exhaustColor);
-      Spr sprite = Vionheart.Instance.TrickDagger.Sprite; 
+      Spr sprite = VionheartScarlet.Instance.TrickDagger.Sprite; 
       DrawWithHilight(g, sprite, v1, flipX, targetPlayer);
       //Draw.Sprite(nullable1, num1, num2, flag1, flag2, 0.0, new Vec?(), nullable2, new Vec?(), new Rect?(), nullable3);
       // Glow.Draw(vec2 + new Vec(0.5, -2.5), 25.0, exhaustColor * new Color(1.0, 0.5, 0.5).gain(0.2 + 0.1 * Math.Sin(g.state.time * 30.0 + x) * 0.5));
@@ -54,12 +54,12 @@ namespace Vionheart.Midrow
 
     public override List<Tooltip> GetTooltips()
     {
-      return [new GlossaryTooltip($"{Vionheart.Instance.Package.Manifest.UniqueName}::Midrow::TrickDagger_Missile")
+      return [new GlossaryTooltip($"{VionheartScarlet.Instance.Package.Manifest.UniqueName}::Midrow::TrickDagger_Missile")
 			{
-				Icon = Vionheart.Instance.TrickDagger_Icon.Sprite,
+				Icon = VionheartScarlet.Instance.TrickDagger_Icon.Sprite,
 				TitleColor = Colors.midrow,
-				Title = Vionheart.Instance.Localizations.Localize(["midrow", "TrickDagger_Missile", "name"]),
-				Description = Vionheart.Instance.Localizations.Localize(["midrow", "TrickDagger_Missile", "description"])
+				Title = VionheartScarlet.Instance.Localizations.Localize(["midrow", "TrickDagger_Missile", "name"]),
+				Description = VionheartScarlet.Instance.Localizations.Localize(["midrow", "TrickDagger_Missile", "description"])
 			}];
     }
 

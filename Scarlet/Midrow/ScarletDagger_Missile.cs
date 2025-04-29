@@ -5,9 +5,9 @@ using Nickel;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Vionheart.Actions;
+using VionheartScarlet.Actions;
 
-namespace Vionheart.Midrow
+namespace VionheartScarlet.Midrow
 {
   public class ScarletDagger_Missile : Missile
   {
@@ -24,15 +24,15 @@ namespace Vionheart.Midrow
       switch (missileType)
       {
         case MissileType.normal:
-          DB.drones[MIDROW_OBJECT_NAME] = Vionheart.Instance.TrickDagger.Sprite;
+          DB.drones[MIDROW_OBJECT_NAME] = VionheartScarlet.Instance.TrickDagger.Sprite;
           skin = MIDROW_OBJECT_NAME;
           break;
         case MissileType.heavy:
-          DB.drones[MIDROW_OBJECT_NAME + "_Heavy"] = Vionheart.Instance.TrickDagger.Sprite;
+          DB.drones[MIDROW_OBJECT_NAME + "_Heavy"] = VionheartScarlet.Instance.TrickDagger.Sprite;
           skin = MIDROW_OBJECT_NAME + "_Heavy";
           break;
         case MissileType.seeker:
-          DB.drones[MIDROW_OBJECT_NAME + "_Seeker"] = Vionheart.Instance.TrickDagger_Seeker.Sprite;
+          DB.drones[MIDROW_OBJECT_NAME + "_Seeker"] = VionheartScarlet.Instance.TrickDagger_Seeker.Sprite;
           skin = MIDROW_OBJECT_NAME + "_Seeker";
           break;
       }
@@ -43,7 +43,7 @@ namespace Vionheart.Midrow
 
     public override string GetDialogueTag() => MIDROW_OBJECT_NAME;
 
-    public override Spr? GetIcon() => new Spr?(Vionheart.Instance.TrickDagger_Icon.Sprite);
+    public override Spr? GetIcon() => new Spr?(VionheartScarlet.Instance.TrickDagger_Icon.Sprite);
 
     public override void Render(G g, Vec v)
     {
@@ -67,26 +67,26 @@ namespace Vionheart.Midrow
       switch (missileType)
       {
         case MissileType.normal:
-          Spr sprite_normal = Vionheart.Instance.TrickDagger.Sprite;
+          Spr sprite_normal = VionheartScarlet.Instance.TrickDagger.Sprite;
           DrawWithHilight(g, sprite_normal, v1, flipX, targetPlayer);
-          daggerTitle = Vionheart.Instance.Localizations.Localize(["midrow", "TrickDagger_Missile", "name"]);
-          daggerDescription = Vionheart.Instance.Localizations.Localize(["midrow", "TrickDagger_Missile", "description"]);
-          daggerIcon = Vionheart.Instance.TrickDagger_Icon;
+          daggerTitle = VionheartScarlet.Instance.Localizations.Localize(["midrow", "TrickDagger_Missile", "name"]);
+          daggerDescription = VionheartScarlet.Instance.Localizations.Localize(["midrow", "TrickDagger_Missile", "description"]);
+          daggerIcon = VionheartScarlet.Instance.TrickDagger_Icon;
           break;
         case MissileType.heavy:
-          Spr sprite_heavy = Vionheart.Instance.TrickDagger.Sprite;
+          Spr sprite_heavy = VionheartScarlet.Instance.TrickDagger.Sprite;
           DrawWithHilight(g, sprite_heavy, v1, flipX, targetPlayer);
-          daggerTitle = Vionheart.Instance.Localizations.Localize(["midrow", "YashaDagger_Missile", "name"]);
-          daggerDescription = Vionheart.Instance.Localizations.Localize(["midrow", "YashaDagger_Missile", "description"]);
-          daggerIcon = Vionheart.Instance.TrickDagger_Icon;
+          daggerTitle = VionheartScarlet.Instance.Localizations.Localize(["midrow", "YashaDagger_Missile", "name"]);
+          daggerDescription = VionheartScarlet.Instance.Localizations.Localize(["midrow", "YashaDagger_Missile", "description"]);
+          daggerIcon = VionheartScarlet.Instance.TrickDagger_Icon;
           break;
         case MissileType.seeker:
           int num = (missileData[missileType].seeking && g.state.route is Combat c) ? Math.Sign(GetSeekerImpact(g.state, c) - x) : 0;
-          Spr sprite_seeker = Vionheart.Instance.TrickDagger_Seeker.Sprite;
-          Spr sprite_seeker_angled = Vionheart.Instance.TrickDagger_Seeker_Angled.Sprite;
-          daggerTitle = Vionheart.Instance.Localizations.Localize(["midrow", "SangeDagger_Missile", "name"]);
-          daggerDescription = Vionheart.Instance.Localizations.Localize(["midrow", "SangeDagger_Missile", "description"]);
-          daggerIcon = Vionheart.Instance.TrickDagger_Seeker_Icon;
+          Spr sprite_seeker = VionheartScarlet.Instance.TrickDagger_Seeker.Sprite;
+          Spr sprite_seeker_angled = VionheartScarlet.Instance.TrickDagger_Seeker_Angled.Sprite;
+          daggerTitle = VionheartScarlet.Instance.Localizations.Localize(["midrow", "SangeDagger_Missile", "name"]);
+          daggerDescription = VionheartScarlet.Instance.Localizations.Localize(["midrow", "SangeDagger_Missile", "description"]);
+          daggerIcon = VionheartScarlet.Instance.TrickDagger_Seeker_Icon;
           if (num == 0)
           {
             DrawWithHilight(g, sprite_seeker, v1, flipX, targetPlayer);
@@ -102,7 +102,7 @@ namespace Vionheart.Midrow
 
     public override List<Tooltip> GetTooltips()
     {
-      return [new GlossaryTooltip($"{Vionheart.Instance.Package.Manifest.UniqueName}::Midrow::{daggerTitle}")
+      return [new GlossaryTooltip($"{VionheartScarlet.Instance.Package.Manifest.UniqueName}::Midrow::{daggerTitle}")
 			{
 				Icon = daggerIcon?.Sprite,
 				TitleColor = Colors.midrow,
@@ -150,12 +150,12 @@ namespace Vionheart.Midrow
     {
         public static Missile isTrickDagger(this Missile data)
         {
-            Vionheart.Instance.Helper.ModData.SetModData(data, "isTrickDagger", true);
+            VionheartScarlet.Instance.Helper.ModData.SetModData(data, "isTrickDagger", true);
             return data;
         }
         public static Missile juggleDamage(this Missile data)
         {
-            Vionheart.Instance.Helper.ModData.SetModData(data, "juggleDamage", 0);
+            VionheartScarlet.Instance.Helper.ModData.SetModData(data, "juggleDamage", 0);
             return data;
         }
     }

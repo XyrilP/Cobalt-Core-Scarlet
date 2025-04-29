@@ -3,7 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class SneakAttack : Card, IRegisterable
 {
@@ -20,12 +20,12 @@ public class SneakAttack : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck,
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.common,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "SneakAttack", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "SneakAttack", "name"]).Localize,
             Art = BaseArt.Sprite
         }
         );
@@ -71,7 +71,7 @@ public class SneakAttack : Card, IRegisterable
                 },
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                 }
@@ -92,7 +92,7 @@ public class SneakAttack : Card, IRegisterable
                 },
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                 }
@@ -112,7 +112,7 @@ public class SneakAttack : Card, IRegisterable
                 },
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                 }

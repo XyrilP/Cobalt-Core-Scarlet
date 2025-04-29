@@ -1,6 +1,6 @@
 ﻿using Nanoray.EnumByNameSourceGenerator;
 
-namespace Vionheart;
+namespace VionheartScarlet;
 
 /*
  * Enumeration (enum) types in C# are internally stored as numbers.

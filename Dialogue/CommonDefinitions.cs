@@ -1,13 +1,13 @@
 using System.Linq;
-using Vionheart;
+using VionheartScarlet;
 using Nickel;
 
-namespace Vionheart.Dialogue;
+namespace VionheartScarlet.Dialogue;
 
 internal static class CommonDefinitions
 {
-	internal static Vionheart Instance => Vionheart.Instance;
-	internal static string Scarlet => Vionheart.Instance.Scarlet_Deck.UniqueName;
+	internal static VionheartScarlet Instance => VionheartScarlet.Instance;
+	internal static string Scarlet => VionheartScarlet.Instance.Scarlet_Deck.UniqueName;
 	internal static Deck Scarlet_Deck => Instance.Scarlet_Deck.Deck;
 	internal static string Eunice => Deck.eunice.Key();
 	internal static Deck Eunice_Deck => Deck.eunice;
@@ -25,9 +25,9 @@ internal static class CommonDefinitions
 
 	// internal const string AmShopkeeper = "nerd";
 
-	// internal static Vionheart Instance => Vionheart.Instance;
+	// internal static VionheartScarlet Instance => VionheartScarlet.Instance;
 
-	// internal static string AmIScarlet => Vionheart.Instance.Scarlet_Deck.UniqueName;
+	// internal static string AmIScarlet => VionheartScarlet.Instance.Scarlet_Deck.UniqueName;
 
 	// internal static Deck AmIScarletDeck => Instance.Scarlet_Deck.Deck;
 
@@ -45,11 +45,11 @@ internal static class CommonDefinitions
 
 	// internal static string AmMax => EnumExtensions.Key((Deck)6);
 
-	// //internal static Status MissingScarlet => Vionheart.Scarlet.MissingStatus.Status;
+	// //internal static Status MissingScarlet => VionheartScarlet.Scarlet.MissingStatus.Status;
 
 	// // internal static string Check(this string loopTag)
 	// // {
-	// // 	if (Vionheart.Instance.Helper.Content.Contains(loopTag))
+	// // 	if (VionheartScarlet.Instance.Helper.Content.Contains(loopTag))
 	// // 	{
 	// // 		return loopTag;
 	// // 	}

@@ -4,10 +4,10 @@ using System.Reflection;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
-using static Vionheart.Dialogue.CommonDefinitions;
-using Vionheart.Artifacts;
+using static VionheartScarlet.Dialogue.CommonDefinitions;
+using VionheartScarlet.Artifacts;
 
-namespace Vionheart.Events;
+namespace VionheartScarlet.Events;
 
 internal sealed class Scarlet_Riggs_Date : IRegisterable
 {
@@ -306,9 +306,9 @@ internal sealed class Scarlet_Riggs_Date : IRegisterable
             label = "Run to the ship!",
             key = EventName + "_EnterCombat",
             actions = [
-                new AHeal
+                new AHurt
                 {
-                    healAmount = -1,
+                    hurtAmount = 1,
                     targetPlayer = true
                 },
                 new AStartCombat

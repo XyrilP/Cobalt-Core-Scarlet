@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Nanoray.PluginManager;
 using Nickel;
 
-namespace Vionheart.Artifacts;
+namespace VionheartScarlet.Artifacts;
 
 public class TrickAction : Artifact, IRegisterable
 {
@@ -15,10 +15,10 @@ public class TrickAction : Artifact, IRegisterable
             Meta = new ArtifactMeta
             {
                 pools = [ArtifactPool.Common],
-                owner = Vionheart.Instance.Scarlet_Deck.Deck
+                owner = VionheartScarlet.Instance.Scarlet_Deck.Deck
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "TrickAction", "name"]).Localize,
-            Description = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "TrickAction", "description"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "TrickAction", "name"]).Localize,
+            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "TrickAction", "description"]).Localize,
             Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/trick_action.png")).Sprite
         }
         );
@@ -26,9 +26,9 @@ public class TrickAction : Artifact, IRegisterable
 
     public override void OnTurnEnd(State state, Combat combat)
     {
-        if (state.ship.Get(Vionheart.Instance.Fade.Status) == 0)
+        if (state.ship.Get(VionheartScarlet.Instance.Fade.Status) == 0)
         {
-            state.ship.Add(Vionheart.Instance.Fade.Status, 1);
+            state.ship.Add(VionheartScarlet.Instance.Fade.Status, 1);
             combat.Queue(new ADummyAction
             {
                 artifactPulse = Key(),

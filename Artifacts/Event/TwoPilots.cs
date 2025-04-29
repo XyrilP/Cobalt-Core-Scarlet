@@ -5,7 +5,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 
-namespace Vionheart.Artifacts;
+namespace VionheartScarlet.Artifacts;
 
 public class TwoPilots : Artifact, IRegisterable
 {
@@ -20,8 +20,8 @@ public class TwoPilots : Artifact, IRegisterable
                 owner = Deck.colorless,
                 unremovable = true
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "TwoPilots", "name"]).Localize,
-            Description = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "TwoPilots", "description"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "TwoPilots", "name"]).Localize,
+            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "TwoPilots", "description"]).Localize,
             Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/two_pilots.png")).Sprite
         }
         );
@@ -45,7 +45,7 @@ public class TwoPilots : Artifact, IRegisterable
                 },
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                 },

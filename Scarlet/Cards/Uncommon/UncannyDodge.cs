@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class UncannyDodge : Card, IRegisterable
 {
@@ -17,12 +17,12 @@ public class UncannyDodge : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck,
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.uncommon,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "UncannyDodge", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "UncannyDodge", "name"]).Localize,
             Art = BaseArt?.Sprite
         }
         );
@@ -56,7 +56,7 @@ public class UncannyDodge : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 2,
                     targetPlayer = true,
                 },
@@ -71,7 +71,7 @@ public class UncannyDodge : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 2,
                     targetPlayer = true,
                 },
@@ -86,7 +86,7 @@ public class UncannyDodge : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = Vionheart.Instance.Fade.Status,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 2,
                     targetPlayer = true,
                 },

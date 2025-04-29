@@ -12,23 +12,23 @@ using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Vionheart.Features;
+namespace VionheartScarlet.Features;
 
 public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 {
     public static int fadeDodgeStack = 0;
     public FadeManager(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        Vionheart.Instance.KokoroApi.StatusRendering.RegisterHook(this);
-        Vionheart.Instance.Harmony.Patch(
+        VionheartScarlet.Instance.KokoroApi.StatusRendering.RegisterHook(this);
+        VionheartScarlet.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
             prefix: new HarmonyMethod(GetType(), nameof(AAttack_Begin_Prefix))
         );
-        Vionheart.Instance.Harmony.Patch(
+        VionheartScarlet.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.ApplyAutododge)),
             prefix: new HarmonyMethod(GetType(), nameof(AAttack_ApplyAutododge_Prefix))
         );
-        Vionheart.Instance.Harmony.Patch(
+        VionheartScarlet.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(Ship), nameof(Ship.OnBeginTurn)),
             postfix: new HarmonyMethod(GetType(), nameof(Ship_OnBeginTurn_Postfix))
         );
@@ -36,21 +36,21 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
     public static void AAttack_Begin_Prefix(AAttack __instance, G g, State s, Combat c)
     {
         Ship ship = __instance.targetPlayer ? c.otherShip : s.ship;
-        if (ship.Get(Vionheart.Instance.Fade.Status) > 0 && !__instance.fromDroneX.HasValue)
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0 && !__instance.fromDroneX.HasValue)
         {
             __instance.piercing = true;
-            ship.Add(Vionheart.Instance.Fade.Status, -1);
+            ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
         }
     }
     public static bool AAttack_ApplyAutododge_Prefix(AAttack __instance, Combat c, Ship target, RaycastResult ray, ref bool __result)
     {
         if (ray.hitShip && !__instance.isBeam)
         {
-            if (target.Get(Vionheart.Instance.Fade.Status) > 0)
+            if (target.Get(VionheartScarlet.Instance.Fade.Status) > 0)
             {
                 fadeDodgeStack++; // Multiple instances of Fade activation will increase distance travelled.
                 /* Decrease Fade once attack is evaded. */
-                target.Add(Vionheart.Instance.Fade.Status, -1);
+                target.Add(VionheartScarlet.Instance.Fade.Status, -1);
 
                 /* WIP: Instead of cancelling attack, make attack miss. */
                     /* Code here */
@@ -80,9 +80,9 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 		{
             /* Timestop will decrement itself. */
 		}
-		else if (__instance.Get(Vionheart.Instance.Fade.Status) > 0)
+		else if (__instance.Get(VionheartScarlet.Instance.Fade.Status) > 0)
 		{
-		    __instance.Add(Vionheart.Instance.Fade.Status, 0);
+		    __instance.Add(VionheartScarlet.Instance.Fade.Status, 0);
 		}
     }
 }

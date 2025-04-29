@@ -8,20 +8,20 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using XyrilP.ExternalAPI;
-using Vionheart.Features;
-using Vionheart.Cards;
-using Vionheart.Dialogue;
-using Vionheart.Artifacts;
-using Vionheart.Events;
+using VionheartScarlet.Features;
+using VionheartScarlet.Cards;
+using VionheartScarlet.Dialogue;
+using VionheartScarlet.Artifacts;
+using VionheartScarlet.Events;
 
 
 
-namespace Vionheart;
-internal class Vionheart : SimpleMod
+namespace VionheartScarlet;
+internal class VionheartScarlet : SimpleMod
 {
     /* Declare stuff! */
 
-    internal static Vionheart Instance { get; private set; } = null!;
+    internal static VionheartScarlet Instance { get; private set; } = null!;
     internal Harmony Harmony;
     internal IKokoroApi.IV2 KokoroApi;
     internal IMoreDifficultiesApi? MoreDifficultiesApi { get; private set; } = null;
@@ -47,9 +47,9 @@ internal class Vionheart : SimpleMod
     internal ISpriteEntry TrickDagger_Heavy { get; }
     internal ISpriteEntry TrickDagger_Heavy_Icon { get; }
 
-    internal IDeckEntry Sweetroll_Deck;
+    //internal IDeckEntry Sweetroll_Deck;
 
-    /* Vionheart Content */
+    /* VionheartScarlet Content */
     private static List<Type> Colorless_Common_Card_Types = [
         /* Common cards. */
     ];
@@ -95,7 +95,7 @@ internal class Vionheart : SimpleMod
             .Concat(Colorless_All_Artifact_Types)
             .Concat(Ship_Artifact_Types)
             .Concat(Event_Types);
-    /* Vionheart Content */
+    /* VionheartScarlet Content */
     /* Scarlet Content */
     private static List<Type> Scarlet_Common_Card_Types = [
         /* Scarlet's common cards. */
@@ -166,8 +166,8 @@ internal class Vionheart : SimpleMod
     /* Sweetroll Content */
     private static List<Type> Sweetroll_Common_Card_Types = [
         /* Sweetroll's common cards. */
-        typeof(Directive),
-        typeof(VulcanShotgun)
+        // typeof(Directive),
+        // typeof(VulcanShotgun)
     ];
     private static List<Type> Sweetroll_Uncommon_Card_Types = [
         /* Sweetroll's uncommon cards. */
@@ -177,7 +177,7 @@ internal class Vionheart : SimpleMod
     ];
     private static List<Type> Sweetroll_Special_Card_Types = [
         /* Sweetroll's special cards. */
-        typeof(ReloadVulcanShotgun)
+        // typeof(ReloadVulcanShotgun)
     ];
         /* Concat all Sweetroll cards. */
     private static IEnumerable<Type> Sweetroll_All_Card_Types = 
@@ -187,7 +187,7 @@ internal class Vionheart : SimpleMod
             .Concat(Sweetroll_Special_Card_Types);
     private static List<Type> Sweetroll_Common_Artifact_Types = [
         /* Sweetroll's common artifacts. */
-        typeof(Foresight)
+        // typeof(Foresight)
     ];
     private static List<Type> Sweetroll_Boss_Artifact_Types = [
         /* Sweetroll's boss artifacts. */
@@ -205,12 +205,12 @@ internal class Vionheart : SimpleMod
         Vionheart_Content
             .Concat(Scarlet_Content)
             .Concat(Sweetroll_Content);
-    public Vionheart(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
+    public VionheartScarlet(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
 
         Instance = this;
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!.V2; //Updated to V2!
-        Harmony = new Harmony("Vionheart"); //New API? (Harmony)
+        Harmony = new Harmony("VionheartScarlet"); //New API? (Harmony)
         MoreDifficultiesApi = helper.ModRegistry.GetApi<IMoreDifficultiesApi>("TheJazMaster.MoreDifficulties", (SemanticVersion?)null);
         DuoArtifactsApi = helper.ModRegistry.GetApi<IDuoArtifactsApi>("Shockah.DuoArtifacts");
         modDialogueInited = false;
@@ -368,58 +368,58 @@ internal class Vionheart : SimpleMod
         TrickDagger_Heavy_Icon = RegisterSprite(package, "assets/icons/Trick-Dagger_Heavy_Icon.png");
         /* Trick Dagger Seeker midrow + icon */
         /* Sweetroll Content */
-        Sweetroll_Deck = helper.Content.Decks.RegisterDeck("SweetrollDeck", new DeckConfiguration
-        {
-            Definition = new DeckDef
-            {
-                color = new Color("5F00BC"), //old color: 560319
-                titleColor = new Color("000000")
-            },
-            DefaultCardArt = RegisterSprite(package, "assets/cards/cardbg_blank.png").Sprite,
-            BorderSprite = RegisterSprite(package, "assets/cards/border_sweetroll.png").Sprite,
-            Name = AnyLocalizations.Bind(["character", "Sweetroll", "name"]).Localize
-        }
-        );
+        // Sweetroll_Deck = helper.Content.Decks.RegisterDeck("SweetrollDeck", new DeckConfiguration
+        // {
+        //     Definition = new DeckDef
+        //     {
+        //         color = new Color("5F00BC"), //old color: 560319
+        //         titleColor = new Color("000000")
+        //     },
+        //     DefaultCardArt = RegisterSprite(package, "assets/cards/cardbg_blank.png").Sprite,
+        //     BorderSprite = RegisterSprite(package, "assets/cards/border_sweetroll.png").Sprite,
+        //     Name = AnyLocalizations.Bind(["character", "Sweetroll", "name"]).Localize
+        // }
+        // );
             /* Sweetroll Sprites */
                 /* Sweetroll NEUTRAL */
-        Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
-        {
-            CharacterType = Sweetroll_Deck.Deck.Key(),
-            LoopTag = "neutral",
-            Frames = [
-                RegisterSprite(package, "assets/characters/sweetroll_neutral_0.png").Sprite,
-            ]
-        }
-        );
+        // Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
+        // {
+        //     CharacterType = Sweetroll_Deck.Deck.Key(),
+        //     LoopTag = "neutral",
+        //     Frames = [
+        //         RegisterSprite(package, "assets/characters/sweetroll_neutral_0.png").Sprite,
+        //     ]
+        // }
+        // );
 
                 /* Sweetroll MINI */
-        Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
-        {
-            CharacterType = Sweetroll_Deck.Deck.Key(),
-            LoopTag = "mini",
-            Frames = [
-                RegisterSprite(package, "assets/characters/sweetroll_mini_0.png").Sprite,
-            ]
-        }
-        );
+        // Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
+        // {
+        //     CharacterType = Sweetroll_Deck.Deck.Key(),
+        //     LoopTag = "mini",
+        //     Frames = [
+        //         RegisterSprite(package, "assets/characters/sweetroll_mini_0.png").Sprite,
+        //     ]
+        // }
+        // );
             /* Register Sweetroll as a Playable Character plus his Deck */
-        helper.Content.Characters.V2.RegisterPlayableCharacter("Sweetroll", new PlayableCharacterConfigurationV2
-        {
-            Deck = Sweetroll_Deck.Deck,
-            BorderSprite = RegisterSprite(package, "assets/characters/char_sweetroll.png").Sprite,
-            Starters = new StarterDeck
-            {
-                cards = [
-                    new Directive(),
-                    new VulcanShotgun()
-                ],
-                artifacts = [
-                    new Foresight()
-                ]
-            },
-            Description = AnyLocalizations.Bind(["character", "Sweetroll", "description"]).Localize
-        }
-        );
+        // helper.Content.Characters.V2.RegisterPlayableCharacter("Sweetroll", new PlayableCharacterConfigurationV2
+        // {
+        //     Deck = Sweetroll_Deck.Deck,
+        //     BorderSprite = RegisterSprite(package, "assets/characters/char_sweetroll.png").Sprite,
+        //     Starters = new StarterDeck
+        //     {
+        //         cards = [
+        //             new Directive(),
+        //             new VulcanShotgun()
+        //         ],
+        //         artifacts = [
+        //             new Foresight()
+        //         ]
+        //     },
+        //     Description = AnyLocalizations.Bind(["character", "Sweetroll", "description"]).Localize
+        // }
+        // );
         /* Register all artifacts and cards into the game, allowing it to be played. (Based on AllRegisterableTypes) */
         foreach (var type in AllRegisterableTypes)
             AccessTools.DeclaredMethod(type, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);

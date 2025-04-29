@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Nickel;
 using System;
 using System.Collections.Generic;
-using Vionheart.Actions;
+using VionheartScarlet.Actions;
 
-namespace Vionheart.Midrow
+namespace VionheartScarlet.Midrow
 {
   public class SangeDagger_Missile : Missile
   {
@@ -16,7 +16,7 @@ namespace Vionheart.Midrow
 
     static SangeDagger_Missile()
     {
-      DB.drones[MIDROW_OBJECT_NAME] = Vionheart.Instance.TrickDagger_Seeker.Sprite;
+      DB.drones[MIDROW_OBJECT_NAME] = VionheartScarlet.Instance.TrickDagger_Seeker.Sprite;
     }
 
     public SangeDagger_Missile() => this.skin = MIDROW_OBJECT_NAME;
@@ -27,7 +27,7 @@ namespace Vionheart.Midrow
 
     public override string GetDialogueTag() => MIDROW_OBJECT_NAME;
 
-    public override Spr? GetIcon() => new Spr?(Vionheart.Instance.TrickDagger_Seeker_Icon.Sprite);
+    public override Spr? GetIcon() => new Spr?(VionheartScarlet.Instance.TrickDagger_Seeker_Icon.Sprite);
 
     public override void Render(G g, Vec v)
     {
@@ -47,9 +47,9 @@ namespace Vionheart.Midrow
       bool flag2 = !targetPlayer;
       // Color? nullable3 = new Color?(exhaustColor);
       missileType = MissileType.seeker;
-      Spr sprite_animated = Vionheart.Instance.TrickDagger_Seeker_Animated.Sprite;
-      Spr sprite = Vionheart.Instance.TrickDagger_Seeker.Sprite; 
-      Spr sprite_angled = Vionheart.Instance.TrickDagger_Seeker_Angled.Sprite;
+      Spr sprite_animated = VionheartScarlet.Instance.TrickDagger_Seeker_Animated.Sprite;
+      Spr sprite = VionheartScarlet.Instance.TrickDagger_Seeker.Sprite; 
+      Spr sprite_angled = VionheartScarlet.Instance.TrickDagger_Seeker_Angled.Sprite;
       int num = (missileData[missileType].seeking && g.state.route is Combat c) ? Math.Sign(GetSeekerImpact(g.state, c) - x) : 0;
       if (num == 0)
       {
@@ -66,12 +66,12 @@ namespace Vionheart.Midrow
 
     public override List<Tooltip> GetTooltips()
     {
-      return [new GlossaryTooltip($"{Vionheart.Instance.Package.Manifest.UniqueName}::Midrow::SangeDagger_Missile")
+      return [new GlossaryTooltip($"{VionheartScarlet.Instance.Package.Manifest.UniqueName}::Midrow::SangeDagger_Missile")
 			{
-				Icon = Vionheart.Instance.TrickDagger_Seeker_Icon.Sprite,
+				Icon = VionheartScarlet.Instance.TrickDagger_Seeker_Icon.Sprite,
 				TitleColor = Colors.midrow,
-				Title = Vionheart.Instance.Localizations.Localize(["midrow", "SangeDagger_Missile", "name"]),
-				Description = Vionheart.Instance.Localizations.Localize(["midrow", "SangeDagger_Missile", "description"])
+				Title = VionheartScarlet.Instance.Localizations.Localize(["midrow", "SangeDagger_Missile", "name"]),
+				Description = VionheartScarlet.Instance.Localizations.Localize(["midrow", "SangeDagger_Missile", "description"])
 			}];
     }
 

@@ -3,7 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class _templateCardV2_new : Card, IRegisterable
 {
@@ -25,7 +25,7 @@ public class _templateCardV2_new : Card, IRegisterable
                 dontOffer = false, //Should this card be offered to the player?
                 upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Placeholder", "name"]).Localize, //Card's name, localized.
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Placeholder", "name"]).Localize, //Card's name, localized.
             Art = BaseArt?.Sprite //Card art
         }
         );

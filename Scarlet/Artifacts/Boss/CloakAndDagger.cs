@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Nanoray.PluginManager;
 using Nickel;
 
-namespace Vionheart.Artifacts;
+namespace VionheartScarlet.Artifacts;
 
 public class CloakAndDagger : Artifact, IRegisterable
 {
@@ -15,10 +15,10 @@ public class CloakAndDagger : Artifact, IRegisterable
             Meta = new ArtifactMeta
             {
                 pools = [ArtifactPool.Boss],
-                owner = Vionheart.Instance.Scarlet_Deck.Deck
+                owner = VionheartScarlet.Instance.Scarlet_Deck.Deck
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "CloakAndDagger", "name"]).Localize,
-            Description = Vionheart.Instance.AnyLocalizations.Bind(["artifact", "CloakAndDagger", "description"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "CloakAndDagger", "name"]).Localize,
+            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "CloakAndDagger", "description"]).Localize,
             Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/cloak_and_dagger.png")).Sprite
         }
         );
@@ -26,7 +26,7 @@ public class CloakAndDagger : Artifact, IRegisterable
 
     public override void OnTurnStart(State state, Combat combat)
     {
-        state.ship.Add(Vionheart.Instance.Fade.Status, 1);
+        state.ship.Add(VionheartScarlet.Instance.Fade.Status, 1);
         combat.Queue(new ADummyAction
         {
             artifactPulse = Key()
@@ -36,7 +36,7 @@ public class CloakAndDagger : Artifact, IRegisterable
 
     // public override bool? OnPlayerAttackMakeItPierce(State state, Combat combat)
     // {
-    //     if (state.ship.Get(Vionheart.Instance.Fade.Status) > 0)
+    //     if (state.ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
     //     {
     //         combat.QueueImmediate
     //         (
@@ -52,7 +52,7 @@ public class CloakAndDagger : Artifact, IRegisterable
     public override int ModifyBaseDamage(int baseDamage, Card? card, State state, Combat? combat, bool fromPlayer)
     {
         Ship ship = state.ship;
-        if (ship.Get(Vionheart.Instance.Fade.Status) > 0 && fromPlayer)
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0 && fromPlayer)
         {
             return 1;
         }

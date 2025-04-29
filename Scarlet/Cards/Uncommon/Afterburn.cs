@@ -3,7 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Vionheart.Cards;
+namespace VionheartScarlet.Cards;
 
 public class Afterburn : Card, IRegisterable
 {
@@ -16,12 +16,12 @@ public class Afterburn : Card, IRegisterable
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = Vionheart.Instance.Scarlet_Deck.Deck,
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.uncommon,
                 dontOffer = false,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Vionheart.Instance.AnyLocalizations.Bind(["card", "Afterburn", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Afterburn", "name"]).Localize,
             Art = BaseArt?.Sprite
         }
         );
@@ -65,7 +65,7 @@ public class Afterburn : Card, IRegisterable
                 },
                 new AStatus
                 {
-                    status = Vionheart.Instance.scarletBarrage.Status,
+                    status = VionheartScarlet.Instance.scarletBarrage.Status,
                     statusAmount = 2,
                     targetPlayer = true,
                     mode = AStatusMode.Set
@@ -93,7 +93,7 @@ public class Afterburn : Card, IRegisterable
                 },
                 new AStatus
                 {
-                    status = Vionheart.Instance.scarletBarrage.Status,
+                    status = VionheartScarlet.Instance.scarletBarrage.Status,
                     statusAmount = 2,
                     targetPlayer = true,
                     mode = AStatusMode.Set
@@ -121,7 +121,7 @@ public class Afterburn : Card, IRegisterable
                 },
                 new AStatus
                 {
-                    status = Vionheart.Instance.scarletBarrage.Status,
+                    status = VionheartScarlet.Instance.scarletBarrage.Status,
                     statusAmount = 2,
                     targetPlayer = true,
                     mode = AStatusMode.Set

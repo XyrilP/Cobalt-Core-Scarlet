@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
 
-namespace Vionheart.Dialogue;
+namespace VionheartScarlet.Dialogue;
 
 /**
 ver.0.11
 
 To get DialogueMachine and the custom dialogue stuff working:
 - edit the namespace of this file to at least match your project namespace
-- Instantiate LocalDB in Vionheart.cs *after* all the dialogue has been added (or in a helper.Events.OnModLoadFinished AfterDbInit presented as such below):
+- Instantiate LocalDB in VionheartScarlet.cs *after* all the dialogue has been added (or in a helper.Events.OnModLoadFinished AfterDbInit presented as such below):
         helper.Events.OnModLoadPhaseFinished += (_, phase) =>
         {
             if (phase == ModLoadPhase.AfterDbInit)
@@ -252,9 +252,9 @@ public class DialogueMachine : StoryNode
             foreach (Type type in hasArtifactTypes)
             {
                 // Modded
-                if(Vionheart.Instance.Helper?.Content?.Artifacts?.LookupByArtifactType(type) is IArtifactEntry iae) hasArtifacts.Add(iae.UniqueName);
+                if(VionheartScarlet.Instance.Helper?.Content?.Artifacts?.LookupByArtifactType(type) is IArtifactEntry iae) hasArtifacts.Add(iae.UniqueName);
                 else if(DB.artifacts.ContainsValue(type)) hasArtifacts.Add(DB.artifacts.First(x => x.Value == type).Key);
-                else Vionheart.Instance.Logger.LogWarning($"Error when moving {type.Name} from [hasArtifactTypes] to [hasArtifacts]! Perhaps the artifact isn't registered yet or misspelt?");
+                else VionheartScarlet.Instance.Logger.LogWarning($"Error when moving {type.Name} from [hasArtifactTypes] to [hasArtifacts]! Perhaps the artifact isn't registered yet or misspelt?");
             }
         }
         if (doesNotHaveArtifactTypes is not null)
@@ -263,9 +263,9 @@ public class DialogueMachine : StoryNode
             foreach (Type type in doesNotHaveArtifactTypes)
             {
                 // Modded
-                if(Vionheart.Instance.Helper?.Content?.Artifacts?.LookupByArtifactType(type) is IArtifactEntry iae) doesNotHaveArtifacts.Add(iae.UniqueName);
+                if(VionheartScarlet.Instance.Helper?.Content?.Artifacts?.LookupByArtifactType(type) is IArtifactEntry iae) doesNotHaveArtifacts.Add(iae.UniqueName);
                 else if(DB.artifacts.ContainsValue(type)) doesNotHaveArtifacts.Add(DB.artifacts.First(x => x.Value == type).Key);
-                else Vionheart.Instance.Logger.LogWarning($"Error when moving {type.Name} from [doesNotHaveArtifactTypes] to [doesNotHaveArtifacts]! Perhaps the artifact isn't registered yet or misspelt?");
+                else VionheartScarlet.Instance.Logger.LogWarning($"Error when moving {type.Name} from [doesNotHaveArtifactTypes] to [doesNotHaveArtifacts]! Perhaps the artifact isn't registered yet or misspelt?");
             }
         }
         if (edit is not null)  // Skips dialogue conversion if edits are available
@@ -369,11 +369,11 @@ public class DialogueMachine : StoryNode
     /// <returns></returns>
     public static bool CharExists(string name)
     {
-        if (Vionheart.Instance.Helper.Content?.Decks?.LookupByUniqueName(name) is not null) return true;
+        if (VionheartScarlet.Instance.Helper.Content?.Decks?.LookupByUniqueName(name) is not null) return true;
 
         if (DB.currentLocale.strings.ContainsKey("char." + name)) return true;  // this probably doesn't even work
 
-        // if (Vionheart.Instance.Helper.Content?.Decks?.LookupByUniqueName($"{Vionheart.Instance.UniqueName}::{name}") is not null)
+        // if (VionheartScarlet.Instance.Helper.Content?.Decks?.LookupByUniqueName($"{VionheartScarlet.Instance.UniqueName}::{name}") is not null)
         // {
         //     return true;
         // }
@@ -388,7 +388,7 @@ public class DialogueMachine : StoryNode
     public static bool ArtifactExists(string name)
     {
         // Modded artifacts
-        if (Vionheart.Instance.Helper.Content?.Artifacts?.LookupByUniqueName(name) is not null) return true;
+        if (VionheartScarlet.Instance.Helper.Content?.Artifacts?.LookupByUniqueName(name) is not null) return true;
         // Game artifacts
         if (DB.artifacts.ContainsKey(name)) return true;
         return false;
@@ -464,7 +464,7 @@ public class LocalDB
                     {
                         if (!toUseStory.all.TryAdd(thing2.Key, thing2.Value))
                         {
-                            Vionheart.Instance.Logger.LogWarning("Could not add dialogue: " + thing2.Key);
+                            VionheartScarlet.Instance.Logger.LogWarning("Could not add dialogue: " + thing2.Key);
                         }
                     }
                 }
@@ -522,7 +522,7 @@ public class LocalDB
             // Tries to add the dialogue in the local locale local locale thing
             if (!ModdedStoryLocale[modKey][locale].all.TryAdd(dm.Key, dm.Value))
             {
-                Vionheart.Instance.Logger.LogWarning("Could not add dialogue: " + dm.Key);
+                VionheartScarlet.Instance.Logger.LogWarning("Could not add dialogue: " + dm.Key);
             }
         }
     }
@@ -547,7 +547,7 @@ public class LocalDB
             // Tries to add the dialogue in the local locale local locale thing
             if (!LocalStoryLocale[locale].all.TryAdd(dm.Key, dm.Value))
             {
-                Vionheart.Instance.Logger.LogWarning("Could not add dialogue: " + dm.Key);
+                VionheartScarlet.Instance.Logger.LogWarning("Could not add dialogue: " + dm.Key);
             }
         }
     }
@@ -561,7 +561,7 @@ public class LocalDB
             {
                 if (!DialogueMachine.ArtifactExists(artifact))
                 {
-                    Vionheart.Instance.Logger.LogWarning(dm.Key + "'s <hasArtifacts> may contain an erroneous artifact [" + artifact + "] that may not be recognized by the game! (or if it's a modded artifact: the mod isn't loaded.)");
+                    VionheartScarlet.Instance.Logger.LogWarning(dm.Key + "'s <hasArtifacts> may contain an erroneous artifact [" + artifact + "] that may not be recognized by the game! (or if it's a modded artifact: the mod isn't loaded.)");
                 }
             }
         }
@@ -571,7 +571,7 @@ public class LocalDB
             {
                 if (!DialogueMachine.ArtifactExists(artifact))
                 {
-                    Vionheart.Instance.Logger.LogWarning(dm.Key + "'s <doesNotHaveArtifacts> may contain an erroneous artifact [" + artifact + "] that may not be recognized by the game! (or if it's a modded artifact: the mod isn't loaded.)");
+                    VionheartScarlet.Instance.Logger.LogWarning(dm.Key + "'s <doesNotHaveArtifacts> may contain an erroneous artifact [" + artifact + "] that may not be recognized by the game! (or if it's a modded artifact: the mod isn't loaded.)");
                 }
             }
         }
@@ -583,7 +583,7 @@ public class LocalDB
             {
                 if (!DialogueMachine.CharExists(characer))
                 {
-                    Vionheart.Instance.Logger.LogWarning(dm.Key + "'s <allPresent> may contain an erroneous character [" + characer + "] that may not be recognized by the game! (or if it's a modded artifact: the mod isn't loaded.)");
+                    VionheartScarlet.Instance.Logger.LogWarning(dm.Key + "'s <allPresent> may contain an erroneous character [" + characer + "] that may not be recognized by the game! (or if it's a modded artifact: the mod isn't loaded.)");
                 }
             }
         }
@@ -593,7 +593,7 @@ public class LocalDB
             {
                 if (!DialogueMachine.CharExists(characer))
                 {
-                    Vionheart.Instance.Logger.LogWarning(dm.Key + "'s <nonePresent> may contain an erroneous character [" + characer + "] that may not be recognized by the game! (or if it's a modded artifact: the mod isn't loaded.)");
+                    VionheartScarlet.Instance.Logger.LogWarning(dm.Key + "'s <nonePresent> may contain an erroneous character [" + characer + "] that may not be recognized by the game! (or if it's a modded artifact: the mod isn't loaded.)");
                 }
             }
         }
@@ -601,7 +601,7 @@ public class LocalDB
         // Checks if the edit dialogue thing's key is valid
         if (dm.Value.edit is not null && !DB.story.all.ContainsKey(dm.Key))
         {
-            Vionheart.Instance.Logger.LogWarning(dm.Key + " is trying to add to a dialogue that doesn't exist in game (yet)! If you're trying to edit modded dialogue, this may not be the appropriate way!");
+            VionheartScarlet.Instance.Logger.LogWarning(dm.Key + " is trying to add to a dialogue that doesn't exist in game (yet)! If you're trying to edit modded dialogue, this may not be the appropriate way!");
         }
     }
 
@@ -702,7 +702,7 @@ public class LocalDB
         }
         catch (Exception err)
         {
-            Vionheart.Instance.Logger.LogError(err, "Failed to edit a line with key:" + script);
+            VionheartScarlet.Instance.Logger.LogError(err, "Failed to edit a line with key:" + script);
             return existingStory;
         }
     }
@@ -777,7 +777,7 @@ public class LocalDB
         }
         catch (Exception err)
         {
-            Vionheart.Instance.Logger.LogError(err, "Failed to edit a line with key:" + script);
+            VionheartScarlet.Instance.Logger.LogError(err, "Failed to edit a line with key:" + script);
             return existingStory;
         }
     }

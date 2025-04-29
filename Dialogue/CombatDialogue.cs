@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Vionheart;
+using VionheartScarlet;
 using Microsoft.Extensions.Logging;
 using Nickel;
-using static Vionheart.Dialogue.CommonDefinitions;
+using static VionheartScarlet.Dialogue.CommonDefinitions;
 
-namespace Vionheart.Dialogue;
+namespace VionheartScarlet.Dialogue;
 
 internal static class CombatDialogue
 {
@@ -410,7 +410,7 @@ internal static class CombatDialogue
         DB.story.all["Scarlet_FadeGeneric_0"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [Vionheart.Instance.Fade.Status],
+            lastTurnPlayerStatuses = [VionheartScarlet.Instance.Fade.Status],
 			oncePerCombatTags = [ "FadeGeneric" ],
 			allPresent = [ Scarlet ],
 			lines = new()
@@ -427,7 +427,7 @@ internal static class CombatDialogue
         DB.story.all["Scarlet_FadeGeneric_1"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [Vionheart.Instance.Fade.Status],
+            lastTurnPlayerStatuses = [VionheartScarlet.Instance.Fade.Status],
 			oncePerCombatTags = [ "FadeGeneric" ],
 			allPresent = [ Scarlet ],
 			lines = new()
@@ -444,7 +444,7 @@ internal static class CombatDialogue
         DB.story.all["Scarlet_FadeGeneric_2"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [Vionheart.Instance.Fade.Status],
+            lastTurnPlayerStatuses = [VionheartScarlet.Instance.Fade.Status],
 			oncePerCombatTags = [ "FadeGeneric" ],
 			allPresent = [ Scarlet ],
 			lines = new()
@@ -461,7 +461,7 @@ internal static class CombatDialogue
 		DB.story.all["Scarlet_FadeGeneric_3"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [Vionheart.Instance.Fade.Status],
+            lastTurnPlayerStatuses = [VionheartScarlet.Instance.Fade.Status],
 			oncePerCombatTags = [ "FadeGeneric" ],
 			allPresent = [ Scarlet ],
 			lines = new()
@@ -478,7 +478,7 @@ internal static class CombatDialogue
 		DB.story.all["Scarlet_FadeGeneric_4"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [Vionheart.Instance.Fade.Status],
+            lastTurnPlayerStatuses = [VionheartScarlet.Instance.Fade.Status],
 			oncePerCombatTags = [ "FadeGeneric" ],
 			allPresent = [ Scarlet ],
 			lines = new()
@@ -495,7 +495,7 @@ internal static class CombatDialogue
 		DB.story.all["Scarlet_TemporaryStrafeGeneric_0"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [ Vionheart.Instance.scarletBarrage.Status ],
+            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.scarletBarrage.Status ],
 			oncePerCombatTags = [ "TemporaryStrafeTag" ],
 			allPresent = [ Scarlet ],
 			lines = new()
@@ -512,7 +512,7 @@ internal static class CombatDialogue
 		DB.story.all["Scarlet_TemporaryStrafeGeneric_1"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [ Vionheart.Instance.scarletBarrage.Status ],
+            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.scarletBarrage.Status ],
 			oncePerCombatTags = [ "TemporaryStrafeTag" ],
 			allPresent = [ Scarlet ],
 			lines = new()

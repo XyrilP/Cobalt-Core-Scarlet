@@ -5,7 +5,7 @@ using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
 
-namespace Vionheart.Events;
+namespace VionheartScarlet.Events;
 
 internal sealed class VanguardBerthingEvent : IRegisterable
 {
