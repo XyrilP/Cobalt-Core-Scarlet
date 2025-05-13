@@ -67,6 +67,7 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
                         }
                     ]
                 );
+                
                 __result = true; //This will cause attack to cancel itself.
                 return false; //Stop prefixing plus ignore the prefixed method.
             }

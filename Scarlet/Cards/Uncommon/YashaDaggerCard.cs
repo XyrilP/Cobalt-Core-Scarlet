@@ -55,8 +55,9 @@ public class YashaDaggerCard : Card, IRegisterable
             [
                 new ASpawn
                 {
-                    thing = new YashaDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.heavy
                     }
                 },
                 new AStatus
@@ -70,8 +71,9 @@ public class YashaDaggerCard : Card, IRegisterable
             [
                 new ASpawn
                 {
-                    thing = new YashaDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.heavy
                     }
                 },
                 new AStatus
@@ -85,8 +87,9 @@ public class YashaDaggerCard : Card, IRegisterable
             [
                 new ASpawn
                 {
-                    thing = new YashaDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.heavy
                     }
                 },
                 new AStatus

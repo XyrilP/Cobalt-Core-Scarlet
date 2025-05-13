@@ -66,8 +66,9 @@ public class SangeDaggerCard : Card, IRegisterable
                 },
                 new ASpawn
                 {
-                    thing = new SangeDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.seeker
                     }
                 }
             ],
@@ -75,8 +76,9 @@ public class SangeDaggerCard : Card, IRegisterable
             [
                 new ASpawn
                 {
-                    thing = new SangeDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.seeker
                     }
                 },
                 new AMove
@@ -87,8 +89,9 @@ public class SangeDaggerCard : Card, IRegisterable
                 },
                 new ASpawn
                 {
-                    thing = new SangeDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.seeker
                     }
                 }
             ],
@@ -101,8 +104,9 @@ public class SangeDaggerCard : Card, IRegisterable
                 },
                 new ASpawn
                 {
-                    thing = new SangeDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.seeker
                     }
                 }
             ],

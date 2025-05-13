@@ -33,16 +33,15 @@ public class RunAndGun : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 2
+                cost = 1
             },
             Upgrade.A => new CardData
             {
-                cost = 1
+                cost = 0
             },
             Upgrade.B => new CardData
             {
-                cost = 0,
-                exhaust = true
+                cost = 1
             },
             _ => new CardData{}
         };
@@ -79,6 +78,16 @@ public class RunAndGun : Card, IRegisterable
                     statusAmount = 1,
                     targetPlayer = true,
                     mode = AStatusMode.Set
+                },
+                new AMove
+                {
+                    dir = -1,
+                    targetPlayer = true
+                },
+                new AMove
+                {
+                    dir = 2,
+                    targetPlayer = true
                 }
             ],
             _ => []

@@ -1,0 +1,29 @@
+Scarlet 1.1.5 Playtest
+- Adjusted Vanguard ship starting cards
+    * Now starts with the standard 2 Basic Attacks, 1 Basic Shield, 1 Basic Dodge.
+Scarlet 1.1.4 Playtest
+- Added (PROTOTYPE) Vanguard ship.
+    * Vanguard ship is in prototype stage... for playtesting only.
+    * Vanguard ship has 18 Hull and 6 Max Shield.
+    * Vanguard ship is [Wing][Extra, Armored][Missile Bay][Cockpit][Cannon][Extra, Armored][Wing]
+    * Vanguard ship gains additional crew members.
+        * Gain 1 at start of run.
+        * Gain 1 more as Boss Artifact.
+        * Gain 1 more as Boss Artifact.
+        * Each additional crew member adds +1 card draw and 1 Energy Fragment at start of turn. (Total of +3 card draw and 1 Energy per turn)
+- Card adjustments.
+    * Run and Gun is now 1 energy.
+        * A: 0 Energy
+        * B: Adds MOVE LEFT 2, MOVE RIGHT 1
+- Status adjustments.
+    * Saturation Barrage now reduces by 1 per turn. (Was removed entirely.)
+    * Saturation Barrage now evaluates faster. (More speed = Better enjoyment/QoL)
+    * Saturation Barrage attacks reduce Fade. (Bug fix)
+- Solo Scarlet Starters
+    * Scarlet now has a defined solo starter deck.
+        * Sneak Attack
+        * Hide & Sneak
+        * Adjust Throttle
+        * Run & Gun
+        * Basic Shot
+        * Basic Shield

@@ -4,11 +4,13 @@ using JetBrains.Annotations;
 using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
+using HarmonyLib;
 
 namespace VionheartScarlet.Artifacts;
 
-public class VanguardBerthing : Artifact, IRegisterable
+public class VanguardBerthingInitial : Artifact, IRegisterable
 {
+    bool characterAdded { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         helper.Content.Artifacts.RegisterArtifact(new ArtifactConfiguration
@@ -22,25 +24,24 @@ public class VanguardBerthing : Artifact, IRegisterable
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "name"]).Localize,
             Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "description"]).Localize,
-            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/artifact_placeholder.png")).Sprite
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/vanguard_berthing.png")).Sprite
         }
         );
+        
     }
-
-    public override void OnReceiveArtifact(State state)
+    public override void OnCombatStart(State state, Combat combat)
     {
-        Rand rng = new Rand(state.rngCurrentEvent.seed + 3629);
-        Ship ship = state.ship;
-        List<Deck> list = (from dt in state.storyVars.GetUnlockedChars()
-        where !state.characters.Any((Character ch) => ch.deckType == (Deck?)dt)
-        select dt).ToList();
-        Deck foundCharacter = Extensions.Random<Deck>(list, rng);
-        state.GetCurrentQueue().Add((CardAction)new AAddCharacter
-        {
-            deck = foundCharacter,
-            addTheirStarterCardsAndArtifacts = true,
-            canGoPastTheCharacterLimit = true
-        }
+        combat.QueueImmediate(
+        [
+            new AAddArtifact
+            {
+                artifact = new VanguardBerthingOne()
+            },
+            new ALoseArtifact
+            {
+                artifactType = Key()
+            }
+        ]
         );
     }
 }

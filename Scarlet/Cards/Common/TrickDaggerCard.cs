@@ -65,7 +65,7 @@ public class TrickDaggerCard : Card, IRegisterable
             [
                 new ASpawn
                 {
-                    thing = new TrickDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
                     },
                     offset = 1
@@ -81,7 +81,7 @@ public class TrickDaggerCard : Card, IRegisterable
             [
                 new ASpawn
                 {
-                    thing = new TrickDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
                     },
                     offset = 1
@@ -97,7 +97,7 @@ public class TrickDaggerCard : Card, IRegisterable
             [
                 new ASpawn
                 {
-                    thing = new TrickDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
                     },
                     offset = 1

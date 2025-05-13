@@ -32,24 +32,7 @@ internal class VionheartScarlet : SimpleMod
     internal string UniqueName { get; private set; }
     public LocalDB localDB { get; set; } = null!;
 
-    internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
-    // internal IStatusEntry ScarletFade { get; } //Scarlet's Fade status icon
-    internal IStatusEntry Fade { get; }
-    internal IStatusEntry scarletBarrage { get; }
-    internal IStatusEntry Saturation { get; }
-
-    internal ISpriteEntry TrickDagger { get; }
-    internal ISpriteEntry TrickDagger_Icon { get; }
-    internal ISpriteEntry TrickDagger_Seeker_Animated { get; }
-    internal ISpriteEntry TrickDagger_Seeker { get; }
-    internal ISpriteEntry TrickDagger_Seeker_Angled { get; }
-    internal ISpriteEntry TrickDagger_Seeker_Icon { get; }
-    internal ISpriteEntry TrickDagger_Heavy { get; }
-    internal ISpriteEntry TrickDagger_Heavy_Icon { get; }
-
-    //internal IDeckEntry Sweetroll_Deck;
-
-    /* VionheartScarlet Content */
+    /* Vionheart Content */
     private static List<Type> Colorless_Common_Card_Types = [
         /* Common cards. */
     ];
@@ -83,7 +66,10 @@ internal class VionheartScarlet : SimpleMod
             .Concat(Colorless_Event_Artifact_Types);
     private static List<Type> Ship_Artifact_Types = [
         /* Ship artifacts */
-        typeof(VanguardBerthing)
+        typeof(VanguardBerthingInitial),
+        typeof(VanguardBerthingOne),
+        typeof(VanguardBerthingTwo),
+        typeof(VanguardBerthingThree)
     ];
     internal static IReadOnlyList<Type> Event_Types { get; } = [
         /* Events */
@@ -95,8 +81,21 @@ internal class VionheartScarlet : SimpleMod
             .Concat(Colorless_All_Artifact_Types)
             .Concat(Ship_Artifact_Types)
             .Concat(Event_Types);
-    /* VionheartScarlet Content */
+    /* Vionheart Content */
     /* Scarlet Content */
+    internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
+    internal IStatusEntry Fade { get; }
+    internal IStatusEntry scarletBarrage { get; }
+    internal IStatusEntry Saturation { get; }
+
+    internal ISpriteEntry TrickDagger { get; }
+    internal ISpriteEntry TrickDagger_Icon { get; }
+    internal ISpriteEntry TrickDagger_Seeker_Animated { get; }
+    internal ISpriteEntry TrickDagger_Seeker { get; }
+    internal ISpriteEntry TrickDagger_Seeker_Angled { get; }
+    internal ISpriteEntry TrickDagger_Seeker_Icon { get; }
+    internal ISpriteEntry TrickDagger_Heavy { get; }
+    internal ISpriteEntry TrickDagger_Heavy_Icon { get; }
     private static List<Type> Scarlet_Common_Card_Types = [
         /* Scarlet's common cards. */
         typeof(Veer),
@@ -163,48 +162,13 @@ internal class VionheartScarlet : SimpleMod
         Scarlet_All_Card_Types
             .Concat(Scarlet_All_Artifact_Types);
     /* Scarlet Content */
-    /* Sweetroll Content */
-    private static List<Type> Sweetroll_Common_Card_Types = [
-        /* Sweetroll's common cards. */
-        // typeof(Directive),
-        // typeof(VulcanShotgun)
-    ];
-    private static List<Type> Sweetroll_Uncommon_Card_Types = [
-        /* Sweetroll's uncommon cards. */
-    ];
-    private static List<Type> Sweetroll_Rare_Card_Types = [
-        /* Sweetroll's rare cards. */
-    ];
-    private static List<Type> Sweetroll_Special_Card_Types = [
-        /* Sweetroll's special cards. */
-        // typeof(ReloadVulcanShotgun)
-    ];
-        /* Concat all Sweetroll cards. */
-    private static IEnumerable<Type> Sweetroll_All_Card_Types = 
-        Sweetroll_Common_Card_Types
-            .Concat(Sweetroll_Uncommon_Card_Types)
-            .Concat(Sweetroll_Rare_Card_Types)
-            .Concat(Sweetroll_Special_Card_Types);
-    private static List<Type> Sweetroll_Common_Artifact_Types = [
-        /* Sweetroll's common artifacts. */
-        // typeof(Foresight)
-    ];
-    private static List<Type> Sweetroll_Boss_Artifact_Types = [
-        /* Sweetroll's boss artifacts. */
-    ];
-        /* Concat all Sweetroll artifacts. */
-    private static IEnumerable<Type> Sweetroll_All_Artifact_Types =
-        Sweetroll_Common_Artifact_Types
-            .Concat(Sweetroll_Boss_Artifact_Types);
-    private static IEnumerable<Type> Sweetroll_Content =
-        Sweetroll_All_Card_Types
-            .Concat(Sweetroll_All_Artifact_Types);
-    /* Sweetroll Content */
+    /* T2XS Vanguard Content */
+    internal IShipEntry Vanguard_Ship { get; }
+    /* T2XS Vanguard Content */
     /* Concat everything for registration. */
     private static IEnumerable<Type> AllRegisterableTypes =
         Vionheart_Content
-            .Concat(Scarlet_Content)
-            .Concat(Sweetroll_Content);
+            .Concat(Scarlet_Content);
     public VionheartScarlet(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
 
@@ -294,7 +258,18 @@ internal class VionheartScarlet : SimpleMod
                 ]
             },
             Description = AnyLocalizations.Bind(["character", "Scarlet", "description"]).Localize,
-            ExeCardType = typeof(ScarletEXE)
+            ExeCardType = typeof(ScarletEXE),
+            SoloStarters = new StarterDeck
+            {
+                cards = [
+                    new HideAndSneak(),
+                    new SneakAttack(),
+                    new AdjustThrottle(),
+                    new RunAndGun(),
+                    new CannonColorless(),
+                    new BasicShieldColorless()
+                ]
+            }
         }
         );
         /* MoreDifficulties mod - Scarlet's Alternate Starter Cards */
@@ -312,6 +287,7 @@ internal class VionheartScarlet : SimpleMod
             };
             MoreDifficultiesApi.RegisterAltStarters(Deck, altStarters);
 	    }
+        /* MoreDifficulties mod - Scarlet's Alternate Starter Cards */
         /* Fade status */
         Fade = helper.Content.Statuses.RegisterStatus("Fade", new StatusConfiguration
         {
@@ -353,8 +329,12 @@ internal class VionheartScarlet : SimpleMod
                 affectedByTimestop = false,
                 color = new Color("BC2C3D"),
                 icon = RegisterSprite(package, "assets/icons/Saturation.png").Sprite
+            },
+            ShouldFlash = (State state, Combat combat, Ship ship, Status status) =>
+            {
+                return true;
             }
-        }
+        } 
         );
         _ = new SaturationManager(package, helper);
         /* Trick Dagger midrow + icon */
@@ -367,59 +347,118 @@ internal class VionheartScarlet : SimpleMod
         TrickDagger_Heavy = RegisterSprite(package, "assets/midrow/Trick-Dagger_Heavy.png");
         TrickDagger_Heavy_Icon = RegisterSprite(package, "assets/icons/Trick-Dagger_Heavy_Icon.png");
         /* Trick Dagger Seeker midrow + icon */
-        /* Sweetroll Content */
-        // Sweetroll_Deck = helper.Content.Decks.RegisterDeck("SweetrollDeck", new DeckConfiguration
-        // {
-        //     Definition = new DeckDef
-        //     {
-        //         color = new Color("5F00BC"), //old color: 560319
-        //         titleColor = new Color("000000")
-        //     },
-        //     DefaultCardArt = RegisterSprite(package, "assets/cards/cardbg_blank.png").Sprite,
-        //     BorderSprite = RegisterSprite(package, "assets/cards/border_sweetroll.png").Sprite,
-        //     Name = AnyLocalizations.Bind(["character", "Sweetroll", "name"]).Localize
-        // }
-        // );
-            /* Sweetroll Sprites */
-                /* Sweetroll NEUTRAL */
-        // Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
-        // {
-        //     CharacterType = Sweetroll_Deck.Deck.Key(),
-        //     LoopTag = "neutral",
-        //     Frames = [
-        //         RegisterSprite(package, "assets/characters/sweetroll_neutral_0.png").Sprite,
-        //     ]
-        // }
-        // );
-
-                /* Sweetroll MINI */
-        // Instance.Helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2
-        // {
-        //     CharacterType = Sweetroll_Deck.Deck.Key(),
-        //     LoopTag = "mini",
-        //     Frames = [
-        //         RegisterSprite(package, "assets/characters/sweetroll_mini_0.png").Sprite,
-        //     ]
-        // }
-        // );
-            /* Register Sweetroll as a Playable Character plus his Deck */
-        // helper.Content.Characters.V2.RegisterPlayableCharacter("Sweetroll", new PlayableCharacterConfigurationV2
-        // {
-        //     Deck = Sweetroll_Deck.Deck,
-        //     BorderSprite = RegisterSprite(package, "assets/characters/char_sweetroll.png").Sprite,
-        //     Starters = new StarterDeck
-        //     {
-        //         cards = [
-        //             new Directive(),
-        //             new VulcanShotgun()
-        //         ],
-        //         artifacts = [
-        //             new Foresight()
-        //         ]
-        //     },
-        //     Description = AnyLocalizations.Bind(["character", "Sweetroll", "description"]).Localize
-        // }
-        // );
+        /* T2XS Vanguard */
+        var Vanguard_Wing = helper.Content.Ships.RegisterPart("Vanguard.Wing", new PartConfiguration()
+        {
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/vanguard_engine-1.png")).Sprite
+        }
+        );
+        var Vanguard_Cockpit = helper.Content.Ships.RegisterPart("Vanguard.Cockpit", new PartConfiguration()
+        {
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/vanguard_cockpit-1.png")).Sprite
+        }
+        );
+        var Vanguard_Cannon = helper.Content.Ships.RegisterPart("Vanguard.Cannon", new PartConfiguration()
+        {
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/vanguard_cannon-1.png")).Sprite
+        }
+        );
+        var Vanguard_Missile = helper.Content.Ships.RegisterPart("Vanguard.Missile", new PartConfiguration()
+        {
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/vanguard_missiles-1.png")).Sprite
+        }
+        );
+        var Vanguard_Extra_1 = helper.Content.Ships.RegisterPart("Vanguard.Extra-1", new PartConfiguration()
+        {
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/vanguard_engine-2.png")).Sprite
+        }
+        );
+        var Vanguard_Extra_2 = helper.Content.Ships.RegisterPart("Vanguard.Extra-2", new PartConfiguration()
+        {
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/vanguard_cockpit-2.png")).Sprite
+        }
+        );
+        var Vanguard_Chassis = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/vanguard_chassis-1.png")).Sprite;
+        Vanguard_Ship = helper.Content.Ships.RegisterShip("Vanguard", new ShipConfiguration()
+        {
+            Ship = new StarterShip()
+            {
+                ship = new Ship()
+                {
+                    hull = 18,
+                    hullMax = 18,
+                    shieldMaxBase = 6,
+                    parts =
+                    {
+                        new Part
+                        {
+                            type = PType.wing,
+                            skin = Vanguard_Wing.UniqueName
+                        },
+                        new Part
+                        {
+                            type = PType.wing,
+                            skin = Vanguard_Extra_1.UniqueName,
+                            damageModifier = PDamMod.armor
+                        },
+                        new Part
+                        {
+                            type = PType.missiles,
+                            skin = Vanguard_Missile.UniqueName
+                        },
+                        new Part
+                        {
+                            type = PType.cockpit,
+                            skin = Vanguard_Cockpit.UniqueName
+                        },
+                        new Part
+                        {
+                            type = PType.cannon,
+                            skin = Vanguard_Cannon.UniqueName
+                        },
+                        new Part
+                        {
+                            type = PType.wing,
+                            skin = Vanguard_Extra_1.UniqueName,
+                            damageModifier = PDamMod.armor,
+                            flip = true
+                        },
+                        new Part
+                        {
+                            type = PType.wing,
+                            skin = Vanguard_Wing.UniqueName,
+                            flip = true
+                        }
+                    }
+                },
+                cards =
+                {
+                    new BasicShieldColorless(),
+                    new CannonColorless(),
+                    new CannonColorless(),
+                    new DodgeColorless()
+                },
+                artifacts =
+                {
+                    new ShieldPrep(),
+                    new VanguardBerthingInitial()
+                }
+            },
+            ExclusiveArtifactTypes = new HashSet<Type>()
+            {
+                typeof(VanguardBerthingOne),
+                typeof(VanguardBerthingTwo),
+                typeof(VanguardBerthingThree)
+            },
+            UnderChassisSprite = Vanguard_Chassis,
+            Name = AnyLocalizations.Bind(["ship", "Vanguard", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["ship", "Vanguard", "description"]).Localize
+        }
+        );
+        /* T2XS Vanguard */
+        /* HullLostManager */
+        _ = new HullLostManager(package, helper);
+        /* HullLostManager */
         /* Register all artifacts and cards into the game, allowing it to be played. (Based on AllRegisterableTypes) */
         foreach (var type in AllRegisterableTypes)
             AccessTools.DeclaredMethod(type, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
@@ -442,8 +481,7 @@ internal class VionheartScarlet : SimpleMod
             Frames = Enumerable.Range(0, frames)
                 .Select(i => RegisterSprite(package, dir + i + ".png").Sprite)
                 .ToImmutableList()
-        });
+        }
+        );
     }
-
-
 }

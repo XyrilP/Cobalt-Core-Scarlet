@@ -14,15 +14,6 @@ using Microsoft.Xna.Framework.Graphics;
 using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Features;
-
-public static class AAttackExtension
-{
-    public static AAttack ScarletBarrage(this AAttack data)
-    {
-        VionheartScarlet.Instance.Helper.ModData.SetModData(data, "isScarletBarrageAttack", true);
-        return data;
-    }
-}
 public class scarletBarrageManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 {
     public scarletBarrageManager(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -46,30 +37,19 @@ public class scarletBarrageManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         Ship ship = __instance.targetPlayer ? s.ship : c.otherShip;
         Ship otherShip = __instance.targetPlayer ? c.otherShip : s.ship;
         var statusValue = otherShip.Get(VionheartScarlet.Instance.scarletBarrage.Status);
-        bool flag = VionheartScarlet.Instance.Helper.ModData.TryGetModData<bool>(__instance,"isScarletBarrageAttack", out _);
         if (otherShip.Get(VionheartScarlet.Instance.scarletBarrage.Status) > 0)
         {
-            if (!flag)
+            for(int i = 0; i < statusValue; i++)
             {
-                for(int i = 0; i < statusValue; i++)
+                if (!__instance.targetPlayer && !__instance.fromDroneX.HasValue && g.state.ship.GetPartTypeCount(PType.cannon) > 1 && !__instance.multiCannonVolley)
                 {
-                    var offset = s.rngActions.Next();
-                    if (offset <= 0.33) offset = 0;
-                    else if (offset > 0.33 && offset < 0.66) offset = 1;
-                    else offset = 2;
-                    c.QueueImmediate(                
-                        new AAttack
-                        {
-                            damage = 0,
-                            targetPlayer = __instance.targetPlayer,
-                            fast = true,
-                            timer = 0.0,
-                            fromX = Convert.ToInt32(offset) + ship.parts.FindIndex((Part p) => p.type == PType.cannon && p.active),
-                            status = VionheartScarlet.Instance.Saturation.Status,
-                            statusAmount = 1
-                        }.ScarletBarrage()
-                    );
                 }
+                else
+                c.QueueImmediate(
+                    new ABarrageAttack
+                    {
+                    }
+                );
             }
         }
     }
@@ -80,48 +60,12 @@ public class scarletBarrageManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         var statusValue = ship.Get(VionheartScarlet.Instance.scarletBarrage.Status);
         if (ship.Get(VionheartScarlet.Instance.scarletBarrage.Status) > 0)
         {
-            /* Older temp strafe */
-            // c.QueueImmediate(
-            // new AAttack
-            // {
-            //     damage = Card.GetActualDamage(s, ship.Get(VionheartScarlet.Instance.TemporaryStrafe.Status)),
-            //     targetPlayer = !__instance.targetPlayer,
-            //     fast = true,
-            //     storyFromStrafe = true
-            // }
-            // )
-            /* Old temp strafe */
-            // for(int i = 0; i < temporaryStrafeValue; i++)
-            // {
-            //     c.QueueImmediate(                
-            //         new AAttack
-            //         {
-            //             damage = Card.GetActualDamage(s, 1),
-            //             targetPlayer = !__instance.targetPlayer,
-            //             fast = true,
-            //             storyFromStrafe = true,
-            //             timer = 0.0
-            //         }
-            //     );
-            // }
             for(int i = 0; i < statusValue; i++)
             {
-                var offset = s.rngActions.Next();
-                if (offset <= 0.33) offset = -1;
-                else if (offset > 0.33 && offset < 0.66) offset = 0;
-                else offset = 1;
                 c.QueueImmediate(                
-                    new AAttack
+                    new ABarrageAttack
                     {
-                        damage = 0, //Card.GetActualDamage(s, 1),
-                        targetPlayer = !__instance.targetPlayer,
-                        fast = true,
-                        storyFromStrafe = true,
-                        timer = 0.0,
-                        fromX = Convert.ToInt32(offset) + ship.parts.FindIndex((Part p) => p.type == PType.cannon && p.active),
-                        status = VionheartScarlet.Instance.Saturation.Status,
-                        statusAmount = 1
-                    }.ScarletBarrage()
+                    }
                 );
             }
         }
@@ -134,7 +78,7 @@ public class scarletBarrageManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 		}
 		else if (__instance.Get(VionheartScarlet.Instance.scarletBarrage.Status) > 0)
 		{
-		    __instance.Set(VionheartScarlet.Instance.scarletBarrage.Status, 0);
+		    __instance.Add(VionheartScarlet.Instance.scarletBarrage.Status, -1);
 		}
     }
 }

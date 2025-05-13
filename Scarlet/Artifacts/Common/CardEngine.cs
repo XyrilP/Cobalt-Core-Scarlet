@@ -25,7 +25,7 @@ public class CardEngine : Artifact, IRegisterable
     }
 
     public int counter;
-    private const int GOAL = 10;
+    private const int GOAL = 15;
     public override int? GetDisplayNumber(State s)
     {
         return counter;
