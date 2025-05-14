@@ -40,14 +40,15 @@
     },
     "VanguardBerthing": {
       "name": "VANGUARD BERTHING",
+      "description": "Gain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card.",
+      "descExtra": "Card Draw: {{TTberthingCardDraw}}\nEnergy Fragment: {{TTberthingEnergyFragment}}"
+    },
+    "VanguardBerthingInitial": {
+      "name": "VANGUARD BERTHING INITIAL",
       "description": "Gain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card."
     },
-    "VanguardBerthingTwo": {
+    "VanguardBerthingPlus": {
       "name": "VANGUARD BERTHING+",
-      "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card and 1 <c=status>ENERGY FRAGMENT</c>."
-    },
-    "VanguardBerthingThree": {
-      "name": "VANGUARD BERTHING++",
       "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card and 1 <c=status>ENERGY FRAGMENT</c>."
     },
     "TwoPilots": {

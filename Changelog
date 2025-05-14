@@ -6,6 +6,10 @@ Scarlet 1.3.0 Rework
     * Lose 1 Fade at start of turn, unless Fade was spent on the previous turn.
 - Vanguard ship adjustments
     * Initial Vanguard Berthing no longer grants 1 Energy Fragment.
+    * Improved internal handling of Vanguard Berthing.
+        * There is now only Vanguard Berthing+ as a Boss Artifact reward (used to be both Berthing+ and Berthing++, bloating the Codex a little bit and potentially granting both + and ++ in the same reward screen).
+        * Vanguard Berthing ship starter artifact now tells you how much card draw and energy fragments you get.
+        * Technically, if you are able to get more Boss Artifacts than normal, you could potentially gain more than 3 additional crew.
 - Card adjustments
     - Backstab
         * Now mentions how much damage it would deal in its card description.
