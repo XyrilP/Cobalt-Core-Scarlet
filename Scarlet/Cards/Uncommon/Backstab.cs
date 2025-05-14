@@ -28,6 +28,7 @@ public class Backstab : Card, IRegisterable
     }
     public override CardData GetData(State state)
     {
+        var fadeValue = state.ship.Get(VionheartScarlet.Instance.Fade.Status);
         CardData data = new CardData();
         {
             switch (upgrade)
@@ -36,18 +37,18 @@ public class Backstab : Card, IRegisterable
                 data.cost = 2;
                 data.exhaust = true;
                 data.retain = true;
-                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "description"]);
+                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "description"], new { Damage = GetDmg(state, 1 + fadeValue) });
                     break;
                 case Upgrade.A:
                 data.cost = 2;
                 data.retain = true;
-                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "descA"]);
+                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "descA"], new { Damage = GetDmg(state, 1 + fadeValue) });
                     break;
                 case Upgrade.B:
-                data.cost = 3;
+                data.cost = 2;
                 data.exhaust = true;
                 data.retain = true;
-                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "descB"]);
+                data.description = VionheartScarlet.Instance.Localizations.Localize(["card", "Backstab", "descB"], new { Damage = GetDmg(state, 1 + ( 2 * fadeValue)) });
                     break;
             }
         }
