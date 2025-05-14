@@ -8,9 +8,11 @@ using HarmonyLib;
 
 namespace VionheartScarlet.Artifacts;
 
-public class VanguardBerthingThree : Artifact, IRegisterable
+public class VanguardBerthing : Artifact, IRegisterable
 {
-    bool characterAdded { get; set; }
+    bool berthingInitialized = false;
+    int berthingCardDraw;
+    int berthingEnergyFragment;
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         helper.Content.Artifacts.RegisterArtifact(new ArtifactConfiguration
@@ -18,52 +20,75 @@ public class VanguardBerthingThree : Artifact, IRegisterable
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new ArtifactMeta
             {
-                pools = [ArtifactPool.Boss],
+                pools = [ArtifactPool.EventOnly],
                 owner = Deck.colorless,
                 unremovable = true
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingThree", "name"]).Localize,
-            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingThree", "description"]).Localize,
-            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/vanguard_berthing_3.png")).Sprite
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "name"]).Localize,
+            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "description"]).Localize,
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/vanguard_berthing.png")).Sprite
         }
         );
-        
+    }
+    public override void OnCombatStart(State state, Combat combat)
+    {
+        if (!berthingInitialized)
+        {
+            combat.QueueImmediate(
+            [
+                new AAddArtifact
+                {
+                    artifact = new VanguardBerthingInitial()
+                }
+            ]
+            );
+            berthingInitialized = true;
+        }
     }
     public override void OnTurnStart(State state, Combat combat)
     {
-        /* Add Energy Fragment */
-        state.ship.Add(Status.energyFragment, 1);
-        while (true)
+        var ship = state.ship;
+        berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
+        berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingEnergyFragment", 0);
+        /* Draw additional cards */
+        if (berthingCardDraw > 0)
         {
-            int energyFragmentValue = state.ship.Get(Status.energyFragment);
-            if (energyFragmentValue >= 3)
+            combat.QueueImmediate(
+            [
+                new ADrawCard
+                {
+                    count = berthingCardDraw
+                }
+            ]
+            );
+        }
+        /* Draw additional cards */
+        /* Add Energy Fragment */
+        if (berthingEnergyFragment > 0)
+        {
+            ship.Add(Status.energyFragment, berthingEnergyFragment);
+            while (true)
             {
-                combat.QueueImmediate(
-                [
-                    new AEnergy
-                    {
-                        changeAmount = 1
-                    }
-                ]
-                );
-                state.ship.Add(Status.energyFragment, -3);
-            }
-            else
-            {
-                break;
+                int energyFragmentValue = ship.Get(Status.energyFragment);
+                if (energyFragmentValue >= 3)
+                {
+                    combat.QueueImmediate(
+                    [
+                        new AEnergy
+                        {
+                            changeAmount = 1
+                        }
+                    ]
+                    );
+                    ship.Add(Status.energyFragment, -3);
+                }
+                else
+                {
+                    break;
+                }
             }
         }
         /* Add Energy Fragment */
-        /* Draw additional cards */
-        combat.QueueImmediate(
-        [
-            new ADrawCard
-            {
-                count = 1
-            }
-        ]
-        );
-        /* Draw additional cards */
         /* Patch RenderCharacters */
         VionheartScarlet.Instance.Harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(Character), nameof(Character.RenderCharacters)),
@@ -71,29 +96,23 @@ public class VanguardBerthingThree : Artifact, IRegisterable
         );
         /* Patch RenderCharacters */
     }
-    public override void OnReceiveArtifact(State state)
+    public override int? GetDisplayNumber(State s)
     {
-        /* Add Crew Member */
-        List<Deck> list = (from dt in state.storyVars.GetUnlockedChars()
-        where !state.characters.Any((Character ch) => ch.deckType == (Deck?)dt)
-        select dt).ToList();
-        if (state.characters.Count < list.Count && !characterAdded)
+        berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(s.ship, "berthingEnergyFragment", 0);
+        if (berthingEnergyFragment > 0)
         {
-            Rand rng = new Rand(state.rngCurrentEvent.seed + 3629);
-            Deck foundCharacter = Extensions.Random(list, rng);
-            state.GetCurrentQueue().Add((CardAction)new AAddCharacter
-		    {
-                deck = foundCharacter,
-                addTheirStarterCardsAndArtifacts = true,
-                canGoPastTheCharacterLimit = true
-		    }
-            );
-            characterAdded = true;
+            return berthingEnergyFragment;
         }
-        /* Add Crew Member */
+        else
+        {
+        return null;
+        }
     }
-    public override void OnCombatStart(State state, Combat combat)
+    public override List<Tooltip>? GetExtraTooltips()
     {
+        List<Tooltip> list = new List<Tooltip>();
+        list.Add(new TTText(VionheartScarlet.Instance.Localizations.Localize(["artifact", "VanguardBerthing", "descExtra"], new { TTberthingCardDraw = berthingCardDraw, TTberthingEnergyFragment = berthingEnergyFragment })));
+        return list;
     }
     public static bool Character_RenderCharacters_Prefix(Character __instance, G g, Vec offset, bool mini, double introTimer, bool showDialogue, ref bool finaleMode)
 	{
