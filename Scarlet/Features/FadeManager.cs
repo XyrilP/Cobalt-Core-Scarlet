@@ -69,15 +69,19 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
     {
         var ship = __instance;
         bool fadeUsedThisTurn = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(ship, "fadeUsedThisTurn", false);
+        bool hasCloakAndDagger = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(ship, "hasCloakAndDagger", false);
         if (ship.Get(Status.timeStop) > 0)
 		{
             /* Timestop will decrement itself. */
 		}
 		else if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
 		{
-            if (!fadeUsedThisTurn)
+            if (fadeUsedThisTurn || hasCloakAndDagger)
             {
-		        ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
+            }
+            else
+            {
+                ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
             }
         }
         VionheartScarlet.Instance.Helper.ModData.SetModData(ship,"fadeUsedThisTurn", false);

@@ -24,7 +24,7 @@
     },
     "CloakAndDagger": {
       "name": "CLOAK AND DAGGER",
-      "description": "At the start of turn, gain 1 <c=status>FADE</c>.\nIf you have <c=status>FADE</c>, all of your attacks deal <c=keyword>1</c> additional damage."
+      "description": "At start of turn, gain 1 <c=status>FADE</c>. <c=status>FADE</c> no longer decreases every turn, consume 1 <c=status>FADE</c> to make your attacks <c=cardTrait>piercing</c> once per turn."
     },
     "HardlightAfterburners": {
       "name": "HARDLIGHT AFTERBURNERS",
@@ -40,16 +40,17 @@
     },
     "VanguardBerthing": {
       "name": "VANGUARD BERTHING",
-      "description": "Gain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card.",
-      "descExtra": "Card Draw: {{TTberthingCardDraw}}\nEnergy Fragment: {{TTberthingEnergyFragment}}"
+      "description": "Start with <c=keyword>1</c> additional <c=downside>random</c> crew member. For each additional crew member, draw one card at start of turn.",
+      "descExtra1": "You have <c=keyword>{{TTberthingCardDraw}}</c> additional crew!",
+      "descExtra2": "<c=white>BERTHING+</c>: Gain <c=keyword>{{TTberthingEnergyFragment}}</c> <c=status>ENERGY FRAGMENT</c> at start of turn."
     },
     "VanguardBerthingInitial": {
       "name": "VANGUARD BERTHING INITIAL",
-      "description": "Gain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card."
+      "description": "Gain <c=keyword>1</c> additional <c=downside>random</c> crew member."
     },
     "VanguardBerthingPlus": {
       "name": "VANGUARD BERTHING+",
-      "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card and 1 <c=status>ENERGY FRAGMENT</c>."
+      "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, gain 1 <c=status>ENERGY FRAGMENT</c>."
     },
     "TwoPilots": {
       "name": "TWO PILOTS",

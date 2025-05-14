@@ -14,6 +14,12 @@ Scarlet 1.3.0 Rework
     - Backstab
         * Now mentions how much damage it would deal in its card description.
         * Backstab B is now 2 energy (from 3).
+    - Vendetta
+        * Vendetta B now deals 3 damage (from 4).
+- Artifact adjustments
+    - Cloak and Dagger
+        * Now prevents Fade from decreasing every turn.
+        * Once per turn, makes attacks pierce instead of dealing 1 additional damage. Counts as using Fade. Consumes Fade.
 Scarlet 1.1.5 Playtest
 - Adjusted Vanguard ship starting cards
     * Now starts with the standard 2 Basic Attacks, 1 Basic Shield, 1 Basic Dodge.
