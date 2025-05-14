@@ -243,6 +243,8 @@ internal class VionheartScarlet : SimpleMod
         RegisterAnimation(package, "squint", "assets/characters/scarlet_squint_", 5);
                 /* Scarlet SAD */
         RegisterAnimation(package, "sad", "assets/characters/scarlet_sad_", 5);
+                /* Scarlet SMUG */
+        RegisterAnimation(package, "smug", "assets/characters/scarlet_smug_", 4);
             /* Register Scarlet as a Playable Character plus his Deck */
         helper.Content.Characters.V2.RegisterPlayableCharacter("Scarlet", new PlayableCharacterConfigurationV2
         {
@@ -294,7 +296,7 @@ internal class VionheartScarlet : SimpleMod
             Definition = new StatusDef
             {
                 isGood = true,
-                affectedByTimestop = false,
+                affectedByTimestop = true,
                 color = new Color("BC2C3D"),
                 icon = RegisterSprite(package, "assets/icons/Fade.png").Sprite
             },

@@ -32,27 +32,27 @@ public class VanguardBerthingOne : Artifact, IRegisterable
     public override void OnTurnStart(State state, Combat combat)
     {
         /* Add Energy Fragment */
-        state.ship.Add(Status.energyFragment, 1);
-        while (true)
-        {
-            int energyFragmentValue = state.ship.Get(Status.energyFragment);
-            if (energyFragmentValue >= 3)
-            {
-                combat.QueueImmediate(
-                [
-                    new AEnergy
-                    {
-                        changeAmount = 1
-                    }
-                ]
-                );
-                state.ship.Add(Status.energyFragment, -3);
-            }
-            else
-            {
-                break;
-            }
-        }
+        // state.ship.Add(Status.energyFragment, 1);
+        // while (true)
+        // {
+        //     int energyFragmentValue = state.ship.Get(Status.energyFragment);
+        //     if (energyFragmentValue >= 3)
+        //     {
+        //         combat.QueueImmediate(
+        //         [
+        //             new AEnergy
+        //             {
+        //                 changeAmount = 1
+        //             }
+        //         ]
+        //         );
+        //         state.ship.Add(Status.energyFragment, -3);
+        //     }
+        //     else
+        //     {
+        //         break;
+        //     }
+        // }
         /* Add Energy Fragment */
         /* Draw additional cards */
         combat.QueueImmediate(
