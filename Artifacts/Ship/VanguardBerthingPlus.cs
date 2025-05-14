@@ -8,7 +8,7 @@ using HarmonyLib;
 
 namespace VionheartScarlet.Artifacts;
 
-public class VanguardBerthingInitial : Artifact, IRegisterable
+public class VanguardBerthingPlus : Artifact, IRegisterable
 {
     bool characterAdded { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -18,12 +18,12 @@ public class VanguardBerthingInitial : Artifact, IRegisterable
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new ArtifactMeta
             {
-                pools = [ArtifactPool.Unreleased],
+                pools = [ArtifactPool.Boss],
                 owner = Deck.colorless
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingInitial", "name"]).Localize,
-            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingInitial", "description"]).Localize,
-            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/vanguard_berthing.png")).Sprite
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingPlus", "name"]).Localize,
+            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingPlus", "description"]).Localize,
+            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/vanguard_berthing_plus.png")).Sprite
         }
         );
         
@@ -47,7 +47,9 @@ public class VanguardBerthingInitial : Artifact, IRegisterable
             );
             characterAdded = true;
             int berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
+            int berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingEnergyFragment", 0);
             VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingCardDraw", berthingCardDraw + 1);
+            VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingEnergyFragment", berthingEnergyFragment + 1);
         }
         /* Add Crew Member */
         /* Remove this Artifact */
