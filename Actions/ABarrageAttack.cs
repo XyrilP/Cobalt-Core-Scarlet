@@ -38,12 +38,12 @@ public class ABarrageAttack : AAttack
 		}
 		else
 		{
-			/* Reduce Fade if doing Barrage attacks. */
-			var fadeValue = ship2.Get(VionheartScarlet.Instance.Fade.Status);
-			if (fadeValue > 0)
-			{
-				ship2.Add(VionheartScarlet.Instance.Fade.Status, -1);
-			}
+			/* Reduce Fade if doing Barrage attacks. */ // Rework: Attacks don't decrement Fade anymore.
+			// var fadeValue = ship2.Get(VionheartScarlet.Instance.Fade.Status);
+			// if (fadeValue > 0)
+			// {
+			// 	ship2.Add(VionheartScarlet.Instance.Fade.Status, -1);
+			// }
 			/* Reduce Fade if doing Barrage attacks. */
 			if (raycastResult != null && ApplyAutododge(c, ship, raycastResult))
 			{
