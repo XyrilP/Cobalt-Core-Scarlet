@@ -111,7 +111,7 @@ public class Vendetta : Card, IRegisterable
                 },
                 new AAttack
                 {
-                    damage = GetDmg(s, 4),
+                    damage = GetDmg(s, 3),
                 }
             ],
             _ => []
