@@ -46,10 +46,16 @@ public class VanguardBerthingPlus : Artifact, IRegisterable
 		    }
             );
             characterAdded = true;
-            int berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
-            int berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingEnergyFragment", 0);
-            VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingCardDraw", berthingCardDraw + 1);
-            VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingEnergyFragment", berthingEnergyFragment + 1);
+            // int berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
+            // int berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingEnergyFragment", 0);
+            // VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingCardDraw", berthingCardDraw + 1);
+            // VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingEnergyFragment", berthingEnergyFragment + 1);
+            Artifact _ = state.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new VanguardBerthing().Key());
+            if (_ is VanguardBerthing shipArtifact)
+            {
+                shipArtifact.berthingCardDraw++;
+                shipArtifact.berthingEnergyFragment++;
+            }
         }
         /* Add Crew Member */
         /* Remove this Artifact */

@@ -11,8 +11,8 @@ namespace VionheartScarlet.Artifacts;
 public class VanguardBerthing : Artifact, IRegisterable
 {
     bool berthingInitialized = false;
-    int berthingCardDraw;
-    int berthingEnergyFragment;
+    public int berthingCardDraw { get; set; }
+    public int berthingEnergyFragment { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         helper.Content.Artifacts.RegisterArtifact(new ArtifactConfiguration
@@ -48,8 +48,8 @@ public class VanguardBerthing : Artifact, IRegisterable
     public override void OnTurnStart(State state, Combat combat)
     {
         var ship = state.ship;
-        berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
-        berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingEnergyFragment", 0);
+        //berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
+        //berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingEnergyFragment", 0);
         /* Draw additional cards */
         if (berthingCardDraw > 0)
         {
@@ -98,10 +98,9 @@ public class VanguardBerthing : Artifact, IRegisterable
     }
     public override int? GetDisplayNumber(State s)
     {
-        berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(s.ship, "berthingEnergyFragment", 0);
-        if (berthingEnergyFragment > 0)
+        if (berthingCardDraw > 0)
         {
-            return berthingEnergyFragment;
+            return berthingCardDraw;
         }
         else
         {
@@ -110,9 +109,20 @@ public class VanguardBerthing : Artifact, IRegisterable
     }
     public override List<Tooltip>? GetExtraTooltips()
     {
-        List<Tooltip> list = new List<Tooltip>();
-        list.Add(new TTText(VionheartScarlet.Instance.Localizations.Localize(["artifact", "VanguardBerthing", "descExtra"], new { TTberthingCardDraw = berthingCardDraw, TTberthingEnergyFragment = berthingEnergyFragment })));
-        return list;
+        if (berthingCardDraw != 0)
+        {
+            List<Tooltip> list = new List<Tooltip>();
+            list.Add(new TTText(VionheartScarlet.Instance.Localizations.Localize(["artifact", "VanguardBerthing", "descExtra1"], new { TTberthingCardDraw = berthingCardDraw })));
+            if (berthingEnergyFragment > 0)
+            {
+                list.Add(new TTText(VionheartScarlet.Instance.Localizations.Localize(["artifact", "VanguardBerthing", "descExtra2"], new { TTberthingEnergyFragment = berthingEnergyFragment })));
+            }
+            return list;
+        }
+        else
+        {
+            return null;
+        }
     }
     public static bool Character_RenderCharacters_Prefix(Character __instance, G g, Vec offset, bool mini, double introTimer, bool showDialogue, ref bool finaleMode)
 	{
