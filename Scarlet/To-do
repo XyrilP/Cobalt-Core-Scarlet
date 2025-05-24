@@ -1,9 +1,0 @@
-1. Complete codebase refactoring.
-    a. Common Cards (Done!)
-    b. Uncommon Cards (Done!)
-    c. Rare Cards
-    d. Special Cards
-2. Rework Temporary Strafe
-    a. Damage = 1, attacks X amount of times equal to Temp. Strafe's value. (Done!) (Scrapped. :( )
-3. Rework Trick Daggers (and daggers overall)
-    a. Daggers when shot randomly move 1 space and increase their damage. (refer to Sports Orb)

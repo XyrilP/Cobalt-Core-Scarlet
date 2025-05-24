@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using FMOD;
 using FSPRO;
 using Microsoft.Xna.Framework.Graphics;
+using VionheartScarlet.Features;
 
 namespace VionheartScarlet.Actions;
 
 public class ABarrageAttack : AAttack
 {
+	
     public override void Begin(G g, State s, Combat c)
-    {
+	{
 		Ship ship = targetPlayer ? s.ship : c.otherShip;
 		Ship ship2 = targetPlayer ? c.otherShip : s.ship;
 		var offset = s.rngActions.Next();
 		if (offset <= 0.33) offset = -1;
-        else if (offset > 0.33 && offset < 0.66) offset = 0;
-        else offset = 1;
+		else if (offset > 0.33 && offset < 0.66) offset = 0;
+		else offset = 1;
 		int? num = GetFromX(s, c);
-        RaycastResult? raycastResult = fromDroneX.HasValue ? CombatUtils.RaycastGlobal(c, ship, fromDrone: true, fromDroneX.Value + (int)offset) : num.HasValue ? CombatUtils.RaycastFromShipLocal(s, c, num.Value + (int)offset, targetPlayer) : null;
-        damage = 0;
+		RaycastResult? raycastResult = fromDroneX.HasValue ? CombatUtils.RaycastGlobal(c, ship, fromDrone: true, fromDroneX.Value + (int)offset) : num.HasValue ? CombatUtils.RaycastFromShipLocal(s, c, num.Value + (int)offset, targetPlayer) : null;
+		DamageDone dmg = new DamageDone();
+		damage = 0;
 		fast = true;
 		timer = 0.0;
 
-        if (ship == null || ship2 == null || ship.hull <= 0 || (fromDroneX.HasValue && !c.stuff.ContainsKey(fromDroneX.Value)))
+		if (ship == null || ship2 == null || ship.hull <= 0 || (fromDroneX.HasValue && !c.stuff.ContainsKey(fromDroneX.Value)))
 		{
 			return;
 		}
@@ -39,12 +42,59 @@ public class ABarrageAttack : AAttack
 		else
 		{
 			/* Reduce Fade if doing Barrage attacks. */ // Rework: Attacks don't decrement Fade anymore.
-			// var fadeValue = ship2.Get(VionheartScarlet.Instance.Fade.Status);
-			// if (fadeValue > 0)
-			// {
-			// 	ship2.Add(VionheartScarlet.Instance.Fade.Status, -1);
-			// }
+														// var fadeValue = ship2.Get(VionheartScarlet.Instance.Fade.Status);
+														// if (fadeValue > 0)
+														// {
+														// 	ship2.Add(VionheartScarlet.Instance.Fade.Status, -1);
+														// }
 			/* Reduce Fade if doing Barrage attacks. */
+
+			/* Fade animation */
+			var fadeValue = ship.Get(VionheartScarlet.Instance.Fade.Status);
+			if (fadeValue > 0)
+			{
+				ship.Add(VionheartScarlet.Instance.Fade.Status, -1); // Reduce target's Fade when barraged.
+				if (raycastResult == null)
+				{
+					return;
+				}
+				if (fromDroneX.HasValue)
+				{
+					c.stuff.TryGetValue(fromDroneX.Value, out StuffBase? value);
+					if (value is AttackDrone attackDrone)
+					{
+						attackDrone.pulse = 1.0;
+					}
+					if (value is EnergyDrone energyDrone)
+					{
+						energyDrone.pulse = 1.0;
+					}
+					if (value is ShieldDrone shieldDrone)
+					{
+						shieldDrone.pulse = 1.0;
+					}
+					if (value is JupiterDrone jupiterDrone)
+					{
+						jupiterDrone.pulse = 1.0;
+					}
+					if (value is DualDrone dualDrone)
+					{
+						dualDrone.pulse = 1.0;
+					}
+				}
+				else
+				{
+					Part? partAtLocalX = ship2.GetPartAtLocalX(num.HasValue ? num.Value : 0);
+					if (partAtLocalX != null)
+					{
+						partAtLocalX.pulse = 1.0;
+					}
+				}
+				raycastResult.hitShip = false;
+				EffectSpawnerExtension.CannonAngled(g, targetPlayer, fromDroneX.HasValue ? fromDroneX.Value : (num.HasValue ? num.Value : 0), raycastResult, dmg); //Play an animation?
+			}
+			/* Fade animation */
+
 			if (raycastResult != null && ApplyAutododge(c, ship, raycastResult))
 			{
 				return;
@@ -132,7 +182,6 @@ public class ABarrageAttack : AAttack
 				}
 			}
 			timer = 0.1;
-			DamageDone dmg = new DamageDone();
 			if (raycastResult.hitShip)
 			{
 				dmg = (isBeam ? new DamageDone
@@ -378,106 +427,13 @@ public class ABarrageAttack : AAttack
 			}
 			else
 			{
-                Part? partAtLocalX = ship2.GetPartAtLocalX(num.HasValue ? num.Value : 0);
-                if (partAtLocalX != null)
+				Part? partAtLocalX = ship2.GetPartAtLocalX(num.HasValue ? num.Value : 0);
+				if (partAtLocalX != null)
 				{
 					partAtLocalX.pulse = 1.0;
 				}
 			}
-            EffectSpawnerExtension.CannonAngled(g, targetPlayer, fromDroneX.HasValue ? fromDroneX.Value : (num.HasValue ? num.Value : 0), raycastResult, dmg);
-        }
-	}
-}
-internal class EffectSpawnerExtension
-{
-	public static void CannonAngled(G g, bool targetPlayer, int originX, RaycastResult ray, DamageDone dmg)
-	{
-		Route route = g.state.route;
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-        Combat combat = (Combat)(object)((route is Combat) ? route : null);
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-        if (combat != null)
-		{
-			Vec start = ray.fromDrone ? FxPositions.DroneCannon(originX, !targetPlayer) : FxPositions.Cannon(g.state.ship.x + originX, !targetPlayer);
-			Vec end = (!ray.hitDrone && !ray.hitShip) ? FxPositions.Miss(ray.worldX, targetPlayer) : (ray.hitDrone ? FxPositions.Drone(ray.worldX) : (dmg.hitHull ? FxPositions.Hull(ray.worldX, targetPlayer) : FxPositions.Shield(ray.worldX, targetPlayer)));
-			combat.fx.Add((FX)(object)new CannonBeamAngled
-			{
-				start = start,
-				end = end,
-				w = 1.0
-			});
-			GUID? gUID = null;
-			if (ray.hitShip)
-			{
-				ParticleBursts.HullImpact(g, end, targetPlayer, !ray.hitDrone, ray.fromDrone);
-			}
-			if (dmg.hitShield && !dmg.hitHull)
-			{
-				combat.fx.Add((FX)new ShieldHit
-				{
-					pos = FxPositions.Shield(ray.worldX, targetPlayer)
-				});
-				ParticleBursts.ShieldImpact(g, FxPositions.Shield(ray.worldX, targetPlayer), targetPlayer);
-			}
-			if (dmg.poppedShield)
-			{
-				combat.fx.Add((FX)new ShieldPop
-				{
-					pos = FxPositions.Shield(ray.worldX, targetPlayer)
-				});
-			}
-			if (dmg.poppedShield)
-			{
-				gUID = Event.Hits_ShieldPop;
-			}
-			else if (dmg.hitShield)
-			{
-				gUID = Event.Hits_ShieldHit;
-			}
-			if (!ray.hitDrone && !ray.hitShip)
-			{
-				gUID = Event.Hits_Miss;
-			}
-			else if (dmg.hitHull)
-			{
-				gUID = (!targetPlayer) ? new GUID?(Event.Hits_OutgoingHit) : new GUID?(Event.Hits_HitHurt);
-			}
-			else if (ray.hitDrone)
-			{
-				gUID = Event.Hits_HitDrone;
-			}
-			if (gUID.HasValue)
-			{
-				Audio.Play((GUID?)gUID.Value, true);
-			}
+			EffectSpawnerExtension.CannonAngled(g, targetPlayer, fromDroneX.HasValue ? fromDroneX.Value : (num.HasValue ? num.Value : 0), raycastResult, dmg);
 		}
-	}
-}
-public class CannonBeamAngled : FX
-{
-	public Vec start;
-
-	public Vec end;
-
-	public double w;
-
-	public static Color cannonBeam = new Color("ff8866");
-
-	public static Color cannonBeamCore = new Color("ffffff");
-
-	public override void Render(G g, Vec v)
-	{
-		Rect r = Rect.FromPoints(start, end);
-		double num = 0.1;
-		if (base.age < num)
-		{
-			double num2 = 2.0 * (1.0 - base.age / num);
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            Draw.Line(v.x + start.x, v.y + start.y, v.x + end.x, v.y + end.y, w + 2.0 * (num2 + 1.0), cannonBeam, BlendMode.Screen, (SamplerState)null, (Effect)null);
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            Draw.Line(v.x + start.x, v.y + start.y, v.x + end.x, v.y + end.y, w + num2 * 2.0, cannonBeamCore, (BlendState)null, (SamplerState)null, (Effect)null);
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-        }
 	}
 }

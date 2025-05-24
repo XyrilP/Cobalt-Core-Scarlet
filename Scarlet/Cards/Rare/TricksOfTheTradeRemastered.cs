@@ -64,20 +64,20 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                 },
                 new ASpawn
                 {
-                    thing = new TrickDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
                     }
                 },
                 new ASpawn
                 {
-                    thing = new TrickDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
                     },
                     offset = -2
                 },
                 new ASpawn
                 {
-                    thing = new TrickDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
                     },
                     offset = 2
@@ -94,21 +94,24 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                 },
                 new ASpawn
                 {
-                    thing = new YashaDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.heavy
                     },
                 },
                 new ASpawn
                 {
-                    thing = new YashaDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.heavy
                     },
                     offset = -2
                 },
                 new ASpawn
                 {
-                    thing = new YashaDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.heavy
                     },
                     offset = 2
                 }
@@ -124,21 +127,24 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                 },
                 new ASpawn
                 {
-                    thing = new SangeDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.seeker
                     },
                 },
                 new ASpawn
                 {
-                    thing = new SangeDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.seeker
                     },
                     offset = -2
                 },
                 new ASpawn
                 {
-                    thing = new SangeDagger_Missile
+                    thing = new ScarletDagger_Missile
                     {
+                        missileType = MissileType.seeker
                     },
                     offset = 2
                 }
