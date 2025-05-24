@@ -46,13 +46,8 @@ public class VanguardBerthingInitial : Artifact, IRegisterable
 		    }
             );
             characterAdded = true;
-            // int berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
-            // VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingCardDraw", berthingCardDraw + 1);
-            Artifact _ = state.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new VanguardBerthing().Key());
-            if (_ is VanguardBerthing shipArtifact)
-            {
-                shipArtifact.berthingCardDraw++;
-            }
+            int berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
+            VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingCardDraw", berthingCardDraw + 1);
         }
         /* Add Crew Member */
         /* Remove this Artifact */
