@@ -18,45 +18,30 @@ public class VanguardBerthingInitial : Artifact, IRegisterable
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new ArtifactMeta
             {
-                pools = [ArtifactPool.Unreleased],
-                owner = Deck.colorless
+                pools = [ArtifactPool.EventOnly],
+                owner = Deck.colorless,
+                unremovable = true
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingInitial", "name"]).Localize,
-            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingInitial", "description"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "name"]).Localize,
+            Description = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthing", "description"]).Localize,
             Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/vanguard_berthing.png")).Sprite
         }
         );
         
     }
-    public override void OnReceiveArtifact(State state)
+    public override void OnCombatStart(State state, Combat combat)
     {
-        /* Add Crew Member */
-        List<Deck> list = (from dt in state.storyVars.GetUnlockedChars()
-        where !state.characters.Any((Character ch) => ch.deckType == (Deck?)dt)
-        select dt).ToList();
-        if (state.characters.Count < list.Count && !characterAdded)
-        {
-            Rand rng = new Rand(state.rngCurrentEvent.seed + 3629);
-            Deck foundCharacter = Extensions.Random(list, rng);
-            state.GetCurrentQueue().Add((CardAction)new AAddCharacter
-		    {
-                deck = foundCharacter,
-                addTheirStarterCardsAndArtifacts = true,
-                canGoPastTheCharacterLimit = true
-		    }
-            );
-            characterAdded = true;
-            int berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
-            VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingCardDraw", berthingCardDraw + 1);
-        }
-        /* Add Crew Member */
-        /* Remove this Artifact */
-        state.GetCurrentQueue().Add((CardAction)
+        combat.QueueImmediate(
+        [
+            new AAddArtifact
+            {
+                artifact = new VanguardBerthingOne()
+            },
             new ALoseArtifact
             {
                 artifactType = Key()
             }
+        ]
         );
-        /* Remove this Artifact */
     }
 }

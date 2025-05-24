@@ -66,9 +66,10 @@ internal class VionheartScarlet : SimpleMod
             .Concat(Colorless_Event_Artifact_Types);
     private static List<Type> Ship_Artifact_Types = [
         /* Ship artifacts */
-        typeof(VanguardBerthing),
         typeof(VanguardBerthingInitial),
-        typeof(VanguardBerthingPlus)
+        typeof(VanguardBerthingOne),
+        typeof(VanguardBerthingTwo),
+        typeof(VanguardBerthingThree)
     ];
     internal static IReadOnlyList<Type> Event_Types { get; } = [
         /* Events */
@@ -442,14 +443,14 @@ internal class VionheartScarlet : SimpleMod
                 artifacts =
                 {
                     new ShieldPrep(),
-                    new VanguardBerthing()
+                    new VanguardBerthingInitial()
                 }
             },
             ExclusiveArtifactTypes = new HashSet<Type>()
             {
-                typeof(VanguardBerthing),
-                typeof(VanguardBerthingInitial),
-                typeof(VanguardBerthingPlus)
+                typeof(VanguardBerthingOne),
+                typeof(VanguardBerthingTwo),
+                typeof(VanguardBerthingThree)
             },
             UnderChassisSprite = Vanguard_Chassis,
             Name = AnyLocalizations.Bind(["ship", "Vanguard", "name"]).Localize,
