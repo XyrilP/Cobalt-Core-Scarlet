@@ -40,15 +40,15 @@
     },
     "VanguardBerthing": {
       "name": "VANGUARD BERTHING",
-      "description": "Gain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card."
+      "description": "Gain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card and <c=status>ENERGY FRAGMENT</c>."
     },
     "VanguardBerthingTwo": {
       "name": "VANGUARD BERTHING+",
-      "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card and 1 <c=status>ENERGY FRAGMENT</c>."
+      "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member."
     },
     "VanguardBerthingThree": {
       "name": "VANGUARD BERTHING++",
-      "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, draw an additional card and 1 <c=status>ENERGY FRAGMENT</c>."
+      "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member."
     },
     "TwoPilots": {
       "name": "TWO PILOTS",
@@ -134,9 +134,9 @@
     },
     "Backstab": {
       "name": "Backstab",
-      "description": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=damage>1</c> + X (<c=damage>{{Damage}}</c>) <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0.",
-      "descA": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=damage>1</c> + X (<c=damage>{{Damage}}</c>) <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0.",
-      "descB": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=damage>1</c> + 2X (<c=damage>{{Damage}}</c>) <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0."
+      "description": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=damage>1</c> + X <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0.",
+      "descA": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=damage>1</c> + X <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0.",
+      "descB": "X = your <c=status>FADE</c>.\nAttack. Dmg = <c=damage>1</c> + 2X <c=cardtrait>pierce, stun.</c>\n<c=status>FADE</c> = 0."
     },
     "BulletHell": {
       "name": "Bullet Hell"
@@ -154,7 +154,7 @@
   "status": {
     "Fade": {
       "name": "Fade",
-      "description": "Prevent next direct hit on this ship.\n<c=downside>Decreases by 1 at the start of next turn if unused.</c>"
+      "description": "Next direct hit on this ship will force the other to <c=keyword>cumulatively</c> move <c=movement>1</c> space randomly instead.\nYour attacks ignore all shields and armor.\n<c=downside>Decreases by 1 per instance or when you attack.</c>"
     },
     "scarletBarrage": {
       "name": "Saturation Barrage",

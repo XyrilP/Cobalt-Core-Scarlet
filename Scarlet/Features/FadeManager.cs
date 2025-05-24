@@ -16,6 +16,7 @@ namespace VionheartScarlet.Features;
 
 public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 {
+    public static int fadeDodgeStack = 0;
     public FadeManager(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         VionheartScarlet.Instance.KokoroApi.StatusRendering.RegisterHook(this);
@@ -34,31 +35,39 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
     }
     public static void AAttack_Begin_Prefix(AAttack __instance, G g, State s, Combat c)
     {
-        /* Attacks with Fade */
-        // Ship ship = __instance.targetPlayer ? c.otherShip : s.ship;
-        // if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0 && !__instance.fromDroneX.HasValue)
-        // {
-        //     __instance.piercing = true; // Make it piercing!
-        //     ship.Add(VionheartScarlet.Instance.Fade.Status, -1); // Decrement Fade when you attack!
-        // }
-        /* Attacks with Fade */
+        Ship ship = __instance.targetPlayer ? c.otherShip : s.ship;
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0 && !__instance.fromDroneX.HasValue)
+        {
+            __instance.piercing = true;
+            ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
+        }
     }
     public static bool AAttack_ApplyAutododge_Prefix(AAttack __instance, Combat c, Ship target, RaycastResult ray, ref bool __result)
     {
-        var aattack = __instance;
-        if (ray.hitShip && !aattack.isBeam)
+        if (ray.hitShip && !__instance.isBeam)
         {
             if (target.Get(VionheartScarlet.Instance.Fade.Status) > 0)
             {
+                fadeDodgeStack++; // Multiple instances of Fade activation will increase distance travelled.
                 /* Decrease Fade once attack is evaded. */
                 target.Add(VionheartScarlet.Instance.Fade.Status, -1);
-                /* Decrease Fade once attack is evaded. */
+
                 /* WIP: Instead of cancelling attack, make attack miss. */
                     /* Code here */
-                /* WIP: Instead of cancelling attack, make attack miss. */
-                /* Flag Fade to not decrement if used. */
-                VionheartScarlet.Instance.Helper.ModData.SetModData(target, "fadeUsedThisTurn", true);
-                /* Flag Fade to not decrement if used. */
+
+                /* Random Move 1 when Fade triggers. */
+                c.QueueImmediate(
+                    [
+                        new AMove()
+                        {
+                            dir = 0 + fadeDodgeStack,
+                            isRandom = true,
+                            targetPlayer = !__instance.targetPlayer,
+                            timer = 0.0
+                        }
+                    ]
+                );
+                
                 __result = true; //This will cause attack to cancel itself.
                 return false; //Stop prefixing plus ignore the prefixed method.
             }
@@ -67,19 +76,14 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
     }
     public static void Ship_OnBeginTurn_Postfix(Ship __instance, State s, Combat c)
     {
-        var ship = __instance;
-        bool fadeUsedThisTurn = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(ship, "fadeUsedThisTurn", false);
-        if (ship.Get(Status.timeStop) > 0)
+        fadeDodgeStack = 0; // Set fadeDodgeStack to 0 at the start of turn.
+        if (__instance.Get(Status.timeStop) > 0)
 		{
             /* Timestop will decrement itself. */
 		}
-		else if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0)
+		else if (__instance.Get(VionheartScarlet.Instance.Fade.Status) > 0)
 		{
-            if (!fadeUsedThisTurn)
-            {
-		        ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
-            }
-        }
-        VionheartScarlet.Instance.Helper.ModData.SetModData(ship,"fadeUsedThisTurn", false);
+		    __instance.Add(VionheartScarlet.Instance.Fade.Status, 0);
+		}
     }
 }
