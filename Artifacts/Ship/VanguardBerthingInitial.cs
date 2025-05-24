@@ -51,6 +51,7 @@ public class VanguardBerthingInitial : Artifact, IRegisterable
             Artifact _ = state.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new VanguardBerthing().Key());
             if (_ is VanguardBerthing shipArtifact)
             {
+                shipArtifact.berthingInitialized = true;
                 shipArtifact.berthingCardDraw++;
             }
         }
