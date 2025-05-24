@@ -26,12 +26,9 @@ public class TrickAction : Artifact, IRegisterable
 
     public override void OnTurnEnd(State state, Combat combat)
     {
-        var ship = state.ship;
-        var energyValue = combat.energy;
-        if (energyValue > 0)
+        if (state.ship.Get(VionheartScarlet.Instance.Fade.Status) == 0)
         {
-            ship.Add(Status.drawNextTurn, 1);
-            ship.Add(VionheartScarlet.Instance.Fade.Status, 1);
+            state.ship.Add(VionheartScarlet.Instance.Fade.Status, 1);
             combat.Queue(new ADummyAction
             {
                 artifactPulse = Key(),

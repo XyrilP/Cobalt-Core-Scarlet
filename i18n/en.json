@@ -12,7 +12,7 @@
     },
     "TrickAction": {
       "name": "TRICK ACTION",
-      "description": "If you end your turn with more than 0 <c=energy>ENERGY</c>, gain 1 <c=status>DRAW NEXT TURN</c> and 1 <c=status>FADE</c>."
+      "description": "If you end your turn with 0 <c=status>FADE</c>, gain 1 <c=status>FADE</c>."
     },
     "CardEngine": {
       "name": "CARD ENGINE",
@@ -24,7 +24,7 @@
     },
     "CloakAndDagger": {
       "name": "CLOAK AND DAGGER",
-      "description": "At start of turn, gain 1 <c=status>FADE</c>. Once per turn, your next attack use 1 <c=status>FADE</c>, becoming <c=cardTraits>piercing</c> and dealing <c=keyword>1</c> additional damage."
+      "description": "At start of turn, gain 1 <c=status>FADE</c>. <c=status>FADE</c> no longer decreases every turn, consume 1 <c=status>FADE</c> to make your attacks <c=cardTrait>piercing</c> once per turn."
     },
     "HardlightAfterburners": {
       "name": "HARDLIGHT AFTERBURNERS",
@@ -61,10 +61,6 @@
     "Vanguard": {
       "name": "Vanguard",
       "description": "The T2XS Vanguard! <c=BC2C3D>SCARLET</c>'s starship from <c=white>Silversoul Productions</c> with more protection and space for additional crew."
-    },
-    "VanguardBoss": {
-      "name": "Vanguard?",
-      "description": "Who needs crew?\n<c=downside>Too powerful for it's own good. If you're using this ship, you already lost. (from shame)</c>"
     }
   },
   "card": {
@@ -160,7 +156,7 @@
   "status": {
     "Fade": {
       "name": "Fade",
-      "description": "Prevent next direct hit, missile hit, card and status intents on this ship.\n<c=downside>Goes away at start of next turn.</c>"
+      "description": "Prevent next direct hit on this ship.\n<c=downside>Decreases by 1 at the start of next turn if unused.</c>"
     },
     "scarletBarrage": {
       "name": "Saturation Barrage",

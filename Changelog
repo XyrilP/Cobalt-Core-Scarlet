@@ -1,26 +1,3 @@
-Scarlet 1.3.4
-- Bugfixes
-    * Fixed Fade "dodging" enemy Status intents that target the enemy ship (themselves), such as giving themselves autododge or shields.
-Scarlet 1.3.3 Rework
-- Internal stuff
-    * Progress towards using the new Dialogue Machine by Urufudoggo.
-- Fade
-    * My original vision for Fade has arrived! witness (Scarlet's) true power!
-        * Fade now works against missiles.
-        * Fade now works against enemy Card and Status intents.
-Scarlet 1.3.2 Rework
-- New stuff!
-    * Added visuals for Fade where attacks fly over the ship when prevented.
-- Adjustments
-    * Fade now goes away entirely at end of turn.
-    * Cloak and Dagger loses its "Fade no longer goes away" property. Its "Make attacks pierce with fade" property additionally increases its damage by 1.
-    * Trick Action now gives you 1 Fade and 1 Draw Next Turn if you end your turn with 1 or more Energy.
-- Bug fixes
-    * Fixed Tricks of the Trade using old trick daggers midrow objects.
-Scarlet 1.3.1 Rework
-- Bug fixes
-    * Fixed a bug where Vanguard Berthing continually grants you additional crew (sorry, someone said there was a party!)
-    * Fixed a bug where Cloak and Dagger constantly malfunctions and refuses to work as intended.
 Scarlet 1.3.0 Rework
 - Reworked Fade status
     * Fade no longer forces movement when preventing direct hits.

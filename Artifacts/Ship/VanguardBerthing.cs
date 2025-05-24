@@ -10,7 +10,7 @@ namespace VionheartScarlet.Artifacts;
 
 public class VanguardBerthing : Artifact, IRegisterable
 {
-    public bool berthingInitialized { get; set; }
+    bool berthingInitialized = false;
     public int berthingCardDraw { get; set; }
     public int berthingEnergyFragment { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -42,6 +42,7 @@ public class VanguardBerthing : Artifact, IRegisterable
                 }
             ]
             );
+            berthingInitialized = true;
         }
     }
     public override void OnTurnStart(State state, Combat combat)
