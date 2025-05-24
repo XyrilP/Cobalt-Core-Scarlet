@@ -8,7 +8,6 @@ namespace VionheartScarlet.Artifacts;
 public class ElectrolyteSurge : Artifact, IRegisterable
 {
     private static Spr spriteOn;
-
     private static Spr spriteOff;
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {

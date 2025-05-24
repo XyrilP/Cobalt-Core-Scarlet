@@ -75,11 +75,17 @@ internal class VionheartScarlet : SimpleMod
         typeof(VanguardBerthingEvent),
         typeof(Scarlet_Riggs_Date)
     ];
+    internal static List<Type> Dialogue_Types = [
+        typeof(StoryDialogueV2),
+        typeof(CombatDialogueV2),
+        typeof(EventDialogueV2)
+    ];
     private static IEnumerable<Type> Vionheart_Content =
         Colorless_All_Card_Types
             .Concat(Colorless_All_Artifact_Types)
             .Concat(Ship_Artifact_Types)
-            .Concat(Event_Types);
+            .Concat(Event_Types)
+            .Concat(Dialogue_Types);
     /* Vionheart Content */
     /* Scarlet Content */
     internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
@@ -239,11 +245,37 @@ internal class VionheartScarlet : SimpleMod
         }
         );
                 /* Scarlet SQUINT */
-        RegisterAnimation(package, "squint", "assets/characters/scarlet_squint_", 5);
+        RegisterAnimation(package, "squint", "assets/characters/scarlet_squint2_", 5);
                 /* Scarlet SAD */
         RegisterAnimation(package, "sad", "assets/characters/scarlet_sad_", 5);
                 /* Scarlet SMUG */
         RegisterAnimation(package, "smug", "assets/characters/scarlet_smug_", 4);
+                /* Scarlet ANGRY */
+        RegisterAnimation(package, "angry", "assets/characters/scarlet_angry_", 5);
+                /* Scarlet TIRED */
+        RegisterAnimation(package, "tired", "assets/characters/scarlet_tired_", 5);
+                /* Scarlet HAPPY */
+        RegisterAnimation(package, "happy", "assets/characters/scarlet_happy_", 4);
+                /* Scarlet FLUSTERED */
+        RegisterAnimation(package, "flustered", "assets/characters/scarlet_flustered_", 4);
+                /* Scarlet BLUSH */
+        RegisterAnimation(package, "blush", "assets/characters/scarlet_blush_", 4);
+                /* Scarlet DAGGER */
+        RegisterAnimation(package, "dagger", "assets/characters/scarlet_dagger_", 4);
+                /* Scarlet DAGGERANGRY */
+        RegisterAnimation(package, "daggerangry", "assets/characters/scarlet_daggerangry_", 5);
+                /* Scarlet FOCUS */
+        RegisterAnimation(package, "focus", "assets/characters/scarlet_focus_", 5);
+                /* Scarlet LOCKEDIN */
+        RegisterAnimation(package, "lockedin", "assets/characters/scarlet_lockedin_", 5);
+                /* Scarlet MISCHIEF */
+        RegisterAnimation(package, "mischief", "assets/characters/scarlet_mischief_", 5);
+                /* Scarlet DAGGERTAUNT */
+        RegisterAnimation(package, "daggertaunt", "assets/characters/scarlet_daggertaunt_", 4);
+                /* Scarlet SCREAM */
+        RegisterAnimation(package, "scream", "assets/characters/scarlet_scream_", 2);
+                /* Scarlet NERVOUS */
+        RegisterAnimation(package, "nervous", "assets/characters/scarlet_nervous_", 4);
             /* Register Scarlet as a Playable Character plus his Deck */
         helper.Content.Characters.V2.RegisterPlayableCharacter("Scarlet", new PlayableCharacterConfigurationV2
         {
@@ -457,14 +489,103 @@ internal class VionheartScarlet : SimpleMod
         }
         );
         /* T2XS Vanguard */
+        // /* Vanguard Boss */
+        // Vanguard_Ship = helper.Content.Ships.RegisterShip("VanguardBoss", new ShipConfiguration()
+        // {
+        //     Ship = new StarterShip()
+        //     {
+        //         ship = new Ship()
+        //         {
+        //             hull = 18,
+        //             hullMax = 18,
+        //             shieldMaxBase = 6,
+        //             parts =
+        //             {
+        //                 new Part
+        //                 {
+        //                     type = PType.wing,
+        //                     skin = Vanguard_Extra_1.UniqueName,
+        //                     damageModifier = PDamMod.armor
+        //                 },
+        //                 new Part
+        //                 {
+        //                     type = PType.cannon,
+        //                     skin = Vanguard_Cannon.UniqueName
+        //                 },
+        //                 new Part
+        //                 {
+        //                     type = PType.wing,
+        //                     skin = Vanguard_Extra_1.UniqueName,
+        //                     damageModifier = PDamMod.armor,
+        //                     flip = true
+        //                 },
+        //                 new Part
+        //                 {
+        //                     type = PType.missiles,
+        //                     skin = Vanguard_Missile.UniqueName
+        //                 },
+        //                 new Part
+        //                 {
+        //                     type = PType.cockpit,
+        //                     skin = Vanguard_Cockpit.UniqueName
+        //                 },
+        //                 new Part
+        //                 {
+        //                     type = PType.cannon,
+        //                     skin = Vanguard_Cannon.UniqueName
+        //                 },
+        //                 new Part
+        //                 {
+        //                     type = PType.wing,
+        //                     skin = Vanguard_Extra_1.UniqueName,
+        //                     damageModifier = PDamMod.armor,
+        //                 },
+        //                 new Part
+        //                 {
+        //                     type = PType.missiles,
+        //                     skin = Vanguard_Missile.UniqueName
+        //                 },
+        //                 new Part
+        //                 {
+        //                     type = PType.wing,
+        //                     skin = Vanguard_Extra_1.UniqueName,
+        //                     damageModifier = PDamMod.armor,
+        //                     flip = true
+        //                 },
+        //             }
+        //         },
+        //         cards =
+        //         {
+        //             new BasicShieldColorless(),
+        //             new CannonColorless(),
+        //             new CannonColorless(),
+        //             new DodgeColorless()
+        //         },
+        //         artifacts =
+        //         {
+        //             new ShieldPrep()
+        //         }
+        //     },
+        //     ExclusiveArtifactTypes = new HashSet<Type>()
+        //     {
+        //     },
+        //     UnderChassisSprite = Vanguard_Chassis,
+        //     Name = AnyLocalizations.Bind(["ship", "VanguardBoss", "name"]).Localize,
+        //     Description = AnyLocalizations.Bind(["ship", "VanguardBoss", "description"]).Localize
+        // }
+        // );
+        // /* Vanguard Boss */
         /* HullLostManager */
         _ = new HullLostManager(package, helper);
         /* HullLostManager */
+        /* CheckIfAttackIsPiercing */
+        _ = new CheckIfAttackIsPiercing(package, helper);
+        /* CheckIfAttackIsPiercing */
         /* Register all artifacts and cards into the game, allowing it to be played. (Based on AllRegisterableTypes) */
         foreach (var type in AllRegisterableTypes)
             AccessTools.DeclaredMethod(type, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
         /* Inject Dialogue */
-        Dialogue.Dialogue.Inject();
+        // Dialogue.Dialogue.Inject(); //Replaced with new Dialogue Machine
     }
 
     /* New function to register sprites better (New method). */
