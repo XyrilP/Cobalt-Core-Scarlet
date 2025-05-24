@@ -54,6 +54,149 @@ internal class CombatDialogueV2 : IRegisterable
                         new(Scarlet, "neutral", "Golly!")
                     ]
                 }
+            },
+            {
+                "Scarlet_JustHitGeneric_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Strike!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_JustHitGeneric_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Attack.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_JustHitGeneric_3",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Oh, how I strike.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_JustHitGeneric_4",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Defend yourself.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_JustHitGeneric_5",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "See here!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_JustHitGeneric_6",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "smug", "I see you.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_JustHitGeneric_7",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "smug", "Heh heh heh he.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_JustHitGeneric_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Riggs ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "happy", "Score! Ya saw that, Riggs?"),
+                        new(Riggs, "neutral", "Mmmyeah!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_JustHitGeneric_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Riggs ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    dialogue =
+                    [
+                        new(Riggs, "neutral", "Ooooh, that one is a good hit!"),
+                        new(Scarlet, "happy", "Good girl."),
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_JustHitGeneric_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Riggs ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 2,
+                    dialogue =
+                    [
+                        new(Scarlet, "dagger", "You don't stand a chance."),
+                        new(Riggs, "gun", "Not in a gazillion years!")
+                    ]
+                }
             }
         }
         );

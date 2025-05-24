@@ -187,19 +187,6 @@ internal class StoryDialogueV2 : IRegisterable
                 }
             },
             {
-                "Scarlet_Max_Intro_0",
-                new()
-                {
-                    type = NodeType.@event,
-                    lookup = [ "zone_first" ],
-                    requiredScenes = [ "Scarlet_Intro_0" ],
-                    allPresent = [ Scarlet, Max ],
-                    once = true,
-                    bg = "BGRunStart",
-                    dialogue = []
-                }
-            },
-            {
                 "Scarlet_Eunice_Intro_0",
                 new()
                 {
@@ -207,6 +194,19 @@ internal class StoryDialogueV2 : IRegisterable
                     lookup = [ "zone_first" ],
                     requiredScenes = [ "Scarlet_Intro_0" ],
                     allPresent = [ Scarlet, Eunice ],
+                    once = true,
+                    bg = "BGRunStart",
+                    dialogue = []
+                }
+            },
+            {
+                "Scarlet_Max_Intro_0",
+                new()
+                {
+                    type = NodeType.@event,
+                    lookup = [ "zone_first" ],
+                    requiredScenes = [ "Scarlet_Intro_0" ],
+                    allPresent = [ Scarlet, Max ],
                     once = true,
                     bg = "BGRunStart",
                     dialogue = []
