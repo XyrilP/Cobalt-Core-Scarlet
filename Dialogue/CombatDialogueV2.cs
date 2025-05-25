@@ -175,7 +175,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet, Riggs ],
                     playerShotJustHit = true,
-                    minDamageDealtToEnemyThisAction = 1,
+                    minDamageDealtToEnemyThisAction = 3,
                     dialogue =
                     [
                         new(Riggs, "neutral", "Ooooh, that one is a good hit!"),
@@ -190,11 +190,182 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet, Riggs ],
                     playerShotJustHit = true,
-                    minDamageDealtToEnemyThisAction = 2,
+                    minDamageDealtToEnemyThisAction = 3,
                     dialogue =
                     [
                         new(Scarlet, "dagger", "You don't stand a chance."),
                         new(Riggs, "gun", "Not in a gazillion years!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_MovedALittle_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Step!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_MovedALittle_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "squint", "A little bit to the side here...")
+                    ]
+                }
+            },
+            {
+                "Scarlet_MovedALittle_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Since you put it like that.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_WeAreMovingAroundAlot_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Stride!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_WeAreMovingAroundAlot_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Y'all might feel a lil' turbulence!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_WeAreMovingAroundAlot_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Comin' through!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_WeAreMovingAroundAlot_3",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Quickly.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_WeAreMovingAroundAlot_4",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Quickly, quickly.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_WeAreMovingAroundAlot_5",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "I sprint.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_WeAreMovingAroundAlot_6",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Dispatched.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_WeAreMovingAroundAlot_7",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Post haste.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_WeAreMovingAroundAlot_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Riggs ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Let's turn here, Riggs!"),
+                        new(Riggs, "neutral", "Okay!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_WeAreMovingAroundAlot_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Riggs ],
+                    minMovesThisTurn = 3,
+                    dialogue =
+                    [
+                        new(Riggs, "neutral", "Over there, Scarlet!"),
+                        new(Scarlet, "lockedin", "Roger!")
                     ]
                 }
             }
