@@ -201,17 +201,19 @@ internal class StoryDialogueV2 : IRegisterable
                         new(Eunice, "sly", "Hey pirate!", true),
                             new(
                             [
-                                new(Hyperia, "angry", "I knew it!", true)
+                                new(Hyperia, "mad", "I knew it!", true)
                             ]
                             ),
                         new(Scarlet, "tired", "Sigh."),
-                        new(Scarlet, "angry", "I am not a pirate."),
+                        new(Scarlet, "tired", "Eunice."),
+                        new(Scarlet, "squint", "I am not a pirate."),
                         new(Eunice, "neutral", "Oh... right!", true),
                         new(Eunice, "sly", "We are not pirates.", true),
-                        new(Eunice, "sly", "Wink. Wink.", true),
+                        new(Eunice, "sadEyesClosed", "Wink. Wink.", true),
                         new(Scarlet, "tired", "Ugh."),
                         new(Eunice, "sly", "Nudge. Nudge.", true),
-                        new(Scarlet, "angry")
+                        new(Scarlet, "angry", "Eunice, knock it off!"),
+                        new(Eunice, "slyBlush", "Okay.", true)
                     ]
                 }
             },
@@ -225,7 +227,21 @@ internal class StoryDialogueV2 : IRegisterable
                     allPresent = [ Scarlet, Max ],
                     once = true,
                     bg = "BGRunStart",
-                    dialogue = []
+                    dialogue =
+                    [
+                        new(Scarlet, "neutral", "Hey."),
+                        new(Max, "intense", "GUH?!", true),
+                        new(Max, "mad", "Hey, don't sneak up on me like that!", true),
+                        new(Scarlet, "nervous", "Uh- I wasn't...?"),
+                        new(Max, "squint", "Nevermind...", true),
+                        new(Max, "neutral", "What's up, man?", true),
+                        new(Scarlet, "neutral", "You're the technomancer, right?"),
+                        new(Max, "smile", "Yeah, sure.", true),
+                        new(Max, "gloves", "I'm something of a technomancer myself.", true),
+                        new(Scarlet, "happy", "Nice."),
+                        new(Scarlet, "neutral", "I'm a pilot, so I'll make sure we don't get hit and the cannons are aligned, hacker-man."),
+                        new(Max, "smile", "Niiiiice.", true)
+                    ]
                 }
             },
             {
@@ -238,7 +254,26 @@ internal class StoryDialogueV2 : IRegisterable
                     allPresent = [ Scarlet, Books ],
                     once = true,
                     bg = "BGRunStart",
-                    dialogue = []
+                    dialogue =
+                    [
+                        new(Books, "neutral", "Mister Altear! Mister Altear!", true),
+                        new(Scarlet, "squint", "Huh? Who...?"),
+                        new(Books, "paws", "It's me, Books! remember?", true),
+                        new(Scarlet, "neutral", "Oh hey, Books...?"),
+                        new(Books, "paws", "We went on adventures together!", true),
+                        new(Books, "blush", "Like when Triune told me to search around in the Drift Plane and found your crew and your starship sliced in halves fighting against Miss Drake?", true),
+                        new(Books, "blush", "Or when I met Mister Solivane for the first time when I was playing VURS with my dream-sharing friends in Little Akiton, at Absalom Station?", true),
+                        new(Books, "books", "Maybe when I was with your sister halfway across a planet trying to buy parmesan cheese?", true),
+                        new(Books, "books", "Oh wait, you were in jail at the time...", true),
+                        new(Scarlet, "nervous", "Uhm."),
+                        new(Books, "squint", "Oh I see how it is.", true),
+                        new(Books, "plan", "Don't worry Mister Altear, I have just the thing!", true),
+                        new(Books, "crystal", "", true),
+                        new(Scarlet, "scream", "ISN'T THAT EXTREMELY RADIOACTIVE?!"),
+                        new(Books, "crystal", "Don't be so worried Mister Altear, it is radioactive!", true),
+                        new(Scarlet, "angry", "Hey!! Get that thing away from me!!!"),
+                        new(Books, "stoked", "It's for your own good, Mister Altear!!", true)
+                    ]
                 }
             },
             {

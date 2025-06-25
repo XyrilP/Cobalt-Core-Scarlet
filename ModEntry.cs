@@ -73,7 +73,6 @@ internal class VionheartScarlet : SimpleMod
     ];
     internal static IReadOnlyList<Type> Event_Types { get; } = [
         /* Events */
-        typeof(VanguardBerthingEvent),
         typeof(Scarlet_Riggs_Date)
     ];
     internal static List<Type> Dialogue_Types = [
