@@ -268,7 +268,7 @@ internal class EventDialogueV2 : IRegisterable
                 {
                     edit =
                     [
-                        new("a0f08d01", Scarlet, "lockedin", "Come on, we have to help them!")
+                        new("ea76f8c1", Scarlet, "lockedin", "Come on, we have to help them!")
                     ]
                 }
             },

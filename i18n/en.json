@@ -40,17 +40,21 @@
     },
     "VanguardBerthing": {
       "name": "VANGUARD BERTHING",
-      "description": "Start with <c=keyword>1</c> additional <c=downside>random</c> crew member. For each additional crew member, draw one card at start of turn.",
-      "descExtra1": "You have <c=keyword>{{TTberthingCardDraw}}</c> additional crew!",
+      "description": "Start with <c=keyword>1</c> additional crew member, chosen from 3 <c=downside>random</c> options. At start of turn, draw 1 additional card.",
+      "descExtra1": "<c=white>BERTHING</c>: Draw <c=keyword>{{TTberthingCardDraw}}</c> additional cards at start of turn.",
       "descExtra2": "<c=white>BERTHING+</c>: Gain <c=keyword>{{TTberthingEnergyFragment}}</c> <c=status>ENERGY FRAGMENT</c> at start of turn."
     },
     "VanguardBerthingInitial": {
-      "name": "VANGUARD BERTHING INITIAL",
-      "description": "Gain <c=keyword>1</c> additional <c=downside>random</c> crew member."
+      "name": "VANGUARD BERTHING",
+      "description": "(Vanguard-exclusive artifact!)\nChoose <c=keyword>1</c> additional crew member, their cards are <c=keyword>upgraded randomly</c> and pick <c=keyword>1</c> uncommon card from their deck to add.\nAt start of turn, draw 1 additional card."
     },
     "VanguardBerthingPlus": {
       "name": "VANGUARD BERTHING+",
-      "description": "(Vanguard-exclusive artifact!)\nGain <c=keyword>1</c> additional <c=downside>random</c> crew member. On turn start, gain 1 <c=status>ENERGY FRAGMENT</c>."
+      "description": "(Vanguard-exclusive artifact!)\nChoose <c=keyword>1</c> additional crew member, their cards are <c=keyword>upgraded randomly</c> and pick <c=keyword>2</c> uncommon cards and  <c=keyword>1</c> rare card from their deck to add.\nAt start of turn, draw 1 additional card and gain 1 <c=status>ENERGY FRAGMENT</c>."
+    },
+    "VanguardBerthingChoice": {
+        "title": "VANGUARD BERTHING",
+        "choice": "Choose a crew member to add!"
     },
     "TwoPilots": {
       "name": "TWO PILOTS",

@@ -1,3 +1,20 @@
+Scarlet 1.3.10
+Scarlet 1.3.9
+- Card Adjustments
+    * Sange Dagger is now 1 Energy (was 2)
+    * Yasha Dagger is now 1 Energy (was 2)
+- Bug fixes
+    * Fixed stupid bug that made Saturation Barrage stupidly fire at the owner of the status when moving cause I'm stupid I guess
+Scarlet 1.3.8
+- Vanguard ship improvements.
+    * No longer secretly depends on Shipyard,
+    * Missing status should now properly render.,
+    * Altered rendering of the crew members to better fit the UI. Having 14 or more additional members will still obscure your (in combat) hand slightly and will no longer render outwards.
+Scarlet 1.3.7
+- New Vanguard ship features
+    * Vanguard Berthing now gives you a 1 out of 3 choice to pick a crew member to add, instead of randomly being determined.
+    * New Vanguard Berthing common ship artifact that grants an additional crew member, plus their upgraded starters and an uncommon card from their deck.
+    * Vanguard Berthing+ boss ship artifact now additionally grants the new crew member's upgraded starters, 2 uncommon cards and 1 rare card from their deck.
 Scarlet 1.3.4
 - Bugfixes
     * Fixed Fade "dodging" enemy Status intents that target the enemy ship (themselves), such as giving themselves autododge or shields.

@@ -44,7 +44,7 @@ internal class StoryDialogueV2 : IRegisterable
                     bg = "BGRunStart",
                     dialogue =
                     [
-                        new(Cat, "transition", "BEEP BOOP, WAKE UP EVERYONE."),
+                        new(Cat, "transition", "BEEP BOOP, WAKE UP EVERYONE.", true),
                         new(Scarlet, "tired", "Ughh.. my head."),
                         new(Cat, "squint", "Huh? who are you? I don't remember you in the manifest.", true),
                         new(Cat, "transition", "...", true),
@@ -83,7 +83,7 @@ internal class StoryDialogueV2 : IRegisterable
                     bg = "BGRunStart",
                     dialogue =
                     [
-                        new(Dizzy, "neutral", "Red mouse guy!"),
+                        new(Dizzy, "neutral", "Red mouse guy!", true),
                         new(Scarlet, "tired", "Scarlet."),
                         new(Dizzy, "shrug", "Close enough!", true),
                         new(Scarlet, "tired", "..."),
@@ -111,7 +111,7 @@ internal class StoryDialogueV2 : IRegisterable
                     bg = "BGRunStart",
                     dialogue =
                     [
-                        new(Riggs, "neutral", "Hey Scarlet!"),
+                        new(Riggs, "neutral", "Hey Scarlet!", true),
                         new(Scarlet, "happy", "Riggs."),
                         new(Riggs, "neutral", "I was wondering if you had any hobbies!", true),
                         new(Scarlet, "happy", "Hobbies! uhh..."),
@@ -196,7 +196,23 @@ internal class StoryDialogueV2 : IRegisterable
                     allPresent = [ Scarlet, Eunice ],
                     once = true,
                     bg = "BGRunStart",
-                    dialogue = []
+                    dialogue =
+                    [
+                        new(Eunice, "sly", "Hey pirate!", true),
+                            new(
+                            [
+                                new(Hyperia, "angry", "I knew it!", true)
+                            ]
+                            ),
+                        new(Scarlet, "tired", "Sigh."),
+                        new(Scarlet, "angry", "I am not a pirate."),
+                        new(Eunice, "neutral", "Oh... right!", true),
+                        new(Eunice, "sly", "We are not pirates.", true),
+                        new(Eunice, "sly", "Wink. Wink.", true),
+                        new(Scarlet, "tired", "Ugh."),
+                        new(Eunice, "sly", "Nudge. Nudge.", true),
+                        new(Scarlet, "angry")
+                    ]
                 }
             },
             {

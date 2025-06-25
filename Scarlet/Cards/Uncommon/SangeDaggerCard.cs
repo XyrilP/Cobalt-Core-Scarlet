@@ -37,16 +37,16 @@ public class SangeDaggerCard : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 2
+                cost = 1
             },
             Upgrade.A => new CardData
             {
-                cost = 2
+                cost = 1
             },
             Upgrade.B => new CardData
             {
                 art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 2,
+                cost = 1,
                 flippable = true
             },
             _ => new CardData{}

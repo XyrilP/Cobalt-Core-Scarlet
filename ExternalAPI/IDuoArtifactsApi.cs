@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace XyrilP.ExternalAPI;
+namespace VionheartScarlet.ExternalAPI;
 
 public interface IDuoArtifactsApi
 {

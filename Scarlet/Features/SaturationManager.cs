@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using XyrilP.ExternalAPI;
+using VionheartScarlet.ExternalAPI;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;

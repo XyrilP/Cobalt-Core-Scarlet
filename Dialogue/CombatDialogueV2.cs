@@ -368,6 +368,98 @@ internal class CombatDialogueV2 : IRegisterable
                         new(Scarlet, "lockedin", "Roger!")
                     ]
                 }
+            },
+            {
+                "Scarlet_FadeGeneric_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Fade ],
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Fading.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_FadeGeneric_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Fade ],
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Watch this Fade.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_FadeGeneric_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Fade ],
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "They can't hit us.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_FadeGeneric_3",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Fade ],
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "We are concealed.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_FadeGeneric_4",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Fade ],
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "We are hidden.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_SaturationBarrageGeneric_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ SaturationBarrage ],
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Barrage ready!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_StrafeShot_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToEnemyThisAction = 1,
+                    playerShotWasFromStrafe = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Strafing!")
+                    ]
+                }
             }
         }
         );

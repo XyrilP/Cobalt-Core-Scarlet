@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
-using XyrilP.ExternalAPI;
+using VionheartScarlet.ExternalAPI;
 
 namespace VionheartScarlet.Artifacts;
 

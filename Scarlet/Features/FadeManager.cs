@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using XyrilP.ExternalAPI;
+using VionheartScarlet.ExternalAPI;
 using HarmonyLib;
 using Nanoray.PluginManager;
 using Nickel;
@@ -44,6 +44,12 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
             original: AccessTools.DeclaredMethod(typeof(IntentStatus), nameof(IntentStatus.Apply)),
             prefix: new HarmonyMethod(GetType(), nameof(IntentStatus_Apply_Prefix))
         );
+        /* Prevent player outgoing status */
+        // VionheartScarlet.Instance.Harmony.Patch(
+        //     original: AccessTools.DeclaredMethod(typeof(AStatus), nameof(AStatus.Begin)),
+        //     prefix: new HarmonyMethod(GetType(), nameof(AStatus_Begin_Prefix))
+        // );
+        /* Prevent player outgoing status */
     }
     public static void AAttack_Begin_Prefix(AAttack __instance, G g, State s, Combat c)
     {
@@ -59,6 +65,7 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         Ship ship = aattack.targetPlayer ? s.ship : c.otherShip;
         Ship ship2 = aattack.targetPlayer ? c.otherShip : s.ship;
         var fadeValue = ship.Get(VionheartScarlet.Instance.Fade.Status);
+        var fadeStatus = VionheartScarlet.Instance.Fade.Status;
         if (fadeValue > 0)
         {
             int? num = aattack.GetFromX(s, c);
@@ -102,6 +109,7 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
             }
             raycastResult.hitShip = false;
             EffectSpawnerExtension.CannonAngled(g, aattack.targetPlayer, aattack.fromDroneX.HasValue ? aattack.fromDroneX.Value : (num.HasValue ? num.Value : 0), raycastResult, dmg); //Play an animation?
+            Audio.Play(StatusMeta.GetSound(fadeStatus, false));
         }
     }
     public static bool AAttack_ApplyAutododge_Prefix(AAttack __instance, Combat c, Ship target, RaycastResult ray, ref bool __result)
@@ -171,7 +179,7 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         var amissilehit = __instance;
         var ship = amissilehit.targetPlayer ? s.ship : c.otherShip;
         var fadeValue = ship.Get(VionheartScarlet.Instance.Fade.Status);
-
+        var fadeStatus = VionheartScarlet.Instance.Fade.Status;
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         c.stuff.TryGetValue(amissilehit.worldX, out StuffBase value);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -191,7 +199,7 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
             Part? partAtWorldX = ship.GetPartAtWorldX(raycastResult.worldX);
             if (partAtWorldX == null || partAtWorldX.type != PType.empty)
             {
-                if (fadeValue == 0)
+                if (fadeValue <= 0)
                 {
                     flag = true;
                 }
@@ -203,14 +211,19 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             Part partAtWorldX2 = ship.GetPartAtWorldX(raycastResult.worldX);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            if (fadeValue == 0)
+            if (fadeValue <= 0)
             {
                 flag = partAtWorldX2 != null && partAtWorldX2.type != PType.empty;
             }
         }
         if (!missile.isHitting)
         {
-            ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
+            if ((raycastResult.hitShip || (!raycastResult.hitShip && missile.missileType == MissileType.seeker)) && fadeValue > 0)
+            {
+                ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
+                VionheartScarlet.Instance.Helper.ModData.SetModData(amissilehit, "shouldMiss", true);
+                Audio.Play(StatusMeta.GetSound(fadeStatus, false));
+            }
             Audio.Play(flag ? Event.Drones_MissileIncoming : Event.Drones_MissileMiss);
             missile.isHitting = true;
         }
@@ -218,7 +231,8 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         {
             return;
         }
-        if (flag)
+        var shouldMiss = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(amissilehit, "shouldMiss", false);
+        if (flag && !shouldMiss)
         {
             int num = amissilehit.outgoingDamage;
             foreach (Artifact item in s.EnumerateAllArtifacts())
@@ -237,7 +251,8 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
                 {
                     targetPlayer = amissilehit.targetPlayer,
                     dir = amissilehit.xPush
-                });
+                }
+                );
             }
             Part? partAtWorldX3 = ship.GetPartAtWorldX(raycastResult.worldX);
             if (partAtWorldX3 != null && partAtWorldX3.stunModifier == PStunMod.stunnable)
@@ -245,7 +260,8 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
                 c.QueueImmediate(new AStunPart
                 {
                     worldX = raycastResult.worldX
-                });
+                }
+                );
             }
             if (amissilehit.status.HasValue && flag)
             {
@@ -254,7 +270,8 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
                     status = amissilehit.status.Value,
                     statusAmount = amissilehit.statusAmount,
                     targetPlayer = amissilehit.targetPlayer
-                });
+                }
+                );
             }
             if (amissilehit.weaken && flag)
             {
@@ -262,7 +279,8 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
                 {
                     worldX = amissilehit.worldX,
                     targetPlayer = amissilehit.targetPlayer
-                });
+                }
+                );
             }
             if (ship.Get(Status.payback) > 0 || ship.Get(Status.tempPayback) > 0)
             {
@@ -271,11 +289,12 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
                     damage = Card.GetActualDamage(s, ship.Get(Status.payback) + ship.Get(Status.tempPayback), !amissilehit.targetPlayer),
                     targetPlayer = !amissilehit.targetPlayer,
                     fast = true
-                });
+                }
+                );
             }
         }
         c.stuff.Remove(amissilehit.worldX);
-        if (!(raycastResult.hitDrone || flag))
+        if (!(raycastResult.hitDrone || flag) || shouldMiss)
         {
             c.stuffOutro.Add(missile);
         }
@@ -288,7 +307,17 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 
         if (fadeValue > 0)
         {
-            ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
+            c.QueueImmediate(
+            [
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    statusAmount = -1,
+                    targetPlayer = true
+                }
+            ]
+            );
+            //ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
             return false;
         }
         return true;
@@ -301,9 +330,43 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
 
         if (fadeValue > 0 && !intentstatus.targetSelf)
         {
-            ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
+            c.QueueImmediate(
+            [
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    statusAmount = -1,
+                    targetPlayer = true
+                }
+            ]
+            );
+            //ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
             return false;
         }
         return true;
     }
+    /* Prevent player outgoing status */
+    // public static bool AStatus_Begin_Prefix(AStatus __instance, G g, State s, Combat c)
+    // {
+    //     var astatus = __instance;
+    //     var ship = c.otherShip;
+    //     var fadeValue = ship.Get(VionheartScarlet.Instance.Fade.Status);
+    //     var fadeStatus = VionheartScarlet.Instance.Fade.Status;
+    //     if (fadeValue > 0 && !astatus.targetPlayer)
+    //     {
+    //         c.QueueImmediate(
+    //         [
+    //             new ADummyAction
+    //             {
+    //                 timer = 0.4
+    //             }
+    //         ]
+    //         );
+    //         ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
+    //         Audio.Play(StatusMeta.GetSound(fadeStatus, false));
+    //         return false;
+    //     }
+    //     return true;
+    // }
+    /* Prevent player outgoing status */
 }

@@ -47,8 +47,6 @@ public class VanguardBerthing : Artifact, IRegisterable
     public override void OnTurnStart(State state, Combat combat)
     {
         var ship = state.ship;
-        //berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
-        //berthingEnergyFragment = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingEnergyFragment", 0);
         /* Draw additional cards */
         if (berthingCardDraw > 0)
         {
@@ -88,12 +86,6 @@ public class VanguardBerthing : Artifact, IRegisterable
             }
         }
         /* Add Energy Fragment */
-        /* Patch RenderCharacters */
-        VionheartScarlet.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(Character), nameof(Character.RenderCharacters)),
-            prefix: new HarmonyMethod(GetType(), nameof(Character_RenderCharacters_Prefix))
-        );
-        /* Patch RenderCharacters */
     }
     public override int? GetDisplayNumber(State s)
     {
@@ -103,7 +95,7 @@ public class VanguardBerthing : Artifact, IRegisterable
         }
         else
         {
-        return null;
+            return null;
         }
     }
     public override List<Tooltip>? GetExtraTooltips()
@@ -123,62 +115,4 @@ public class VanguardBerthing : Artifact, IRegisterable
             return null;
         }
     }
-    public static bool Character_RenderCharacters_Prefix(Character __instance, G g, Vec offset, bool mini, double introTimer, bool showDialogue, ref bool finaleMode)
-	{
-		Rect? rect = default(Rect) + offset;
-		g.Push(null, rect, null, autoFocus: false, noHoverSound: false, gamepadUntargetable: false, ReticleMode.Quad, null, null, null, null, 0, null, null, null, null);
-		int num = 0;
-		int num2 = 0;
-        int characterCount = 0;
-		for (int i = 0; i < g.state.characters.Count; i++)
-		{
-            characterCount++;
-			Character character = g.state.characters[i];
-			int x = num2 + (int)Mutil.AnimHelper(introTimer, -90.0, 0.0, 360.0, 0.0 + (double)i * 0.1);
-            int y = num;
-			bool mini2 = mini;
-			bool isExploding = g.state.ship.hull <= 0;
-			bool isDoneExploding = g.state.ship.deathProgress >= 1.0;
-			bool hasValue = g.state.ship.escapeTimer.HasValue;
-			bool showDialogue2 = showDialogue;
-#pragma warning disable DirectGameEnumUsage // Avoid direct game enum usage
-            UIKey? upHint = ((i == 0) ? new UIKey?(UK.corner_mainmenu) : ((UIKey?)null));
-#pragma warning restore DirectGameEnumUsage // Avoid direct game enum usage
-            double blurbAlign = -1.0;
-			character.Render(g, x, y, flipX: false, mini2, isExploding, isDoneExploding, hasValue, null, renderLocked: false, hideFace: false, showUnlockInstructions: false, showDialogue2, null, null, null, upHint, null, canFocus: true, null, autoFocus: false, showTooltips: true, i switch
-			{
-				0 => -10, 
-				1 => -20, 
-				2 => -30, 
-				3 => -10,
-                4 => -20,
-                5 => -30,
-                _ => -10
-			}, blurbAlign);
-            if (finaleMode || g.state.characters.Count > 3)
-			{
-                if (characterCount == 0)
-                {
-                    num += 32;
-                }
-                if (characterCount < 3)
-                {
-                    num += 32;
-                }
-                else
-                {
-                    num = 0;
-                    num2 += 34;
-                    characterCount = 0;
-                }
-				mini = true;
-			}
-			else
-			{
-				num += mini ? 32 : 60;
-			}
-		}
-		g.Pop();
-        return false;
-	}
 }

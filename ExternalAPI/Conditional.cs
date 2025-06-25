@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace XyrilP.ExternalAPI;
+namespace VionheartScarlet.ExternalAPI;
 
 public partial interface IKokoroApi
 {

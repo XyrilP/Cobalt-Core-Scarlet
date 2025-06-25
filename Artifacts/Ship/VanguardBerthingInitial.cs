@@ -5,6 +5,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using HarmonyLib;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Artifacts;
 
@@ -18,7 +19,7 @@ public class VanguardBerthingInitial : Artifact, IRegisterable
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new ArtifactMeta
             {
-                pools = [ArtifactPool.Unreleased],
+                pools = [ArtifactPool.Common],
                 owner = Deck.colorless
             },
             Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["artifact", "VanguardBerthingInitial", "name"]).Localize,
@@ -30,32 +31,47 @@ public class VanguardBerthingInitial : Artifact, IRegisterable
     }
     public override void OnReceiveArtifact(State state)
     {
-        /* Add Crew Member */
-        List<Deck> list = (from dt in state.storyVars.GetUnlockedChars()
-        where !state.characters.Any((Character ch) => ch.deckType == (Deck?)dt)
-        select dt).ToList();
-        if (state.characters.Count < list.Count && !characterAdded)
+        /* Add Crew Member V1 */
+        // List<Deck> list = (from dt in state.storyVars.GetUnlockedChars()
+        // where !state.characters.Any((Character ch) => ch.deckType == (Deck?)dt)
+        // select dt).ToList();
+        // if (state.characters.Count < list.Count && !characterAdded)
+        // {
+        //     Rand rng = new Rand(state.rngCurrentEvent.seed + 3629);
+        //     Deck foundCharacter = Extensions.Random(list, rng);
+        //     state.GetCurrentQueue().Add((CardAction)new AAddCharacter
+        //     {
+        //         deck = foundCharacter,
+        //         addTheirStarterCardsAndArtifacts = true,
+        //         canGoPastTheCharacterLimit = true
+        //     }
+        //     );
+        //     characterAdded = true;
+        //     Artifact _ = state.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new VanguardBerthing().Key());
+        //     if (_ is VanguardBerthing shipArtifact)
+        //     {
+        //         shipArtifact.berthingInitialized = true;
+        //         shipArtifact.berthingCardDraw++;
+        //         shipArtifact.Pulse();
+        //     }
+        // }
+        /* Add Crew Member V1 */
+        /* Add Crew Member V2 */
+        Artifact _ = state.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new VanguardBerthing().Key());
+        if (_ is VanguardBerthing shipArtifact)
         {
-            Rand rng = new Rand(state.rngCurrentEvent.seed + 3629);
-            Deck foundCharacter = Extensions.Random(list, rng);
-            state.GetCurrentQueue().Add((CardAction)new AAddCharacter
-		    {
-                deck = foundCharacter,
-                addTheirStarterCardsAndArtifacts = true,
-                canGoPastTheCharacterLimit = true
-		    }
-            );
-            characterAdded = true;
-            // int berthingCardDraw = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(state.ship, "berthingCardDraw", 0);
-            // VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "berthingCardDraw", berthingCardDraw + 1);
-            Artifact _ = state.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new VanguardBerthing().Key());
-            if (_ is VanguardBerthing shipArtifact)
+            state.GetCurrentQueue().Add((CardAction)new AVanguardBerthing
             {
-                shipArtifact.berthingInitialized = true;
-                shipArtifact.berthingCardDraw++;
+                choiceAmount = 3,
+                upgradedStarters = shipArtifact.berthingInitialized ? true : false,
+                addUncommonCards = shipArtifact.berthingInitialized ? 1 : 0
             }
+            );
+            shipArtifact.berthingInitialized = true;
+            shipArtifact.berthingCardDraw++;
+            shipArtifact.Pulse();
         }
-        /* Add Crew Member */
+        /* Add Crew Member V2 */
         /* Remove this Artifact */
         state.GetCurrentQueue().Add((CardAction)
             new ALoseArtifact

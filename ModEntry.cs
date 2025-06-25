@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using XyrilP.ExternalAPI;
+using VionheartScarlet.ExternalAPI;
 using VionheartScarlet.Features;
 using VionheartScarlet.Cards;
 using VionheartScarlet.Dialogue;
@@ -26,6 +26,7 @@ internal class VionheartScarlet : SimpleMod
     internal IKokoroApi.IV2 KokoroApi;
     internal IMoreDifficultiesApi? MoreDifficultiesApi { get; private set; } = null;
     internal IDuoArtifactsApi? DuoArtifactsApi { get; }
+    internal IEssentialsApi? EssentialsApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
     public bool modDialogueInited;
@@ -169,6 +170,7 @@ internal class VionheartScarlet : SimpleMod
     /* Scarlet Content */
     /* T2XS Vanguard Content */
     internal IShipEntry Vanguard_Ship { get; }
+
     /* T2XS Vanguard Content */
     /* Concat everything for registration. */
     private static IEnumerable<Type> AllRegisterableTypes =
@@ -182,6 +184,7 @@ internal class VionheartScarlet : SimpleMod
         Harmony = new Harmony("VionheartScarlet"); //New API? (Harmony)
         MoreDifficultiesApi = helper.ModRegistry.GetApi<IMoreDifficultiesApi>("TheJazMaster.MoreDifficulties", (SemanticVersion?)null);
         DuoArtifactsApi = helper.ModRegistry.GetApi<IDuoArtifactsApi>("Shockah.DuoArtifacts");
+        EssentialsApi = helper.ModRegistry.GetApi<IEssentialsApi>("Nickel.Essentials");
         modDialogueInited = false;
         UniqueName = package.Manifest.UniqueName;
         /* Urufudoggo's new Dialogue Machine */
@@ -488,93 +491,8 @@ internal class VionheartScarlet : SimpleMod
             Description = AnyLocalizations.Bind(["ship", "Vanguard", "description"]).Localize
         }
         );
+        _ = new VanguardPatches(package, helper);
         /* T2XS Vanguard */
-        // /* Vanguard Boss */
-        // Vanguard_Ship = helper.Content.Ships.RegisterShip("VanguardBoss", new ShipConfiguration()
-        // {
-        //     Ship = new StarterShip()
-        //     {
-        //         ship = new Ship()
-        //         {
-        //             hull = 18,
-        //             hullMax = 18,
-        //             shieldMaxBase = 6,
-        //             parts =
-        //             {
-        //                 new Part
-        //                 {
-        //                     type = PType.wing,
-        //                     skin = Vanguard_Extra_1.UniqueName,
-        //                     damageModifier = PDamMod.armor
-        //                 },
-        //                 new Part
-        //                 {
-        //                     type = PType.cannon,
-        //                     skin = Vanguard_Cannon.UniqueName
-        //                 },
-        //                 new Part
-        //                 {
-        //                     type = PType.wing,
-        //                     skin = Vanguard_Extra_1.UniqueName,
-        //                     damageModifier = PDamMod.armor,
-        //                     flip = true
-        //                 },
-        //                 new Part
-        //                 {
-        //                     type = PType.missiles,
-        //                     skin = Vanguard_Missile.UniqueName
-        //                 },
-        //                 new Part
-        //                 {
-        //                     type = PType.cockpit,
-        //                     skin = Vanguard_Cockpit.UniqueName
-        //                 },
-        //                 new Part
-        //                 {
-        //                     type = PType.cannon,
-        //                     skin = Vanguard_Cannon.UniqueName
-        //                 },
-        //                 new Part
-        //                 {
-        //                     type = PType.wing,
-        //                     skin = Vanguard_Extra_1.UniqueName,
-        //                     damageModifier = PDamMod.armor,
-        //                 },
-        //                 new Part
-        //                 {
-        //                     type = PType.missiles,
-        //                     skin = Vanguard_Missile.UniqueName
-        //                 },
-        //                 new Part
-        //                 {
-        //                     type = PType.wing,
-        //                     skin = Vanguard_Extra_1.UniqueName,
-        //                     damageModifier = PDamMod.armor,
-        //                     flip = true
-        //                 },
-        //             }
-        //         },
-        //         cards =
-        //         {
-        //             new BasicShieldColorless(),
-        //             new CannonColorless(),
-        //             new CannonColorless(),
-        //             new DodgeColorless()
-        //         },
-        //         artifacts =
-        //         {
-        //             new ShieldPrep()
-        //         }
-        //     },
-        //     ExclusiveArtifactTypes = new HashSet<Type>()
-        //     {
-        //     },
-        //     UnderChassisSprite = Vanguard_Chassis,
-        //     Name = AnyLocalizations.Bind(["ship", "VanguardBoss", "name"]).Localize,
-        //     Description = AnyLocalizations.Bind(["ship", "VanguardBoss", "description"]).Localize
-        // }
-        // );
-        // /* Vanguard Boss */
         /* HullLostManager */
         _ = new HullLostManager(package, helper);
         /* HullLostManager */

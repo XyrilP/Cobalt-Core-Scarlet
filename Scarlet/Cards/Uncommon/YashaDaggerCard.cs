@@ -33,7 +33,7 @@ public class YashaDaggerCard : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 2
+                cost = 1
             },
             Upgrade.A => new CardData
             {
@@ -41,7 +41,7 @@ public class YashaDaggerCard : Card, IRegisterable
             },
             Upgrade.B => new CardData
             {
-                cost = 2,
+                cost = 1,
                 recycle = true
             },
             _ => new CardData{}
@@ -79,7 +79,7 @@ public class YashaDaggerCard : Card, IRegisterable
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 1,
+                    statusAmount = 2,
                     targetPlayer = true
                 }
             ],

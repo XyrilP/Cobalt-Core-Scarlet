@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace XyrilP.ExternalAPI;
+namespace VionheartScarlet.ExternalAPI;
 
 public partial interface IKokoroApi
 {

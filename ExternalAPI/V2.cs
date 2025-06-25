@@ -1,4 +1,4 @@
-﻿namespace XyrilP.ExternalAPI;
+﻿namespace VionheartScarlet.ExternalAPI;
 
 /// <summary>
 /// Allows accessing all of Kokoro library APIs.

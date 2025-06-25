@@ -23,7 +23,6 @@ public class ABarrageAttack : AAttack
 		DamageDone dmg = new DamageDone();
 		damage = 0;
 		fast = true;
-		timer = 0.0;
 
 		if (ship == null || ship2 == null || ship.hull <= 0 || (fromDroneX.HasValue && !c.stuff.ContainsKey(fromDroneX.Value)))
 		{
@@ -41,16 +40,17 @@ public class ABarrageAttack : AAttack
 		}
 		else
 		{
-			/* Reduce Fade if doing Barrage attacks. */ // Rework: Attacks don't decrement Fade anymore.
-														// var fadeValue = ship2.Get(VionheartScarlet.Instance.Fade.Status);
-														// if (fadeValue > 0)
-														// {
-														// 	ship2.Add(VionheartScarlet.Instance.Fade.Status, -1);
-														// }
-			/* Reduce Fade if doing Barrage attacks. */
+            /* Reduce Fade if doing Barrage attacks. */
+            // Rework: Attacks don't decrement Fade anymore.
+            // var fadeValue = ship2.Get(VionheartScarlet.Instance.Fade.Status);
+            // if (fadeValue > 0)
+            // {
+            // 	ship2.Add(VionheartScarlet.Instance.Fade.Status, -1);
+            // }
+            /* Reduce Fade if doing Barrage attacks. */
 
-			/* Fade animation */
-			var fadeValue = ship.Get(VionheartScarlet.Instance.Fade.Status);
+            /* Fade animation */
+            var fadeValue = ship.Get(VionheartScarlet.Instance.Fade.Status);
 			if (fadeValue > 0)
 			{
 				ship.Add(VionheartScarlet.Instance.Fade.Status, -1); // Reduce target's Fade when barraged.
@@ -278,20 +278,22 @@ public class ABarrageAttack : AAttack
 						targetPlayer = targetPlayer
 					});
 				}
-				/* Saturation implementation */
-				ship.Add(VionheartScarlet.Instance.Saturation.Status, 1);
+                /* Saturation implementation */
+                var saturationStatus = VionheartScarlet.Instance.Saturation.Status;
+				ship.Add(saturationStatus, 1);
 				while (true)
 				{
-					var saturationValue = ship.Get(VionheartScarlet.Instance.Saturation.Status);
-					if (saturationValue >= 2)
-					{
-						ship.NormalDamage(s, c, 1, null, false);
-						ship.Add(VionheartScarlet.Instance.Saturation.Status, -2);
+					var saturationValue = ship.Get(saturationStatus);
+                    if (saturationValue >= 2)
+                    {
+                        ship.NormalDamage(s, c, 1, null, false);
+                        ship.Add(saturationStatus, -2);
+                        Audio.Play(StatusMeta.GetSound(saturationStatus, false));
 					}
-					else
-					{
-						break;
-					}
+                    else
+                    {
+                        break;
+                    }
 				}
 				/* Saturation implementation */
 			}
