@@ -180,6 +180,8 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         var ship = amissilehit.targetPlayer ? s.ship : c.otherShip;
         var fadeValue = ship.Get(VionheartScarlet.Instance.Fade.Status);
         var fadeStatus = VionheartScarlet.Instance.Fade.Status;
+        var shouldMiss = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(amissilehit, "shouldMiss", false);
+        if (fadeValue <= 0 && !shouldMiss) return; // This will fix the Kepler but bork the Fade vs. Missiles.
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         c.stuff.TryGetValue(amissilehit.worldX, out StuffBase value);
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -231,7 +233,6 @@ public class FadeManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         {
             return;
         }
-        var shouldMiss = VionheartScarlet.Instance.Helper.ModData.GetModDataOrDefault(amissilehit, "shouldMiss", false);
         if (flag && !shouldMiss)
         {
             int num = amissilehit.outgoingDamage;
