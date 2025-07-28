@@ -294,7 +294,7 @@ internal class StoryDialogueV2 : IRegisterable
                         new(Dizzy, "geiger", "You're emitting a lot of radiation!", true),
                         new(Scarlet, "tired", "Ehm... I think everyone is emitting a lot of radiation recently."),
                         new(Dizzy, "neutral", "That is true!", true),
-                        new(Dizzy, "explains", "The crystals themselves emit a lot of radiation, and we can constantly exposed to such things.", true),
+                        new(Dizzy, "explains", "The crystals themselves emit a lot of radiation, and we are constantly exposed to such things.", true),
                         new(Scarlet, "neutral", "Is it the bad kind of radiation or the good kind?"),
                         new(Dizzy, "crystal", "", true),
                         new(Scarlet, "angry", "DIZZY!")
