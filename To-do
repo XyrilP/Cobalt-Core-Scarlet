@@ -1,3 +1,28 @@
-1. Fade
-    a. Make Fade work on Missiles. (done!)
-    b. Make Fade work on enemy intents. (done!)
+1. New Trick action and Trick status
+    * Trick n (action)
+        - Gain n "Trick" cards.
+    * Trick n (status)
+        - Gain n "Trick" cards at start of your turn.
+    * "Trick" cards
+        - Veer
+            * Move Right 2, flippable
+        - Drift Left
+            * Move Right 1, Move Left 2, Hermes 1
+        - Drift Right
+            * Move Left 1, Move Right 2, Hermes 1
+        - Shake Left
+            * Move Random 1, Move Left 2
+        - Shake Right
+            * Move Random 1, Move Right 2
+        - Juke Left
+            * Move Random 1, Move Random 2
+        - Juke Right
+            * Move Random 1, Move Random 2
+        - Blink
+            * Move Right 3, flippable
+        - Flicker
+            * Move Random 3
+2. Fade nerfs
+    * Proposed idea: Make Fade be set instead.
+        - Prevents gaining a lot of Fade in a single turn.
+        - Incentivizes using more expensive Fade cards (because you get more).
