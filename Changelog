@@ -1,4 +1,50 @@
-Scarlet 1.3.11
+Scarlet 1.3.11 Rework Playtest
+- NEW CONTENT
+    * New Card actions
+        * Backstab
+            - Making piercing attacks that deal additional damage equal to your Fade value
+        * Trick
+            - Adds new "Trick" cards to your hand
+        * Instant Trick
+            - As Trick, but performed immediately
+- CHANGES
+    * Fade
+        - Most if not all Fade-providing cards now set Fade instead of adding
+            - Prevents stacking up Fade
+            - Makes high Fade-providing cards (typically the rarer cards) more valuable in terms of gaining benefits from Fade instead of collecting cheap sources
+            - New Backstab action grants an offensive use to Fade
+    * Cards
+        * Adjust Throttle
+            - Now has Instant Trick instead of Evade
+        * Hide & Sneak
+            - Now has Trick instead of Move, loses Flippable
+        * Patience
+            - Upgrade B is now 1E, Fade = 2 and 3 Draw Next Turn
+        * Run and Gun
+            - Now has Instant Trick
+        * Sneak Attack
+            - Now has Backstab instead of Attack
+        * Step Away
+            - Now has Instant Trick and Trick instead of Move Random and Evade
+        * Blink Strike
+            - Now has Backstab instead of Attack. Now is a Teleport
+        * Flanking Maneuver
+            - Now has Instant Trick instead of Evade
+            - Upgrade B now has 2 Trick
+        * Uncanny Dodge
+            - Upgrade B now has Fade = 3
+        * Yasha Dagger
+            - Now has Trick instead of Fade
+        * Fade Away
+            - Upgrade B now has Fade = 4 instead of Fade = 3
+        * Vendetta
+            - Now has Backstab instead of Attack, lowered base damage
+    * Artifacts
+        * Trickster
+            - Formerly known as "Trick Action"
+            - Now performs 1 Trick instead of 1 Fade
+        * Cloak and Dagger
+            - Now increases Fade gained by 1 once per turn instead of gaining 1 Fade at start of turn
 Scarlet 1.3.10
 - Dialogue
     * Fixed grammar issues with Post-Crystal Scarlet-Dizzy dialogue.

@@ -1,7 +1,9 @@
+using System.Net.Http.Headers;
 using System.Reflection;
 using JetBrains.Annotations;
 using Nanoray.PluginManager;
 using Nickel;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Artifacts;
 
@@ -30,13 +32,13 @@ public class TrickAction : Artifact, IRegisterable
         var energyValue = combat.energy;
         if (energyValue > 0)
         {
-            ship.Add(Status.drawNextTurn, 1);
-            ship.Add(VionheartScarlet.Instance.Fade.Status, 1);
-            combat.Queue(new ADummyAction
-            {
-                artifactPulse = Key(),
-                dialogueSelector = ".TrickActionTrigger"
-            }
+            combat.Queue(
+                new ATrickDraw()
+                {
+                    amount = 1,
+                    artifactPulse = Key(),
+                    dialogueSelector = ".TrickActionTrigger"
+                }
             );
         }
     }

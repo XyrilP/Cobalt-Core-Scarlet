@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
@@ -8,7 +9,8 @@ namespace VionheartScarlet.Artifacts;
 
 public class CloakAndDagger : Artifact, IRegisterable
 {
-    bool usedCloakAndDagger;
+    bool usedCloakAndDagger_Fade;
+    bool usedCloakAndDagger_Attack;
     private static Spr spriteOn;
     private static Spr spriteOff;
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
@@ -29,22 +31,31 @@ public class CloakAndDagger : Artifact, IRegisterable
         }
         );
     }
-
     public override void OnTurnStart(State state, Combat combat)
     {
-        usedCloakAndDagger = false;
-        state.ship.Add(VionheartScarlet.Instance.Fade.Status, 1);
-        combat.Queue(new ADummyAction
-        {
-            artifactPulse = Key()
-        }
-        );
+        usedCloakAndDagger_Fade = false;
+        usedCloakAndDagger_Attack = false;
     }
-
+    public override void AfterPlayerStatusAction(State state, Combat combat, Status status, AStatusMode mode, int statusAmount)
+    {
+        if (status == VionheartScarlet.Instance.Fade.Status && !usedCloakAndDagger_Fade)
+        {
+            combat.QueueImmediate(
+                new AStatus()
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    targetPlayer = true,
+                    statusAmount = 1,
+                    artifactPulse = Key()
+                }
+            );
+            usedCloakAndDagger_Fade = true;
+        }
+    }  
     public override bool? OnPlayerAttackMakeItPierce(State state, Combat combat)
     {
         var ship = state.ship;
-        if (state.ship.Get(VionheartScarlet.Instance.Fade.Status) > 0 && !usedCloakAndDagger)
+        if (ship.Get(VionheartScarlet.Instance.Fade.Status) > 0 && !usedCloakAndDagger_Attack)
         {
             combat.QueueImmediate
             (
@@ -55,7 +66,7 @@ public class CloakAndDagger : Artifact, IRegisterable
             );
             ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
             VionheartScarlet.Instance.Helper.ModData.SetModData(ship, "fadeUsedThisTurn", true);
-            usedCloakAndDagger = true;
+            usedCloakAndDagger_Attack = true;
             return true;
         }
         else
@@ -65,7 +76,7 @@ public class CloakAndDagger : Artifact, IRegisterable
     }
     public override Spr GetSprite()
     {
-        if (usedCloakAndDagger)
+        if (usedCloakAndDagger_Attack)
         {
             return spriteOff;
         }
@@ -75,7 +86,7 @@ public class CloakAndDagger : Artifact, IRegisterable
     {
         var ship = state.ship;
         var fadeValue = ship.Get(VionheartScarlet.Instance.Fade.Status);
-        if (fadeValue > 0 && fromPlayer && !usedCloakAndDagger)
+        if (fadeValue > 0 && fromPlayer && !usedCloakAndDagger_Attack)
         {
             return 1;
         }

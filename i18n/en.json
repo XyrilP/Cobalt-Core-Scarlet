@@ -11,8 +11,8 @@
       "description": "Every two times your discard pile is shuffled back into your draw pile, gain 1 <c=energy>ENERGY</c>.\n<c=downside>Caps at 1 per turn.</c>"
     },
     "TrickAction": {
-      "name": "TRICK ACTION",
-      "description": "If you end your turn with more than 0 <c=energy>ENERGY</c>, gain 1 <c=status>DRAW NEXT TURN</c> and 1 <c=status>FADE</c>."
+      "name": "TRICKSTER",
+      "description": "If you end your turn with more than 0 <c=energy>ENERGY</c>, perform 1 <c=action>TRICK</c>."
     },
     "CardEngine": {
       "name": "CARD ENGINE",
@@ -24,7 +24,7 @@
     },
     "CloakAndDagger": {
       "name": "CLOAK AND DAGGER",
-      "description": "At start of turn, gain 1 <c=status>FADE</c>. Once per turn, your next attack use 1 <c=status>FADE</c>, becoming <c=cardTraits>piercing</c> and dealing <c=keyword>1</c> additional damage."
+      "description": "Once per turn, increase the amount of <c=status>FADE</c> you gain by 1.\nOnce per turn, your next attack use 1 <c=status>FADE</c>, becoming <c=cardTraits>piercing</c> and dealing <c=keyword>1</c> additional damage."
     },
     "HardlightAfterburners": {
       "name": "HARDLIGHT AFTERBURNERS",
