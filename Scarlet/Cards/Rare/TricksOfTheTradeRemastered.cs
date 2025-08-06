@@ -60,7 +60,8 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletTricksOfTheTrade"
+                    dialogueSelector = ".scarletTricksOfTheTrade",
+                    mode = AStatusMode.Set
                 },
                 new ASpawn
                 {
@@ -90,7 +91,8 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletTricksOfTheTrade"
+                    dialogueSelector = ".scarletTricksOfTheTrade",
+                    mode = AStatusMode.Set
                 },
                 new ASpawn
                 {
@@ -123,7 +125,8 @@ public class TricksOfTheTradeRemastered : Card, IRegisterable
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletTricksOfTheTrade"
+                    dialogueSelector = ".scarletTricksOfTheTrade",
+                    mode = AStatusMode.Set
                 },
                 new ASpawn
                 {

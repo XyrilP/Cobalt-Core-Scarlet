@@ -1,29 +1,28 @@
 using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
-using VionheartScarlet.Actions;
-using VionheartScarlet.Midrow;
 
 namespace VionheartScarlet.Cards;
 
-public class YashaDaggerCard : Card, IRegisterable
+public class DriftLeft : Card, IRegisterable
 {
     private static ISpriteEntry? BaseArt { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/TrickDagger.png")); //Art used.
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/DriftLeft.png")); //Art used.
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.uncommon,
-                dontOffer = false,
+                rarity = Rarity.common,
+                dontOffer = true,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "YashaDaggerCard", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "DriftLeft", "name"]).Localize,
             Art = BaseArt?.Sprite
         }
         );
@@ -34,16 +33,22 @@ public class YashaDaggerCard : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 1
+                cost = 0,
+                temporary = true,
+                singleUse = true
             },
             Upgrade.A => new CardData
             {
-                cost = 1
+                cost = 0,
+                retain = true,
+                temporary = true,
+                singleUse = true
             },
             Upgrade.B => new CardData
             {
-                cost = 1,
-                recycle = true
+                cost = 0,
+                temporary = true,
+                singleUse = true
             },
             _ => new CardData{}
         };
@@ -54,44 +59,26 @@ public class YashaDaggerCard : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new ASpawn
+                new AMove
                 {
-                    thing = new ScarletDagger_Missile
-                    {
-                        missileType = MissileType.heavy
-                    }
-                },
-                new ATrickDraw()
-                {
-                    amount = 1
+                    dir = -1,
+                    targetPlayer = true,
                 }
             ],
             Upgrade.A =>
             [
-                new ASpawn
-                {
-                    thing = new ScarletDagger_Missile
-                    {
-                        missileType = MissileType.heavy
-                    }
-                },
-                new ATrickDraw()
-                {
-                    amount = 1
+                new AMove
+                { 
+                    dir = -1,
+                    targetPlayer = true
                 }
             ],
             Upgrade.B =>
             [
-                new ASpawn
+                new AMove
                 {
-                    thing = new ScarletDagger_Missile
-                    {
-                        missileType = MissileType.heavy
-                    }
-                },
-                new ATrickDraw()
-                {
-                    amount = 2
+                    dir = -2,
+                    targetPlayer = true
                 }
             ],
             _ => []

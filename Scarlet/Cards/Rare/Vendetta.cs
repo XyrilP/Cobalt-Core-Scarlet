@@ -2,6 +2,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -72,9 +73,9 @@ public class Vendetta : Card, IRegisterable
                     piercing = true,
                     weaken = true,
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 3),
+                    damage = GetDmg(s, 2)
                 }
             ],
             Upgrade.A =>
@@ -90,9 +91,9 @@ public class Vendetta : Card, IRegisterable
                     piercing = true,
                     weaken = true,
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 3),
+                    damage = GetDmg(s, 2)
                 }
             ],
             Upgrade.B =>
@@ -109,9 +110,9 @@ public class Vendetta : Card, IRegisterable
                     piercing = true,
                     brittle = true,
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 3),
+                    damage = GetDmg(s, 2)
                 }
             ],
             _ => []

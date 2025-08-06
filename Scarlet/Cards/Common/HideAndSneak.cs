@@ -2,6 +2,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -36,21 +37,15 @@ public class HideAndSneak : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                flippable = true
+                cost = 1
             },
             Upgrade.A => new CardData
             {
-                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 0,
-                flippable = true
+                cost = 0
             },
             Upgrade.B => new CardData
             {
-                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                flippable = true
+                cost = 1
             },
             _ => new CardData{}
         };
@@ -68,12 +63,12 @@ public class HideAndSneak : Card, IRegisterable
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 1,
                         targetPlayer = true,
-                        dialogueSelector = ".scarletHideAndSneak"
+                        dialogueSelector = ".scarletHideAndSneak",
+                        mode = AStatusMode.Set
                     },
-                    new AMove()
+                    new ATrickDraw()
                     {
-                        dir = 1,
-                        targetPlayer = true,
+                        amount = 1
                     }
                 };
                 break;
@@ -85,12 +80,12 @@ public class HideAndSneak : Card, IRegisterable
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 1,
                         targetPlayer = true,
-                        dialogueSelector = ".scarletHideAndSneak"
+                        dialogueSelector = ".scarletHideAndSneak",
+                        mode = AStatusMode.Set
                     },
-                    new AMove()
+                    new ATrickDraw()
                     {
-                        dir = 1,
-                        targetPlayer = true,
+                        amount = 1
                     }
                 };
                 break;
@@ -102,12 +97,12 @@ public class HideAndSneak : Card, IRegisterable
                         status = VionheartScarlet.Instance.Fade.Status,
                         statusAmount = 1,
                         targetPlayer = true,
-                        dialogueSelector = ".scarletHideAndSneak"
+                        dialogueSelector = ".scarletHideAndSneak",
+                        mode = AStatusMode.Set
                     },
-                    new AMove()
+                    new ATrickDraw()
                     {
-                        dir = 2,
-                        targetPlayer = true,
+                        amount = 2
                     }
                 };
                 break;

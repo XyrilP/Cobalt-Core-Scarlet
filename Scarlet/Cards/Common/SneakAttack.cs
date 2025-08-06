@@ -2,6 +2,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -44,9 +45,7 @@ public class SneakAttack : Card, IRegisterable
             },
             Upgrade.B => new CardData
             {
-                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                flippable = true
+                cost = 1
             },
             _ => new CardData{}
         };
@@ -57,64 +56,63 @@ public class SneakAttack : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AMove
+                new AInstantTrick
                 {
-                    dir = 1,
-                    targetPlayer = true,
-                    isRandom = true,
+                    amount = 1,
                     dialogueSelector = ".scarletSneakAttack"
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 1),
-                    piercing = true,
+                    damage = GetDmg(s, 1)
                 },
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
+                    mode = AStatusMode.Set
                 }
             ],
             Upgrade.A =>
             [
-                new AMove
+                new AInstantTrick
                 {
-                    dir = 1,
-                    targetPlayer = true,
-                    isRandom = true,
+                    amount = 1,
                     dialogueSelector = ".scarletSneakAttack"
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 2),
-                    piercing = true,
+                    damage = GetDmg(s, 2)
                 },
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
+                    mode = AStatusMode.Set
                 }
             ],
             Upgrade.B =>
             [
-                new AMove
+                new AInstantTrick
                 {
-                    dir = 1,
-                    targetPlayer = true,
+                    amount = 1,
                     dialogueSelector = ".scarletSneakAttack"
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 1),
-                    piercing = true,
+                    damage = GetDmg(s, 1)
+                },
+                new ABackstab
+                {
+                    damage = GetDmg(s, 1)
                 },
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
+                    mode = AStatusMode.Set
                 }
             ],
             _ => []

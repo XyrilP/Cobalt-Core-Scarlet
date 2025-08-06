@@ -1,28 +1,51 @@
+0. Make sure Scarlet works just fine in latest updates.
 1. New Trick action and Trick status
+    * Trick is Scarlet's equivalent of Ace.
+        - Instead of gaining n Evade every turn, you get movement cards that you can play for free.
+        - Trick cards are temporary and single use.
+        - When gaining a "Trick" card, (U)ncommon and (R)are cards are weighted less compared to (C)ommon cards.
+        - "Trick" cards are unattainable, like Peri's Glissade or Books' 
     * Trick n (action)
         - Gain n "Trick" cards.
     * Trick n (status)
         - Gain n "Trick" cards at start of your turn.
     * "Trick" cards
-        - Veer
+        - (C)Drift Left
+            * Move Left 1
+        - (C)Drift Right
+            * Move Right 1
+        - (C)Afterburn
+            * Hermes 1
+        - (U)Veer
+            * Move Random 2
+        - (U)Blink
             * Move Right 2, flippable
-        - Drift Left
-            * Move Right 1, Move Left 2, Hermes 1
-        - Drift Right
-            * Move Left 1, Move Right 2, Hermes 1
-        - Shake Left
-            * Move Random 1, Move Left 2
-        - Shake Right
-            * Move Random 1, Move Right 2
-        - Juke Left
-            * Move Random 1, Move Random 2
-        - Juke Right
-            * Move Random 1, Move Random 2
-        - Blink
-            * Move Right 3, flippable
-        - Flicker
-            * Move Random 3
+        - (R)Flicker
+            * Move Random 1, Move Random 2, Move Random 3
+    * Instant Trick
+        - New action
+            * Instant Trick n
+            * Perform a Trick n amount of times when action is played
 2. Fade nerfs
     * Proposed idea: Make Fade be set instead.
         - Prevents gaining a lot of Fade in a single turn.
         - Incentivizes using more expensive Fade cards (because you get more).
+3. Rework Trick Action artifact
+    * "Trick Action" becomes "Trickster"
+    * Now grants a Trick card if you end your turn with more than 0 Energy. (Formerly grants 1 Fade)
+4. Saturation Barrage changes
+    * Saturation Barrage prioritizes midrow targets.
+        - When making a Saturation Barrage attack, will randomly target midrow objects first before targeting the opposing ship.
+5. Deck adjustments
+    * New Starting Deck
+        - Trick (replaces Hide & Sneak)
+        - Sneak Attack
+    * Removed cards
+        - Veer
+            * See above.
+            * Veer becomes a Trick card.
+    * New Cards
+        - (C, 1E)Trick
+            * Trick 1
+            * Upgrade A: Trick 2
+            * Upgrade B: Trick 3, exhaust

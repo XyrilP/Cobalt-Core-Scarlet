@@ -101,9 +101,11 @@ internal class VionheartScarlet : SimpleMod
     internal ISpriteEntry TrickDagger_Seeker_Icon { get; }
     internal ISpriteEntry TrickDagger_Heavy { get; }
     internal ISpriteEntry TrickDagger_Heavy_Icon { get; }
+    internal ISpriteEntry Trick_Icon { get; }
+    internal ISpriteEntry InstantTrick_Icon { get; }
+    internal ISpriteEntry Backstab_Icon { get; }
     private static List<Type> Scarlet_Common_Card_Types = [
         /* Scarlet's common cards. */
-        typeof(Veer),
         typeof(DriveBy),
         typeof(AdjustThrottle),
         typeof(SneakAttack),
@@ -112,7 +114,12 @@ internal class VionheartScarlet : SimpleMod
         typeof(TrickDaggerCard),
         typeof(RunAndGun),
         typeof(StepAway),
-        typeof(Patience)
+        typeof(Patience),
+        /* Trick Cards */
+        typeof(DriftLeft),
+        typeof(DriftRight),
+        typeof(TrickAfterburn)
+        /* Trick Cards */
     ];
     private static List<Type> Scarlet_Uncommon_Card_Types = [
         /* Scarlet's uncommon cards. */
@@ -121,10 +128,14 @@ internal class VionheartScarlet : SimpleMod
         typeof(Afterburn),
         typeof(UncannyDodge),
         typeof(SangeDaggerCard),
-        typeof(Backstab),
+        // typeof(Backstab), // Retired card
         typeof(YashaDaggerCard),
         typeof(FlankingManeuver),
-        typeof(DefensivePiloting)
+        typeof(DefensivePiloting),
+        /* Trick Cards */
+        typeof(Veer),
+        typeof(MantaDodge)
+        /* Trick Cards */
     ];
     private static List<Type> Scarlet_Rare_Card_Types = [
         /* Scarlet's rare cards. */
@@ -133,10 +144,14 @@ internal class VionheartScarlet : SimpleMod
         typeof(Vendetta),
         typeof(TricksOfTheTradeRemastered),
         typeof(BulletHell),
-        typeof(Reevaluate)
+        // typeof(Reevaluate), // Retired card.
+        /* Trick Cards */
+        typeof(Flicker)
+        /* Trick Cards */
     ];
     private static List<Type> Scarlet_Special_Card_Types = [
         /* Scarlet's special cards. */
+        // typeof(debugTrickAction), // Retired card
         typeof(ScarletEXE) //Cat's EXE card for Scarlet.
     ];
         /* Concat all Scarlet cards. */
@@ -498,6 +513,11 @@ internal class VionheartScarlet : SimpleMod
         /* CheckIfAttackIsPiercing */
         _ = new CheckIfAttackIsPiercing(package, helper);
         /* CheckIfAttackIsPiercing */
+        /* Trick action Icon */
+        Trick_Icon = RegisterSprite(package, "assets/icons/Trick-Action.png");
+        InstantTrick_Icon = RegisterSprite(package, "assets/icons/Instant-Trick-Action.png");
+        Backstab_Icon = RegisterSprite(package, "assets/icons/Backstab.png");
+        /* Trick action Icon */
         /* Register all artifacts and cards into the game, allowing it to be played. (Based on AllRegisterableTypes) */
         foreach (var type in AllRegisterableTypes)
             AccessTools.DeclaredMethod(type, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);

@@ -2,6 +2,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -44,9 +45,7 @@ public class StepAway : Card, IRegisterable
             },
             Upgrade.B => new CardData
             {
-                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                flippable = true
+                cost = 1
             },
             _ => new CardData{}
         };
@@ -57,46 +56,35 @@ public class StepAway : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AMove
+                new AInstantTrick
                 {
-                    dir = 1,
-                    targetPlayer = true,
-                    isRandom = true
+                    amount = 1
                 },
-                new AStatus
+                new ATrickDraw
                 {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true
+                    amount = 1
                 }
             ],
             Upgrade.A =>
             [
-                new AMove
+                new AInstantTrick
                 {
-                    dir = 1,
-                    targetPlayer = true,
-                    isRandom = true
+                    amount = 1
                 },
-                new AStatus
+                new ATrickDraw
                 {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true
+                    amount = 1
                 }
             ],
             Upgrade.B =>
             [
-                new AMove
+                new AInstantTrick
                 {
-                    dir = 1,
-                    targetPlayer = true
+                    amount = 1
                 },
-                new AStatus
+                new ATrickDraw
                 {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true
+                    amount = 2
                 }
             ],
             _ => []

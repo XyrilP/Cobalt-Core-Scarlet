@@ -62,7 +62,8 @@ public class Reevaluate : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new ADiscard
                 {
@@ -79,7 +80,8 @@ public class Reevaluate : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new ADiscard
                 {
@@ -96,7 +98,8 @@ public class Reevaluate : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new ADiscard
                 {

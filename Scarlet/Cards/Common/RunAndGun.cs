@@ -2,7 +2,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
-using VionheartScarlet.Midrow;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -58,6 +58,11 @@ public class RunAndGun : Card, IRegisterable
                     statusAmount = 1,
                     targetPlayer = true,
                     mode = AStatusMode.Set
+                },
+                new AInstantTrick
+                {
+                    amount = 1,
+                    disabled = flipped
                 }
             ],
             Upgrade.A =>
@@ -68,6 +73,11 @@ public class RunAndGun : Card, IRegisterable
                     statusAmount = 1,
                     targetPlayer = true,
                     mode = AStatusMode.Set
+                },
+                new AInstantTrick
+                {
+                    amount = 1,
+                    disabled = flipped
                 }
             ],
             Upgrade.B =>
@@ -79,15 +89,10 @@ public class RunAndGun : Card, IRegisterable
                     targetPlayer = true,
                     mode = AStatusMode.Set
                 },
-                new AMove
+                new AInstantTrick
                 {
-                    dir = -1,
-                    targetPlayer = true
-                },
-                new AMove
-                {
-                    dir = 2,
-                    targetPlayer = true
+                    amount = 2,
+                    disabled = flipped
                 }
             ],
             _ => []

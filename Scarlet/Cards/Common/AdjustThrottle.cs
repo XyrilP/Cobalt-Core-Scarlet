@@ -2,6 +2,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -63,11 +64,9 @@ public class AdjustThrottle : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AStatus
+                new AInstantTrick
                 {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true,
+                    amount = 1,
                     disabled = flipped
                 },
                 new ADummyAction
@@ -85,16 +84,20 @@ public class AdjustThrottle : Card, IRegisterable
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
-                    disabled = !flipped
+                    disabled = !flipped,
+                    mode = AStatusMode.Set
                 }
             ],
             Upgrade.A =>
             [
-                new AStatus
+                new AInstantTrick
                 {
-                    status = Status.evade,
-                    statusAmount = 2,
-                    targetPlayer = true,
+                    amount = 1,
+                    disabled = flipped
+                },
+                new ATrickDraw
+                {
+                    amount = 1,
                     disabled = flipped
                 },
                 new ADummyAction
@@ -112,16 +115,15 @@ public class AdjustThrottle : Card, IRegisterable
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
-                    disabled = !flipped
+                    disabled = !flipped,
+                    mode = AStatusMode.Set
                 }
             ],
             Upgrade.B =>
             [
-                new AStatus
+                new AInstantTrick
                 {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true,
+                    amount = 1,
                     disabled = flipped
                 },
                 new ADummyAction
@@ -139,7 +141,8 @@ public class AdjustThrottle : Card, IRegisterable
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
                     targetPlayer = true,
-                    disabled = !flipped
+                    disabled = !flipped,
+                    mode = AStatusMode.Set
                 }
             ],
             _ => []

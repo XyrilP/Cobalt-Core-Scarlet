@@ -56,7 +56,8 @@ public class DefensivePiloting : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new AStatus
                 {
@@ -77,7 +78,8 @@ public class DefensivePiloting : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new AStatus
                 {
@@ -98,7 +100,8 @@ public class DefensivePiloting : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new AStatus
                 {

@@ -126,6 +126,42 @@ internal class StoryDialogueV2 : IRegisterable
                 }
             },
             {
+                "Scarlet_Riggs_Intro_1",
+                new()
+                {
+                    /*
+                    Scarlet and Riggs are getting closer...
+                    */
+                    type = NodeType.@event,
+                    lookup = [ "zone_first" ],
+                    requiredScenes = [ "Scarlet_Riggs_Intro_0" ],
+                    allPresent = [ Scarlet, Riggs ],
+                    once = true,
+                    bg = "BGRunStart",
+                    dialogue =
+                    [
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_Intro_2",
+                new()
+                {
+                    /*
+                    Scarlet and Riggs are really close!
+                    */
+                    type = NodeType.@event,
+                    lookup = [ "zone_first" ],
+                    requiredScenes = [ "Scarlet_Riggs_Intro_1" ],
+                    allPresent = [ Scarlet, Riggs ],
+                    once = true,
+                    bg = "BGRunStart",
+                    dialogue =
+                    [
+                    ]
+                }
+            },
+            {
                 "Scarlet_Peri_Intro_0",
                 new()
                 {
@@ -301,6 +337,115 @@ internal class StoryDialogueV2 : IRegisterable
                     ]
                 }
             },
+            {
+                "Scarlet_PirateBoss_0",
+                new()
+                {
+                    type = NodeType.@event,
+                    lookup = [ "before_pirateBoss" ],
+                    allPresent = [ Scarlet ],
+                    once = true,
+                    bg = "BGRedGiant",
+                    dialogue =
+                    [
+                        new(Scarlet, "squint", "..."),
+                        new(Scarlet, "squint", "Hey, ain't that the...?"),
+                        new(EvilRiggs, "embarrassed", "Scarlet.", true),
+                        new(Scarlet, "neutral", "Riggs...?"),
+                        new(EvilRiggs, "embarrassed", "Hey...", true),
+                        new(Scarlet, "neutral", "What's goin' on here?"),
+                        new(EvilRiggs, "neutral", "You already know.", true),
+                        new(EvilRiggs, "serious", "So put 'em up, pilot...!", true),
+                        new(Scarlet, "sad", "Hang on! Wait!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_PirateBoss_1",
+                new()
+                {
+                    type = NodeType.@event,
+                    requiredScenes = [ "Scarlet_PirateBoss_0" ],
+                    lookup = [ "after_pirateBoss" ],
+                    once = true,
+                    allPresent = [ Scarlet ],
+                    dialogue =
+                    [
+                        new(Scarlet, "sad", "..."),
+                        new(Cat, "worried", "Are you okay?", true),
+                        new(Scarlet, "sad", "No."),
+                        new(Cat, "worried", "Do you need a break?", true),
+                        new(Scarlet, "sad", "Yeah."),
+                        new(Scarlet, "focus", "..."),
+                        new(Scarlet, "focus", "Just for a lil' though. It's just..."),
+                        new(Scarlet, "focus", "She really WAS her..."),
+                        new(Cat, "worried", "...", true),
+                        new(Scarlet, "focus", "The black jacket."),
+                        new(Scarlet, "focus", "The purple eyeliner."),
+                        new(Cat, "worried", "I'm sorry but we should go now.", true),
+                        new(Cat, "worried", "And we're on a tight schedule.", true),
+                        new(Scarlet, "tired", "Yeah. Let's get going.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_PirateBoss_0",
+                new()
+                {
+                    type = NodeType.@event,
+                    requiredScenes = [ "Scarlet_PirateBoss_0", "Scarlet_Riggs_Intro_2", "PirateBoss_1" ],
+                    lookup = [ "before_pirateBoss" ],
+                    once = true,
+                    allPresent = [ Scarlet, Riggs ],
+                    bg = "BGRedGiant",
+                    dialogue =
+                    [
+                        new(Scarlet, "happy", "... So that's the Rouall sector, basically."),
+                        new(Riggs, "neutral", "Mhm, mhm! Gosh, I've never been to that sector before.", true),
+                        new(Riggs, "neutral", "Maybe I'll take the Artemis out for a spin there!", true),
+                        new(EvilRiggs, "squint", "...", true),
+                        new(Scarlet, "happy", "Cool. It's a welcome sight, and you should try shawarma there."),
+                        new(EvilRiggs, "squint", "...", true),
+                        new(Riggs, "neutral", "Ooh! I love shawarma!", true),
+                        new(EvilRiggs, "squint", "...", true),
+                        new(EvilRiggs, "serious", "Are you two done?", true),
+                        new(Riggs, "neutral", "Gosh!", true),
+                        new(Riggs, "nervous", "What? Are you jealous?"),
+                        new(Scarlet, "nervous", "Riggs, hol' on now..."),
+                        new(EvilRiggs, "serious", "Oh that is it! He's mine, you fake time clone!", true),
+                        new(Riggs, "sad", "Oh, she was actually jealous."),
+                        new(Scarlet, "scream", "Riggs! Other Riggs! Wait!"),
+                        new(EvilRiggs, "serious", "I'LL BURY THE TWO OF YOU IN SCRAP!", true)
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_PirateBoss_1",
+                new()
+                {
+                    type = NodeType.@event,
+                    requiredScenes = [ "Scarlet_Riggs_PirateBoss_0" ],
+                    lookup = [ "after_pirateBoss" ],
+                    once = true,
+                    allPresent = [ Scarlet, Riggs ],
+                    dialogue =
+                    [
+                        new(Riggs, "gun", "Hell yeah, baby!", true),
+                        new(Scarlet, "sad", "..."),
+                        new(Riggs, "nervous", "You okay?", true),
+                        new(Riggs, "sad", "You wanna talk about it?", true),
+                        new(Scarlet, "sad", "..."),
+                        new(Riggs, "sad", "She seemed to like you, huh?", true),
+                        new(Scarlet, "focus", "..."),
+                        new(Riggs, "sad", "...", true),
+                        new(Riggs, "nervous", "I... I can put on purple makeup for you?", true),
+                        new(Riggs, "nervous", "And a black leather jacket?", true),
+                        new(Scarlet, "tired", "Engines are primed."),
+                        new(Riggs, "sad", "...", true),
+                        new(Scarlet, "tired", "Jumping into the next sector in 3... 2... 1...")
+                    ]
+                }
+            }
         }
 		);
     }

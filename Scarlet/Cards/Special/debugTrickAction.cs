@@ -3,17 +3,14 @@ using Nickel;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
-public class Veer : Card, IRegisterable
+public class debugTrickAction : Card, IRegisterable
 {
-    private static ISpriteEntry? FlippedArt1 { get; set; }
-    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Veer_Right.png")); //Art used when card is flipped or flopped.
-        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Veer_Left.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -21,11 +18,10 @@ public class Veer : Card, IRegisterable
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.common,
-                dontOffer = false,
+                dontOffer = true,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Veer", "name"]).Localize,
-            Art = null
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "placeholder", "name"]).Localize
         }
         );
     }
@@ -35,21 +31,15 @@ public class Veer : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                flippable = true
+                cost = 1
             },
             Upgrade.A => new CardData
             {
-                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 0,
-                flippable = true
+                cost = 0
             },
             Upgrade.B => new CardData
             {
-                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                flippable = true
+                cost = 1
             },
             _ => new CardData{}
         };
@@ -60,31 +50,27 @@ public class Veer : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AMove
+                new ATrickDraw
                 {
-                    dir = 2,
-                    targetPlayer = true
+                    amount = 1
                 }
             ],
             Upgrade.A =>
             [
-                new AMove
-                { 
-                    dir = 2,
-                    targetPlayer = true
+                new ATrickDraw
+                {
+                    amount = 1
                 }
             ],
             Upgrade.B =>
             [
-                new AMove
+                new AInstantTrick
                 {
-                    dir = -1,
-                    targetPlayer = true
+                    amount = 1
                 },
-                new AMove
+                new ATrickDraw
                 {
-                    dir = 4,
-                    targetPlayer = true
+                    amount = 1
                 }
             ],
             _ => []

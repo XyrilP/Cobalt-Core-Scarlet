@@ -1,33 +1,33 @@
 using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
-using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
-public class FlankingManeuver : Card, IRegisterable
+public class MantaDodge : Card, IRegisterable
 {
     private static ISpriteEntry? BaseArt { get; set; }
     private static ISpriteEntry? FlippedArt1 { get; set; }
     private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/FlankingManeuver.png"));; //Art used.
-        FlippedArt1 = null; //Art used when card is flipped or flopped.
-        FlippedArt2 = null;
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/MantaDodge.png")); //Art used.
+        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/MantaDodge_Right.png")); //Art used when card is flipped or flopped.
+        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/MantaDodge_Left.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
-                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck, //Which deck should this card go to?
-                rarity = Rarity.uncommon, //What rarity should this card be?
-                dontOffer = false, //Should this card be offered to the player?
-                upgradesTo = [Upgrade.A, Upgrade.B] //Does this card upgrade? and if it has an A or B upgrade.
+                deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
+                rarity = Rarity.uncommon,
+                dontOffer = true,
+                upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "FlankingManeuver", "name"]).Localize, //Card's name, localized.
-            Art = BaseArt?.Sprite //Card art
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "MantaDodge", "name"]).Localize,
+            Art = BaseArt?.Sprite
         }
         );
     }
@@ -37,16 +37,24 @@ public class FlankingManeuver : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 2
+                cost = 0,
+                temporary = true,
+                singleUse = true
             },
             Upgrade.A => new CardData
             {
-                cost = 1
+                cost = 0,
+                temporary = true,
+                singleUse = true,
+                retain = true
             },
             Upgrade.B => new CardData
             {
-                cost = 2,
-                exhaust = true
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
+                cost = 0,
+                temporary = true,
+                singleUse = true,
+                flippable = true
             },
             _ => new CardData{}
         };
@@ -60,17 +68,16 @@ public class FlankingManeuver : Card, IRegisterable
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 1,
                     targetPlayer = true,
+                    statusAmount = 1,
                     mode = AStatusMode.Set
                 },
-                new AInstantTrick
+                new AMove
                 {
-                    amount = 1
-                },
-                new ADrawCard
-                {
-                    count = 2
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true,
+                    isTeleport = true
                 }
             ],
             Upgrade.A =>
@@ -78,17 +85,16 @@ public class FlankingManeuver : Card, IRegisterable
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 1,
                     targetPlayer = true,
+                    statusAmount = 1,
                     mode = AStatusMode.Set
                 },
-                new AInstantTrick
+                new AMove
                 {
-                    amount = 1
-                },
-                new ADrawCard
-                {
-                    count = 2
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true,
+                    isTeleport = true
                 }
             ],
             Upgrade.B =>
@@ -96,21 +102,15 @@ public class FlankingManeuver : Card, IRegisterable
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 2,
                     targetPlayer = true,
+                    statusAmount = 1,
                     mode = AStatusMode.Set
                 },
-                new AInstantTrick
+                new AMove
                 {
-                    amount = 1
-                },
-                new ATrickDraw
-                {
-                    amount = 2
-                },
-                new ADrawCard
-                {
-                    count = 2
+                    dir = 1,
+                    targetPlayer = true,
+                    isTeleport = true
                 }
             ],
             _ => []

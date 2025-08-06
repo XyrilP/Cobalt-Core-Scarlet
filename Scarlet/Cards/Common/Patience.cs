@@ -56,7 +56,8 @@ public class Patience : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new AStatus
                 {
@@ -71,7 +72,8 @@ public class Patience : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 1,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new AStatus
                 {
@@ -86,12 +88,13 @@ public class Patience : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    mode = AStatusMode.Set
                 },
                 new AStatus
                 {
                     status = Status.drawNextTurn,
-                    statusAmount = 5,
+                    statusAmount = 3,
                     targetPlayer = true
                 }
             ],

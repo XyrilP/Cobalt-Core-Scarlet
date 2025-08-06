@@ -82,4 +82,32 @@ public class VanguardBerthingPlus : Artifact, IRegisterable
         );
         /* Remove this Artifact */
     }
+    public override void OnTurnStart(State state, Combat combat)
+    {
+        /* Add Crew Member V2 */
+        Artifact _ = state.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new VanguardBerthing().Key());
+        if (_ is VanguardBerthing shipArtifact)
+        {
+            state.GetCurrentQueue().Add((CardAction)new AVanguardBerthing
+            {
+                choiceAmount = 3,
+                upgradedStarters = true,
+                addUncommonCards = 2,
+                addRareCards = 1
+            }
+            );
+            shipArtifact.berthingCardDraw++;
+            shipArtifact.berthingEnergyFragment++;
+            shipArtifact.Pulse();
+        }
+        /* Add Crew Member V2 */
+        /* Remove this Artifact */
+        state.GetCurrentQueue().Add((CardAction)
+            new ALoseArtifact
+            {
+                artifactType = Key()
+            }
+        );
+        /* Remove this Artifact */
+    }
 }

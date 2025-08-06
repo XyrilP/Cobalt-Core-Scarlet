@@ -6,12 +6,16 @@ using System.Reflection;
 
 namespace VionheartScarlet.Cards;
 
-public class UncannyDodge : Card, IRegisterable
+public class Veer : Card, IRegisterable
 {
     private static ISpriteEntry? BaseArt { get; set; }
+    private static ISpriteEntry? FlippedArt1 { get; set; }
+    private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/UncannyDodge.png"));
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Veer.png")); //Art used.
+        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Veer_Right.png")); //Art used when card is flipped or flopped.
+        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Veer_Left.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -19,10 +23,10 @@ public class UncannyDodge : Card, IRegisterable
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.uncommon,
-                dontOffer = false,
+                dontOffer = true,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "UncannyDodge", "name"]).Localize,
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Veer", "name"]).Localize,
             Art = BaseArt?.Sprite
         }
         );
@@ -33,17 +37,28 @@ public class UncannyDodge : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 1,
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
+                cost = 0,
+                temporary = true,
+                singleUse = true,
+                flippable = true
             },
             Upgrade.A => new CardData
             {
-                cost = 1,
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
+                cost = 0,
+                temporary = true,
+                singleUse = true,
+                flippable = true,
                 retain = true
             },
             Upgrade.B => new CardData
             {
-                cost = 2,
-                exhaust = true
+                art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
+                cost = 0,
+                temporary = true,
+                singleUse = true,
+                flippable = true
             },
             _ => new CardData{}
         };
@@ -54,49 +69,25 @@ public class UncannyDodge : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AStatus
+                new AMove
                 {
-                    status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 2,
+                    dir = 2,
                     targetPlayer = true,
-                    mode = AStatusMode.Set
-                },
-                new AStatus
-                {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true
                 }
             ],
             Upgrade.A =>
             [
-                new AStatus
-                {
-                    status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 2,
+                new AMove
+                { 
+                    dir = 2,
                     targetPlayer = true,
-                    mode = AStatusMode.Set
-                },
-                new AStatus
-                {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true
                 }
             ],
             Upgrade.B =>
             [
-                new AStatus
+                new AMove
                 {
-                    status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 3,
-                    targetPlayer = true,
-                    mode = AStatusMode.Set
-                },
-                new AStatus
-                {
-                    status = Status.evade,
-                    statusAmount = 2,
+                    dir = 3,
                     targetPlayer = true
                 }
             ],

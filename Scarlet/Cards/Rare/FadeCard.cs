@@ -65,7 +65,8 @@ public class FadeCard : Card, IRegisterable
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 3,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletFadeAway"
+                    dialogueSelector = ".scarletFadeAway",
+                    mode = AStatusMode.Set
                 },
                 new AMove
                 {
@@ -89,7 +90,8 @@ public class FadeCard : Card, IRegisterable
                     status = VionheartScarlet.Instance.Fade.Status,
                     statusAmount = 3,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletFadeAway"
+                    dialogueSelector = ".scarletFadeAway",
+                    mode = AStatusMode.Set
                 },
                 new AMove
                 {
@@ -111,9 +113,10 @@ public class FadeCard : Card, IRegisterable
                 new AStatus()
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 3,
+                    statusAmount = 4,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletFadeAway"
+                    dialogueSelector = ".scarletFadeAway",
+                    mode = AStatusMode.Set
                 },
                 new AMove()
                 {

@@ -159,6 +159,24 @@
       "description": "Add 1 of 2 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand.",
       "descA": "Add 1 of 2 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand.",
       "descB": "Add 1 of 3 <c=cardtrait>discount, temp</c> <c=BC2C3D>SCARLET</c> cards to your hand."
+    },
+    "DriftLeft": {
+      "name": "Drift Left"
+    },
+    "DriftRight": {
+      "name": "Drift Right"
+    },
+    "TrickAfterburn": {
+      "name": "Afterburn"
+    },
+    "MantaDodge": {
+      "name": "Manta Dodge"
+    },
+    "Flicker": {
+      "name": "Flicker"
+    },
+    "FadeTheWorld": {
+      "name": "Fade the World"
     }
   },
   "status": {
@@ -187,6 +205,20 @@
     "YashaDagger_Missile": {
       "name": "YASHA DAGGER",
       "description": "This dagger is going to deal <c=damage>1</c> damage.\nIgnores all shields and armor.\n<c=keyword>Shooting</c> this dagger randomly moves it 1 space and increase its damage by 2."
+    }
+  },
+  "action": {
+    "ATrickDraw": {
+      "name": "Trick",
+      "description": "Draw <c=keyword>{0}</c> of the following:"
+    },
+    "AInstantTrick": {
+      "name": "Instant Trick",
+      "description": "Instantly play <c=keyword>{0}</c> of the following:"
+    },
+    "ABackstab": {
+      "name": "Backstab",
+      "description": "Make a <c=keyword>piercing</c> attack that deals additional damage equal to your <c=status>FADE</c>."
     }
   }
 }

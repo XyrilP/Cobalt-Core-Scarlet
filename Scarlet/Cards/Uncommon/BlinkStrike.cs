@@ -2,6 +2,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -64,10 +65,9 @@ public class BlinkStrike : Card, IRegisterable
                     targetPlayer = true,
                     dialogueSelector = ".scarletBlinkStrike"
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 1),
-                    piercing = true
+                    damage = GetDmg(s, 1)
                 }
             ],
             Upgrade.A =>
@@ -78,10 +78,9 @@ public class BlinkStrike : Card, IRegisterable
                     targetPlayer = true,
                     dialogueSelector = ".scarletBlinkStrike"
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 2),
-                    piercing = true
+                    damage = GetDmg(s, 2)
                 }
             ],
             Upgrade.B =>
@@ -92,20 +91,18 @@ public class BlinkStrike : Card, IRegisterable
                     targetPlayer = true,
                     dialogueSelector = ".scarletBlinkStrike"
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 1),
-                    piercing = true
+                    damage = GetDmg(s, 1)
                 },
                 new AMove
                 {
                     dir = 4,
                     targetPlayer = true
                 },
-                new AAttack
+                new ABackstab
                 {
-                    damage = GetDmg(s, 1),
-                    piercing = true
+                    damage = GetDmg(s, 1)
                 }
             ],
             _ => []
