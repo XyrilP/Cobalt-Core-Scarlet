@@ -38,12 +38,12 @@ public class YashaDaggerCard : Card, IRegisterable
             },
             Upgrade.A => new CardData
             {
-                cost = 1
+                cost = 1,
+                recycle = true
             },
             Upgrade.B => new CardData
             {
-                cost = 1,
-                recycle = true
+                cost = 1
             },
             _ => new CardData{}
         };

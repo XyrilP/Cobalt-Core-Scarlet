@@ -3,6 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -59,6 +60,13 @@ public class Flicker : Card, IRegisterable
         {
             Upgrade.None =>
             [
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    targetPlayer = true,
+                    statusAmount = 2,
+                    mode = AStatusMode.Set
+                },
                 new AMove
                 {
                     dir = 1,
@@ -76,10 +84,21 @@ public class Flicker : Card, IRegisterable
                     dir = 3,
                     targetPlayer = true,
                     isRandom = true
+                },
+                new AInstantTrick
+                {
+                    amount = 1
                 }
             ],
             Upgrade.A =>
             [
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.Fade.Status,
+                    targetPlayer = true,
+                    statusAmount = 2,
+                    mode = AStatusMode.Set
+                },
                 new AMove
                 {
                     dir = 1,
@@ -97,21 +116,20 @@ public class Flicker : Card, IRegisterable
                     dir = 3,
                     targetPlayer = true,
                     isRandom = true
+                },
+                new AInstantTrick
+                {
+                    amount = 1
                 }
             ],
             Upgrade.B =>
             [
-                new AMove
+                new AStatus
                 {
-                    dir = 1,
+                    status = VionheartScarlet.Instance.Fade.Status,
                     targetPlayer = true,
-                    isRandom = true
-                },
-                new AMove
-                {
-                    dir = 2,
-                    targetPlayer = true,
-                    isRandom = true
+                    statusAmount = 2,
+                    mode = AStatusMode.Set
                 },
                 new AMove
                 {
@@ -130,6 +148,10 @@ public class Flicker : Card, IRegisterable
                     dir = 3,
                     targetPlayer = true,
                     isRandom = true
+                },
+                new AInstantTrick
+                {
+                    amount = 2
                 }
             ],
             _ => []

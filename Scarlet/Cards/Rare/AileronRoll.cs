@@ -113,7 +113,7 @@ public class AileronRoll : Card, IRegisterable
                 new AStatus()
                 {
                     status = Status.evade,
-                    statusAmount = 4,
+                    statusAmount = 2,
                     targetPlayer = true
                 }
             ],

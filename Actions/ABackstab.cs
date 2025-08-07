@@ -25,7 +25,7 @@ public class ABackstab : CardAction
     {
         var statusFadeAmount = s.ship.Get(VionheartScarlet.Instance.Fade.Status);
         var backstabDamage = damage + statusFadeAmount;
-        return new Icon(VionheartScarlet.Instance.Backstab_Icon.Sprite, backstabDamage, Colors.damage, false);
+        return new Icon(VionheartScarlet.Instance.Backstab_Icon.Sprite, backstabDamage, Colors.redd, false);
     }
     public override List<Tooltip> GetTooltips(State s)
     {
@@ -34,7 +34,7 @@ public class ABackstab : CardAction
             new GlossaryTooltip("actionTooltip.ABackstab")
             {
                 Icon = VionheartScarlet.Instance.Backstab_Icon.Sprite,
-                TitleColor = Colors.attack,
+                TitleColor = Colors.action,
                 Title = VionheartScarlet.Instance.Localizations.Localize(["action", "ABackstab", "name"]),
                 Description = VionheartScarlet.Instance.Localizations.Localize(["action", "ABackstab", "description"])
             },

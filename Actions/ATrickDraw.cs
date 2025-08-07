@@ -15,12 +15,12 @@ public class ATrickDraw : CardAction
         for (int i = amount; i > 0; i--)
         {
             var rng = s.rngActions.Next();
-            if (rng >= 0 && rng < 0.2) { trickCard = new DriftLeft(); }
-            else if (rng >= 0.2 && rng < 0.4) { trickCard = new DriftRight(); }
-            else if (rng >= 0.4 && rng < 0.6) { trickCard = new TrickAfterburn(); }
-            else if (rng >= 0.6 && rng < 0.75) { trickCard = new MantaDodge(); }
-            else if (rng >= 0.75 && rng < 0.9) { trickCard = new Veer(); }
-            else if (rng >= 0.90) { trickCard = new Flicker(); }
+            if (rng >= 0 && rng < 0.25) { trickCard = new DriftLeft(); }
+            else if (rng >= 0.25 && rng < 0.50) { trickCard = new DriftRight(); }
+            else if (rng >= 0.50 && rng < 0.75) { trickCard = new TrickAfterburn(); }
+            else if (rng >= 0.75 && rng < 0.85) { trickCard = new MantaDodge(); }
+            else if (rng >= 0.85 && rng < 0.95) { trickCard = new Veer(); }
+            else if (rng >= 0.95) { trickCard = new Flicker(); }
             c.QueueImmediate(
                 new AAddCard
                 {

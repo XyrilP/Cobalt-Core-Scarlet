@@ -3,6 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -64,6 +65,10 @@ public class TrickAfterburn : Card, IRegisterable
                     status = Status.hermes,
                     targetPlayer = true,
                     statusAmount = 1
+                },
+                new AInstantTrick
+                {
+                    amount = 1
                 }
             ],
             Upgrade.A =>
@@ -73,6 +78,10 @@ public class TrickAfterburn : Card, IRegisterable
                     status = Status.hermes,
                     targetPlayer = true,
                     statusAmount = 1
+                },
+                new AInstantTrick
+                {
+                    amount = 1
                 }
             ],
             Upgrade.B =>
@@ -82,6 +91,10 @@ public class TrickAfterburn : Card, IRegisterable
                     status = Status.hermes,
                     targetPlayer = true,
                     statusAmount = 2
+                },
+                new AInstantTrick
+                {
+                    amount = 1
                 }
             ],
             _ => []

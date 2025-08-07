@@ -1,4 +1,22 @@
-Scarlet 1.3.11 Rework Playtest
+Scarlet 1.4.3 Rework Playtest
+Scarlet 1.4.2 Rework Playtest
+- Tricks
+    * Adjusted chances
+        - 25% chance for Drift Left, Drift Right and Afterburn
+        - 10% chance for Veer and Manta Dodge
+        - 5% chance for Flicker
+    * Changes
+        - Afterburn now has Instant Trick
+        - Flicker now has Fade = 2 and Instant Trick
+- Changes
+    * Yasha Dagger
+        - Fixed a mistake: Upgrade A now has recycle, Upgrade B loses recycle (Upgrade A prior offered no improvement)
+    * Aileron Roll
+        - Upgrade B now has 2 Evade (from 4)
+Scarlet 1.4.1 Rework Playtest
+- Blink Strike
+    * Actually add Teleport to the card
+Scarlet 1.4.0 Rework Playtest
 - NEW CONTENT
     * New Card actions
         * Backstab

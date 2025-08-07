@@ -63,7 +63,8 @@ public class BlinkStrike : Card, IRegisterable
                 {
                     dir = 2,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletBlinkStrike"
+                    dialogueSelector = ".scarletBlinkStrike",
+                    isTeleport = true
                 },
                 new ABackstab
                 {
@@ -76,7 +77,8 @@ public class BlinkStrike : Card, IRegisterable
                 {
                     dir = 2,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletBlinkStrike"
+                    dialogueSelector = ".scarletBlinkStrike",
+                    isTeleport = true
                 },
                 new ABackstab
                 {
@@ -89,7 +91,8 @@ public class BlinkStrike : Card, IRegisterable
                 {
                     dir = -2,
                     targetPlayer = true,
-                    dialogueSelector = ".scarletBlinkStrike"
+                    dialogueSelector = ".scarletBlinkStrike",
+                    isTeleport = true
                 },
                 new ABackstab
                 {
