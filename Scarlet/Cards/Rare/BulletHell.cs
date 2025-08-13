@@ -56,7 +56,7 @@ public class BulletHell : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = VionheartScarlet.Instance.scarletBarrage.Status,
+                    status = VionheartScarlet.Instance.SaturationBarrage.Status,
                     statusAmount = 3,
                     targetPlayer = true,
                     mode = AStatusMode.Set
@@ -76,7 +76,7 @@ public class BulletHell : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = VionheartScarlet.Instance.scarletBarrage.Status,
+                    status = VionheartScarlet.Instance.SaturationBarrage.Status,
                     statusAmount = 3,
                     targetPlayer = true,
                     mode = AStatusMode.Set
@@ -96,7 +96,7 @@ public class BulletHell : Card, IRegisterable
             [
                 new AStatus
                 {
-                    status = VionheartScarlet.Instance.scarletBarrage.Status,
+                    status = VionheartScarlet.Instance.SaturationBarrage.Status,
                     statusAmount = 3,
                     targetPlayer = true,
                     mode = AStatusMode.Set

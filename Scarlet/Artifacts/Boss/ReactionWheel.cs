@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
 using Nanoray.PluginManager;
@@ -76,5 +77,12 @@ public class ReactionWheel : Artifact, IRegisterable
     public override void OnCombatEnd(State state)
     {
         capProgress = 0;
+    }
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        var evadeStatus = Status.evade;
+        List<Tooltip> tooltips = [];
+        tooltips.AddRange(StatusMeta.GetTooltips(evadeStatus, 1));
+        return tooltips;
     }
 }

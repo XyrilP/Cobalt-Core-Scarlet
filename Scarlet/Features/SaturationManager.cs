@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VionheartScarlet.Actions;
+using static VionheartScarlet.ExternalAPI.IKokoroApi.IV2.IStatusRenderingApi.IHook;
 
 namespace VionheartScarlet.Features;
 

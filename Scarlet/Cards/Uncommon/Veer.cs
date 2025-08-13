@@ -78,7 +78,7 @@ public class Veer : Card, IRegisterable
             Upgrade.A =>
             [
                 new AMove
-                { 
+                {
                     dir = 2,
                     targetPlayer = true,
                 }

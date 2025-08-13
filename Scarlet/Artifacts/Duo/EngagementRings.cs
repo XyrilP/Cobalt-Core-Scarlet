@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
@@ -71,7 +72,7 @@ public class EngagementRings : Artifact, IRegisterable
             (
                 new AStatus
                 {
-                    status = VionheartScarlet.Instance.scarletBarrage.Status,
+                    status = VionheartScarlet.Instance.SaturationBarrage.Status,
                     statusAmount = 1,
                     targetPlayer = true,
                     artifactPulse = Key()
@@ -88,5 +89,16 @@ public class EngagementRings : Artifact, IRegisterable
     public override void OnCombatStart(State state, Combat combat)
     {
         if (turnCounter >= 2) turnCounter = 0;
+    }
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        var rageStatus = EvilRiggs_Rage?.Status;
+        var saturationBarrageStatus = VionheartScarlet.Instance.SaturationBarrage.Status;
+        List<Tooltip> tooltips = [];
+#pragma warning disable CS8629 // Nullable value type may be null.
+        tooltips.AddRange(StatusMeta.GetTooltips((Status)rageStatus, 1));
+#pragma warning restore CS8629 // Nullable value type may be null.
+        tooltips.AddRange(StatusMeta.GetTooltips(saturationBarrageStatus, 1));
+        return tooltips;
     }
 }

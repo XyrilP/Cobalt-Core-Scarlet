@@ -34,12 +34,14 @@ public class Flicker : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
+                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 1, instantTrickAmount = 3 }),
                 cost = 0,
                 temporary = true,
                 singleUse = true
             },
             Upgrade.A => new CardData
             {
+                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 1, instantTrickAmount = 3 }),
                 cost = 0,
                 temporary = true,
                 singleUse = true,
@@ -47,6 +49,7 @@ public class Flicker : Card, IRegisterable
             },
             Upgrade.B => new CardData
             {
+                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 1, instantTrickAmount = 4 }),
                 cost = 0,
                 temporary = true,
                 singleUse = true
@@ -64,30 +67,13 @@ public class Flicker : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     targetPlayer = true,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     mode = AStatusMode.Set
-                },
-                new AMove
-                {
-                    dir = 1,
-                    targetPlayer = true,
-                    isRandom = true
-                },
-                new AMove
-                {
-                    dir = 2,
-                    targetPlayer = true,
-                    isRandom = true
-                },
-                new AMove
-                {
-                    dir = 3,
-                    targetPlayer = true,
-                    isRandom = true
                 },
                 new AInstantTrick
                 {
-                    amount = 1
+                    amount = 3,
+                    isTeleport = true
                 }
             ],
             Upgrade.A =>
@@ -96,30 +82,13 @@ public class Flicker : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     targetPlayer = true,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     mode = AStatusMode.Set
-                },
-                new AMove
-                {
-                    dir = 1,
-                    targetPlayer = true,
-                    isRandom = true
-                },
-                new AMove
-                {
-                    dir = 2,
-                    targetPlayer = true,
-                    isRandom = true
-                },
-                new AMove
-                {
-                    dir = 3,
-                    targetPlayer = true,
-                    isRandom = true
                 },
                 new AInstantTrick
                 {
-                    amount = 1
+                    amount = 3,
+                    isTeleport = true
                 }
             ],
             Upgrade.B =>
@@ -128,30 +97,13 @@ public class Flicker : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     targetPlayer = true,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     mode = AStatusMode.Set
-                },
-                new AMove
-                {
-                    dir = 1,
-                    targetPlayer = true,
-                    isRandom = true
-                },
-                new AMove
-                {
-                    dir = 2,
-                    targetPlayer = true,
-                    isRandom = true
-                },
-                new AMove
-                {
-                    dir = 3,
-                    targetPlayer = true,
-                    isRandom = true
                 },
                 new AInstantTrick
                 {
-                    amount = 2
+                    amount = 4,
+                    isTeleport = true
                 }
             ],
             _ => []

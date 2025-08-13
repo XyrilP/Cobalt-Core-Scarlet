@@ -41,11 +41,12 @@ public class HideAndSneak : Card, IRegisterable
             },
             Upgrade.A => new CardData
             {
-                cost = 0
+                cost = 1
             },
             Upgrade.B => new CardData
             {
-                cost = 1
+                cost = 0,
+                exhaust = true
             },
             _ => new CardData{}
         };
@@ -85,7 +86,7 @@ public class HideAndSneak : Card, IRegisterable
                     },
                     new ATrickDraw()
                     {
-                        amount = 1
+                        amount = 2
                     }
                 };
                 break;
@@ -102,7 +103,7 @@ public class HideAndSneak : Card, IRegisterable
                     },
                     new ATrickDraw()
                     {
-                        amount = 2
+                        amount = 1
                     }
                 };
                 break;

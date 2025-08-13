@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
 using Nanoray.PluginManager;
 using Nickel;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Artifacts;
 
@@ -29,24 +31,33 @@ public class HardlightAfterburners : Artifact, IRegisterable
     public override void OnTurnStart(State state, Combat combat)
     {
         counter++;
-        if (counter >= GOAL)
+        if (counter > GOAL)
         {
-            combat.Queue(new AStatus
-            {
-                status = Status.hermes,
-                statusAmount = 1,
-                targetPlayer = true,
-                artifactPulse = Key(),
-                dialogueSelector = ".HardlightAfterburnersTrigger"
-            }
+            combat.Queue
+            (
+                new AInstantTrick
+                {
+                    amount = 1,
+                    artifactPulse = Key(),
+                    dialogueSelector = ".HardlightAfterburnersTrigger"
+                }
             );
-            counter = 0;
+            counter = 1;
         }
     }
 
     public override void OnCombatStart(State state, Combat combat)
     {
         counter = 0;
+        combat.Queue
+        (
+            new AInstantTrick
+            {
+                amount = 1,
+                artifactPulse = Key(),
+                dialogueSelector = ".HardlightAfterburnersTrigger"
+            }
+        );
     }
 
     public override int? GetDisplayNumber(State s)
@@ -56,5 +67,19 @@ public class HardlightAfterburners : Artifact, IRegisterable
             return null;
         }
         return counter;
+    }
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        List<Tooltip> tooltips =
+        [
+            new GlossaryTooltip("actionTooltip.AInstantTrick")
+            {
+                Icon = VionheartScarlet.Instance.InstantTrick_Icon.Sprite,
+                TitleColor = Colors.action,
+                Title = VionheartScarlet.Instance.Localizations.Localize(["action", "AInstantTrick", "name"]),
+                Description = string.Format(VionheartScarlet.Instance.Localizations.Localize(["action", "AInstantTrick", "description"]), 1)
+            },
+        ];
+        return tooltips;
     }
 }

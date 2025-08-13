@@ -1,4 +1,34 @@
+Scarlet 1.4.4 Reowkr Playtest
+- Card changes
+    * Patience
+        - Is now Draw Next Turn 1 (from 3)
+        - Upgrade A becomes Draw Next Turn 2 (No longer 0E)
+        - Upgrade B becomes 0E, Exhaust
 Scarlet 1.4.3 Rework Playtest
+- Tricks
+    * Trickstab
+        - Replaced Manta Dodge with Trickstab
+    * Freestyle
+        - Replaced (Trick) Afterburn with Freestyle
+    * Flicker
+        - Now has Instant Trick instead of Move Random, makes movement from Flicker a teleport
+        - Now has Fade = 1 (from 2)
+    * Changes
+        * Instant Trick
+            - If the Trick card chosen is flippable or floppable, it will randomly determine if it is flipped or not
+- Changes
+    * Hardlight Afterburners
+        - Now performs 1 Instant Trick at start of combat, then again every 2 turns thereafter
+- Other Stuff
+    * Story
+        - Added placeholder memories for Scarlet
+    * Art
+        - New mini
+    * QoL
+        - Added extra tooltips to various things
+- Artifacts
+    * Card Engine
+        - Now requires 20 card draws for secondary effect (from 15)
 Scarlet 1.4.2 Rework Playtest
 - Tricks
     * Adjusted chances

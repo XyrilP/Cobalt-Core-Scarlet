@@ -1,29 +1,30 @@
 using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
-public class RunAndGun : Card, IRegisterable
+public class Trickstab : Card, IRegisterable
 {
     private static ISpriteEntry? BaseArt { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/RunAndGun.png")); //Art used.
+        BaseArt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/Trickstab.png")); //Art used.
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new CardMeta
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
-                rarity = Rarity.common,
-                dontOffer = false,
+                rarity = Rarity.uncommon,
+                dontOffer = true,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "RunAndGun", "name"]).Localize,
-            Art = BaseArt?.Sprite
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "Trickstab", "name"]).Localize,
+            Art = null
         }
         );
     }
@@ -33,15 +34,21 @@ public class RunAndGun : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 1
+                cost = 0,
+                temporary = true,
+                singleUse = true
             },
             Upgrade.A => new CardData
             {
-                cost = 0
+                cost = 0,
+                temporary = true,
+                singleUse = true
             },
             Upgrade.B => new CardData
             {
-                cost = 1
+                cost = 0,
+                temporary = true,
+                singleUse = true
             },
             _ => new CardData{}
         };
@@ -52,47 +59,39 @@ public class RunAndGun : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AStatus
-                {
-                    status = VionheartScarlet.Instance.SaturationBarrage.Status,
-                    statusAmount = 1,
-                    targetPlayer = true,
-                    mode = AStatusMode.Set
-                },
                 new AInstantTrick
                 {
-                    amount = 1,
-                    disabled = flipped
+                    amount = 1
+                },
+                new ABackstab
+                {
+                    damage = GetDmg(s, 0)
                 }
             ],
             Upgrade.A =>
             [
-                new AStatus
-                {
-                    status = VionheartScarlet.Instance.SaturationBarrage.Status,
-                    statusAmount = 1,
-                    targetPlayer = true,
-                    mode = AStatusMode.Set
-                },
                 new AInstantTrick
                 {
-                    amount = 1,
-                    disabled = flipped
+                    amount = 1
+                },
+                new ABackstab
+                {
+                    damage = GetDmg(s, 1)
                 }
             ],
             Upgrade.B =>
             [
-                new AStatus
-                {
-                    status = VionheartScarlet.Instance.SaturationBarrage.Status,
-                    statusAmount = 1,
-                    targetPlayer = true,
-                    mode = AStatusMode.Set
-                },
                 new AInstantTrick
                 {
-                    amount = 2,
-                    disabled = flipped
+                    amount = 1
+                },
+                new ABackstab
+                {
+                    damage = GetDmg(s, 0)
+                },
+                new ABackstab
+                {
+                    damage = GetDmg(s, 0)
                 }
             ],
             _ => []

@@ -78,7 +78,8 @@ internal class VionheartScarlet : SimpleMod
     internal static List<Type> Dialogue_Types = [
         typeof(StoryDialogueV2),
         typeof(CombatDialogueV2),
-        typeof(EventDialogueV2)
+        typeof(EventDialogueV2),
+        typeof(MemoryDialogue)
     ];
     private static IEnumerable<Type> Vionheart_Content =
         Colorless_All_Card_Types
@@ -90,7 +91,7 @@ internal class VionheartScarlet : SimpleMod
     /* Scarlet Content */
     internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
     internal IStatusEntry Fade { get; }
-    internal IStatusEntry scarletBarrage { get; }
+    internal IStatusEntry SaturationBarrage { get; }
     internal IStatusEntry Saturation { get; }
 
     internal ISpriteEntry TrickDagger { get; }
@@ -104,6 +105,9 @@ internal class VionheartScarlet : SimpleMod
     internal ISpriteEntry Trick_Icon { get; }
     internal ISpriteEntry InstantTrick_Icon { get; }
     internal ISpriteEntry Backstab_Icon { get; }
+    internal ISpriteEntry Fade_Icon { get; }
+    internal ISpriteEntry SaturationBarrage_Icon { get; }
+    internal ISpriteEntry Saturation_Icon { get; }
     private static List<Type> Scarlet_Common_Card_Types = [
         /* Scarlet's common cards. */
         typeof(DriveBy),
@@ -118,7 +122,8 @@ internal class VionheartScarlet : SimpleMod
         /* Trick Cards */
         typeof(DriftLeft),
         typeof(DriftRight),
-        typeof(TrickAfterburn)
+        typeof(TrickAfterburn),
+        typeof(Freestyle)
         /* Trick Cards */
     ];
     private static List<Type> Scarlet_Uncommon_Card_Types = [
@@ -134,7 +139,8 @@ internal class VionheartScarlet : SimpleMod
         typeof(DefensivePiloting),
         /* Trick Cards */
         typeof(Veer),
-        typeof(MantaDodge)
+        typeof(MantaDodge),
+        typeof(Trickstab)
         /* Trick Cards */
     ];
     private static List<Type> Scarlet_Rare_Card_Types = [
@@ -192,7 +198,6 @@ internal class VionheartScarlet : SimpleMod
             .Concat(Scarlet_Content);
     public VionheartScarlet(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
-
         Instance = this;
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!.V2; //Updated to V2!
         Harmony = new Harmony("VionheartScarlet"); //New API? (Harmony)
@@ -257,7 +262,7 @@ internal class VionheartScarlet : SimpleMod
             CharacterType = Scarlet_Deck.Deck.Key(),
             LoopTag = "mini",
             Frames = [
-                RegisterSprite(package, "assets/characters/scarlet_mini_1.png").Sprite,
+                RegisterSprite(package, "assets/characters/scarlet_mini_2.png").Sprite,
             ]
         }
         );
@@ -290,7 +295,7 @@ internal class VionheartScarlet : SimpleMod
                 /* Scarlet DAGGERTAUNT */
         RegisterAnimation(package, "daggertaunt", "assets/characters/scarlet_daggertaunt_", 4);
                 /* Scarlet SCREAM */
-        RegisterAnimation(package, "scream", "assets/characters/scarlet_scream_", 2);
+        RegisterAnimation(package, "scream", "assets/characters/scarlet_scream_", 3);
                 /* Scarlet NERVOUS */
         RegisterAnimation(package, "nervous", "assets/characters/scarlet_nervous_", 4);
             /* Register Scarlet as a Playable Character plus his Deck */
@@ -339,6 +344,7 @@ internal class VionheartScarlet : SimpleMod
 	    }
         /* MoreDifficulties mod - Scarlet's Alternate Starter Cards */
         /* Fade status */
+        Fade_Icon = RegisterSprite(package, "assets/icons/Fade.png");
         Fade = helper.Content.Statuses.RegisterStatus("Fade", new StatusConfiguration
         {
             Definition = new StatusDef
@@ -346,7 +352,7 @@ internal class VionheartScarlet : SimpleMod
                 isGood = true,
                 affectedByTimestop = true,
                 color = new Color("BC2C3D"),
-                icon = RegisterSprite(package, "assets/icons/Fade.png").Sprite
+                icon = Fade_Icon.Sprite
             },
             Name = AnyLocalizations.Bind(["status", "Fade", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "Fade", "description"]).Localize
@@ -354,21 +360,23 @@ internal class VionheartScarlet : SimpleMod
         );
         _ = new FadeManager(package, helper);
         /* Scarlet Barrage status */
-        scarletBarrage = helper.Content.Statuses.RegisterStatus("Scarlet Barrage", new StatusConfiguration
+        SaturationBarrage_Icon = RegisterSprite(package, "assets/icons/Scarlet-Barrage.png");
+        SaturationBarrage = helper.Content.Statuses.RegisterStatus("Scarlet Barrage", new StatusConfiguration
         {
-            Name = AnyLocalizations.Bind(["status", "scarletBarrage", "name"]).Localize,
-            Description = AnyLocalizations.Bind(["status", "scarletBarrage", "description"]).Localize,
+            Name = AnyLocalizations.Bind(["status", "SaturationBarrage", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "SaturationBarrage", "description"]).Localize,
             Definition = new StatusDef
             {
                 isGood = true,
                 affectedByTimestop = true,
                 color = new Color("BC2C3D"),
-                icon = RegisterSprite(package, "assets/icons/Scarlet-Barrage.png").Sprite
+                icon = SaturationBarrage_Icon.Sprite
             }
         }
         );
         _ = new scarletBarrageManager(package, helper);
         /* Saturation status */
+        Saturation_Icon = RegisterSprite(package, "assets/icons/Saturation.png");
         Saturation = helper.Content.Statuses.RegisterStatus("Saturation", new StatusConfiguration
         {
             Name = AnyLocalizations.Bind(["status", "Saturation", "name"]).Localize,
@@ -378,7 +386,7 @@ internal class VionheartScarlet : SimpleMod
                 isGood = false,
                 affectedByTimestop = false,
                 color = new Color("BC2C3D"),
-                icon = RegisterSprite(package, "assets/icons/Saturation.png").Sprite
+                icon = Saturation_Icon.Sprite
             },
             ShouldFlash = (State state, Combat combat, Ship ship, Status status) =>
             {
@@ -518,6 +526,12 @@ internal class VionheartScarlet : SimpleMod
         InstantTrick_Icon = RegisterSprite(package, "assets/icons/Instant-Trick-Action.png");
         Backstab_Icon = RegisterSprite(package, "assets/icons/Backstab.png");
         /* Trick action Icon */
+        /* Status Icon */
+        /* Status Icon */
+        /* Memory Sequence */
+        Vault.charsWithLore.Add(Scarlet_Deck.Deck);
+        BGRunWin.charFullBodySprites.Add(Scarlet_Deck.Deck,RegisterSprite(package, "assets/characters/scarlet_end.png").Sprite);
+        /* Memory Sequence */
         /* Register all artifacts and cards into the game, allowing it to be played. (Based on AllRegisterableTypes) */
         foreach (var type in AllRegisterableTypes)
             AccessTools.DeclaredMethod(type, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);

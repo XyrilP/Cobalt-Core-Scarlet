@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VionheartScarlet.Actions;
+using static VionheartScarlet.ExternalAPI.IKokoroApi.IV2.IStatusRenderingApi.IHook;
 
 namespace VionheartScarlet.Features;
 
@@ -37,13 +38,20 @@ public class scarletBarrageManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         //     postfix: new HarmonyMethod(GetType(), nameof(AStatus_GetTooltips_Postfix))
         // );
     }
+    public IReadOnlyList<Tooltip> OverrideStatusTooltips(IOverrideStatusTooltipsArgs args)
+    {
+        var SaturationBarrageStatus = VionheartScarlet.Instance.SaturationBarrage.Status;
+        var SaturationStatus = VionheartScarlet.Instance.Saturation.Status;
+        if (args.Status != SaturationBarrageStatus) return args.Tooltips;
+        else return args.Tooltips.Concat(StatusMeta.GetTooltips(SaturationStatus, 1)).ToList();
+    }
     public static void AAttack_Begin_Postfix(AAttack __instance, G g, State s, Combat c)
     {
         var aattack = __instance;
         Ship ship = __instance.targetPlayer ? s.ship : c.otherShip;
         Ship otherShip = __instance.targetPlayer ? c.otherShip : s.ship;
-        var statusValue = otherShip.Get(VionheartScarlet.Instance.scarletBarrage.Status);
-        if (otherShip.Get(VionheartScarlet.Instance.scarletBarrage.Status) > 0)
+        var statusValue = otherShip.Get(VionheartScarlet.Instance.SaturationBarrage.Status);
+        if (otherShip.Get(VionheartScarlet.Instance.SaturationBarrage.Status) > 0)
         {
             for (int i = 0; i < statusValue; i++)
             {
@@ -65,8 +73,8 @@ public class scarletBarrageManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
         var amove = __instance;
         Ship ship = amove.targetPlayer ? s.ship : c.otherShip;
         Ship otherShip = amove.targetPlayer ? c.otherShip : s.ship;
-        var statusValue = ship.Get(VionheartScarlet.Instance.scarletBarrage.Status);
-        if (ship.Get(VionheartScarlet.Instance.scarletBarrage.Status) > 0)
+        var statusValue = ship.Get(VionheartScarlet.Instance.SaturationBarrage.Status);
+        if (ship.Get(VionheartScarlet.Instance.SaturationBarrage.Status) > 0)
         {
             for (int i = 0; i < statusValue; i++)
             {
@@ -81,14 +89,14 @@ public class scarletBarrageManager : IKokoroApi.IV2.IStatusRenderingApi.IHook
     }
     public static void Ship_OnBeginTurn_Postfix(Ship __instance, State s, Combat c)
     {
-        var saturationBarrageStatus = VionheartScarlet.Instance.scarletBarrage.Status;
+        var saturationBarrageStatus = VionheartScarlet.Instance.SaturationBarrage.Status;
         if (__instance.Get(Status.timeStop) > 0)
         {
             /* Timestop will decrement itself. */
         }
-        else if (__instance.Get(VionheartScarlet.Instance.scarletBarrage.Status) > 0)
+        else if (__instance.Get(VionheartScarlet.Instance.SaturationBarrage.Status) > 0)
         {
-            __instance.Add(VionheartScarlet.Instance.scarletBarrage.Status, -1);
+            __instance.Add(VionheartScarlet.Instance.SaturationBarrage.Status, -1);
             Audio.Play(StatusMeta.GetSound(saturationBarrageStatus, false));
         }
     }

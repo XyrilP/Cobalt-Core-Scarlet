@@ -51,7 +51,7 @@ public class CloakAndDagger : Artifact, IRegisterable
             );
             usedCloakAndDagger_Fade = true;
         }
-    }  
+    }
     public override bool? OnPlayerAttackMakeItPierce(State state, Combat combat)
     {
         var ship = state.ship;
@@ -99,5 +99,12 @@ public class CloakAndDagger : Artifact, IRegisterable
     public override void OnRemoveArtifact(State state)
     {
         VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "hasCloakAndDagger", false);
+    }
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        var fadeStatus = VionheartScarlet.Instance.Fade.Status;
+        List<Tooltip> tooltips = [];
+        tooltips.AddRange(StatusMeta.GetTooltips(fadeStatus, 1));
+        return tooltips;
     }
 }

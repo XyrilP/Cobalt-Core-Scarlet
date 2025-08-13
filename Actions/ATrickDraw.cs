@@ -17,8 +17,10 @@ public class ATrickDraw : CardAction
             var rng = s.rngActions.Next();
             if (rng >= 0 && rng < 0.25) { trickCard = new DriftLeft(); }
             else if (rng >= 0.25 && rng < 0.50) { trickCard = new DriftRight(); }
-            else if (rng >= 0.50 && rng < 0.75) { trickCard = new TrickAfterburn(); }
-            else if (rng >= 0.75 && rng < 0.85) { trickCard = new MantaDodge(); }
+            // else if (rng >= 0.50 && rng < 0.75) { trickCard = new TrickAfterburn(); }
+            else if (rng >= 0.50 && rng < 0.75) { trickCard = new Freestyle(); }
+            else if (rng >= 0.75 && rng < 0.85) { trickCard = new Trickstab(); }
+            //else if (rng >= 0.75 && rng < 0.85) { trickCard = new MantaDodge(); }
             else if (rng >= 0.85 && rng < 0.95) { trickCard = new Veer(); }
             else if (rng >= 0.95) { trickCard = new Flicker(); }
             c.QueueImmediate(
@@ -46,12 +48,12 @@ public class ATrickDraw : CardAction
                 Title = VionheartScarlet.Instance.Localizations.Localize(["action", "ATrickDraw", "name"]),
                 Description = string.Format(VionheartScarlet.Instance.Localizations.Localize(["action", "ATrickDraw", "description"]), $"{amount}")
             },
-            new TTCard { card = new TrickAfterburn() },
-            new TTCard { card = new DriftLeft() },
-            new TTCard { card = new DriftRight() },
-            new TTCard { card = new MantaDodge() },
-            new TTCard { card = new Veer() },
-            new TTCard { card = new Flicker() },
+            // new TTCard { card = new TrickAfterburn() },
+            // new TTCard { card = new DriftLeft() },
+            // new TTCard { card = new DriftRight() },
+            // new TTCard { card = new MantaDodge() },
+            // new TTCard { card = new Veer() },
+            // new TTCard { card = new Flicker() },
         ];
         return tooltips;
     }

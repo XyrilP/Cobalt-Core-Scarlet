@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Reflection;
 using JetBrains.Annotations;
@@ -41,5 +42,19 @@ public class TrickAction : Artifact, IRegisterable
                 }
             );
         }
+    }
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        List<Tooltip> tooltips =
+        [
+            new GlossaryTooltip("actionTooltip.ATrickDraw")
+            {
+                Icon = VionheartScarlet.Instance.Trick_Icon.Sprite,
+                TitleColor = Colors.action,
+                Title = VionheartScarlet.Instance.Localizations.Localize(["action", "ATrickDraw", "name"]),
+                Description = string.Format(VionheartScarlet.Instance.Localizations.Localize(["action", "ATrickDraw", "description"]), $"{1}")
+            },
+        ];
+        return tooltips;
     }
 }

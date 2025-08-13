@@ -16,7 +16,7 @@
     },
     "CardEngine": {
       "name": "CARD ENGINE",
-      "description": "Draw an additional card after the first turn.\nEvery <c=keyword>15th</c> time you draw a card, draw an additional card."
+      "description": "Draw an additional card after the first turn.\nEvery <c=keyword>20th</c> time you draw a card, draw an additional card."
     },
     "ReactionWheel": {
       "name": "REACTION WHEEL",
@@ -24,11 +24,11 @@
     },
     "CloakAndDagger": {
       "name": "CLOAK AND DAGGER",
-      "description": "Once per turn, increase the amount of <c=status>FADE</c> you gain by 1.\nOnce per turn, your next attack use 1 <c=status>FADE</c>, becoming <c=cardTraits>piercing</c> and dealing <c=keyword>1</c> additional damage."
+      "description": "Once per turn, increase the amount of <c=status>FADE</c> you gain by 1.\nOnce per turn, your next attack use 1 <c=status>FADE</c>, becoming <c=cardtrait>piercing</c> and dealing <c=keyword>1</c> additional damage."
     },
     "HardlightAfterburners": {
       "name": "HARDLIGHT AFTERBURNERS",
-      "description": "At the start of combat, every two turns, gain 1 <c=status>HERMES</c>."
+      "description": "At the start of combat and every two turns thereafter, perform 1 <c=action>INSTANT TRICK</c>."
     },
     "Twinsticks": {
       "name": "TWINSTICKS",
@@ -169,11 +169,18 @@
     "TrickAfterburn": {
       "name": "Afterburn"
     },
+    "Freestyle": {
+      "name": "Freestyle"
+    },
+    "Trickstab": {
+      "name": "Trickstab"
+    },
     "MantaDodge": {
       "name": "Manta Dodge"
     },
     "Flicker": {
-      "name": "Flicker"
+      "name": "Flicker",
+      "description": "<c=status>FADE</c> = {{fadeAmount}}.\n<c=action>I. Trick</c> {{instantTrickAmount}}.\nMovement from this card become teleports."
     },
     "FadeTheWorld": {
       "name": "Fade the World"
@@ -184,7 +191,7 @@
       "name": "Fade",
       "description": "Prevent next direct hit, missile hit, card and status intents on this ship.\n<c=downside>Goes away at start of next turn.</c>"
     },
-    "scarletBarrage": {
+    "SaturationBarrage": {
       "name": "Saturation Barrage",
       "description": "<c=downside>Inaccurately</c> fire {0} times for <c=keyword>0</c> damage immediately after every attack or move you make that applies <c=keyword>1</c> <c=status>SATURATION</c>. <c=downside>Decreases by 1 at start of next turn.</c>"
     },
@@ -210,11 +217,11 @@
   "action": {
     "ATrickDraw": {
       "name": "Trick",
-      "description": "Draw <c=keyword>{0}</c> of the following:"
+      "description": "Add <c=keyword>{0}</c> <c=downside>random</c> <c=keyword>trick</c> cards to your hand."
     },
     "AInstantTrick": {
       "name": "Instant Trick",
-      "description": "Instantly play <c=keyword>{0}</c> of the following:"
+      "description": "Instantly play <c=keyword>{0}</c> <c=downside>random</c> <c=keyword>trick</c> cards."
     },
     "ABackstab": {
       "name": "Backstab",

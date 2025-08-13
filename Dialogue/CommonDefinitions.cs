@@ -10,7 +10,7 @@ internal static class CommonDefinitions
     internal static string Scarlet => VionheartScarlet.Instance.Scarlet_Deck.UniqueName;
     internal static Deck Scarlet_Deck => Instance.Scarlet_Deck.Deck;
     internal static Status Fade => VionheartScarlet.Instance.Fade.Status;
-    internal static Status SaturationBarrage => VionheartScarlet.Instance.scarletBarrage.Status;
+    internal static Status SaturationBarrage => VionheartScarlet.Instance.SaturationBarrage.Status;
     internal static string Dizzy => Deck.dizzy.Key();
     internal static Deck Dizzy_Deck => Deck.dizzy;
     internal static string Riggs => Deck.riggs.Key();

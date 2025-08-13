@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
 using Nanoray.PluginManager;
@@ -76,5 +77,14 @@ public class Twinsticks : Artifact, IRegisterable
     public override void OnCombatStart(State state, Combat combat)
     {
         if (turnCounter >= 2) turnCounter = 0;
+    }
+    public override List<Tooltip>? GetExtraTooltips()
+    {
+        var evadeStatus = Status.evade;
+        var fadeStatus = VionheartScarlet.Instance.Fade.Status;
+        List<Tooltip> tooltips = [];
+        tooltips.AddRange(StatusMeta.GetTooltips(evadeStatus, 1));
+        tooltips.AddRange(StatusMeta.GetTooltips(fadeStatus, 1));
+        return tooltips;
     }
 }

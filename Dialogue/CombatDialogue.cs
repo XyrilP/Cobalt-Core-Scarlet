@@ -495,7 +495,7 @@ internal static class CombatDialogue
 		DB.story.all["Scarlet_TemporaryStrafeGeneric_0"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.scarletBarrage.Status ],
+            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.SaturationBarrage.Status ],
 			oncePerCombatTags = [ "TemporaryStrafeTag" ],
 			allPresent = [ Scarlet ],
 			lines = new()
@@ -512,7 +512,7 @@ internal static class CombatDialogue
 		DB.story.all["Scarlet_TemporaryStrafeGeneric_1"] = new()
 		{
 			type = NodeType.combat,
-            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.scarletBarrage.Status ],
+            lastTurnPlayerStatuses = [ VionheartScarlet.Instance.SaturationBarrage.Status ],
 			oncePerCombatTags = [ "TemporaryStrafeTag" ],
 			allPresent = [ Scarlet ],
 			lines = new()

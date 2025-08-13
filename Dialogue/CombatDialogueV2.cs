@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using Nanoray.PluginManager;
 using Nickel;
 using VionheartScarlet;
+using VionheartScarlet.Artifacts;
 using static VionheartScarlet.Dialogue.CommonDefinitions;
 
 namespace VionheartScarlet.Dialogue;
@@ -443,7 +444,12 @@ internal class CombatDialogueV2 : IRegisterable
                     lastTurnPlayerStatuses = [ SaturationBarrage ],
                     dialogue =
                     [
-                        new(Scarlet, "lockedin", "Barrage ready!")
+                        new(Scarlet, "lockedin", "Barrage ready!"),
+                        new(
+                        [
+                            new(Riggs, "neutral", "Get 'em! Get 'em!")
+                        ]
+                        )
                     ]
                 }
             },
@@ -458,6 +464,266 @@ internal class CombatDialogueV2 : IRegisterable
                     dialogue =
                     [
                         new(Scarlet, "lockedin", "Strafing!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "No!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "You'll pay for that!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "THIS IS WHAT HAPPENS WHEN YOU MAKE A MISTAKE.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_3",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "No! Not the ship! Not the ship!!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_4",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "No! We took a hit!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_5",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "Watch the paint!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_6",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "What are you doin'?")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_7",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "Again with the ship?")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_8",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "What? Again?!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_9",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "Everytime...")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_10",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "I sense I've made a mistake of some kind...")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_11",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "Aw man!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_Vanguard_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    hasArtifacts = [ $"VanguardBerthing".F() ],
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "What is it with everybody wreckin' my ship?!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_Vanguard_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    hasArtifacts = [ $"VanguardBerthing".F() ],
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "Not my ride!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_PerfectRuined_Combat_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_PerfectRuined_Combat" ],
+                    priority = true,
+                    dialogue =
+                    [
+                        
+                        new(Scarlet, "angry", "Welp, there goes trying not to get hit in this fight!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_PerfectRuined_Combat_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_PerfectRuined_Combat" ],
+                    priority = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Don't be sorry. Be better.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_PerfectRuined_Combat_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_PerfectRuined_Combat" ],
+                    priority = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "Next time, I will make the right choices.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_PerfectRuined_Run_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    oncePerRunTags = [ "Scarlet_PerfectRuined_Run" ],
+                    priority = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "So much for trying to not get hit.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_ShipTookDamage_PerfectRuined_Run_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    minDamageDealtToPlayerThisTurn = 1,
+                    oncePerRunTags = [ "Scarlet_PerfectRuined_Run" ],
+                    priority = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "Maybe we can do better next loop.")
                     ]
                 }
             }

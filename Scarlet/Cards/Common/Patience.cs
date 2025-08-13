@@ -36,11 +36,11 @@ public class Patience : Card, IRegisterable
             },
             Upgrade.A => new CardData
             {
-                cost = 0
+                cost = 1
             },
             Upgrade.B => new CardData
             {
-                cost = 1,
+                cost = 0,
                 exhaust = true
             },
             _ => new CardData{}
@@ -62,7 +62,7 @@ public class Patience : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.drawNextTurn,
-                    statusAmount = 3,
+                    statusAmount = 2,
                     targetPlayer = true
                 }
             ],
@@ -87,14 +87,14 @@ public class Patience : Card, IRegisterable
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     targetPlayer = true,
                     mode = AStatusMode.Set
                 },
                 new AStatus
                 {
                     status = Status.drawNextTurn,
-                    statusAmount = 3,
+                    statusAmount = 2,
                     targetPlayer = true
                 }
             ],
