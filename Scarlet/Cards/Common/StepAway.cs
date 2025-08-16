@@ -37,15 +37,15 @@ public class StepAway : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 1
+                cost = 2
             },
             Upgrade.A => new CardData
             {
-                cost = 0
+                cost = 2
             },
             Upgrade.B => new CardData
             {
-                cost = 1
+                cost = 2
             },
             _ => new CardData{}
         };
@@ -62,7 +62,7 @@ public class StepAway : Card, IRegisterable
                 },
                 new ATrickDraw
                 {
-                    amount = 1
+                    amount = 2
                 }
             ],
             Upgrade.A =>
@@ -73,18 +73,18 @@ public class StepAway : Card, IRegisterable
                 },
                 new ATrickDraw
                 {
-                    amount = 1
+                    amount = 3
                 }
             ],
             Upgrade.B =>
             [
                 new AInstantTrick
                 {
-                    amount = 1
+                    amount = 3
                 },
                 new ATrickDraw
                 {
-                    amount = 2
+                    amount = 1
                 }
             ],
             _ => []

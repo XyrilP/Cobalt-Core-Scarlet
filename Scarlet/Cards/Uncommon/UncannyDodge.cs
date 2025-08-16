@@ -33,16 +33,16 @@ public class UncannyDodge : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                cost = 1,
+                cost = 2,
             },
             Upgrade.A => new CardData
             {
                 cost = 1,
-                retain = true
             },
             Upgrade.B => new CardData
             {
                 cost = 2,
+                retain = true,
                 exhaust = true
             },
             _ => new CardData{}
@@ -60,12 +60,6 @@ public class UncannyDodge : Card, IRegisterable
                     statusAmount = 2,
                     targetPlayer = true,
                     mode = AStatusMode.Set
-                },
-                new AStatus
-                {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true
                 }
             ],
             Upgrade.A =>
@@ -76,12 +70,6 @@ public class UncannyDodge : Card, IRegisterable
                     statusAmount = 2,
                     targetPlayer = true,
                     mode = AStatusMode.Set
-                },
-                new AStatus
-                {
-                    status = Status.evade,
-                    statusAmount = 1,
-                    targetPlayer = true
                 }
             ],
             Upgrade.B =>
@@ -92,12 +80,6 @@ public class UncannyDodge : Card, IRegisterable
                     statusAmount = 3,
                     targetPlayer = true,
                     mode = AStatusMode.Set
-                },
-                new AStatus
-                {
-                    status = Status.evade,
-                    statusAmount = 2,
-                    targetPlayer = true
                 }
             ],
             _ => []

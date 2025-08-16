@@ -34,22 +34,21 @@ public class Flicker : Card, IRegisterable
         {
             Upgrade.None => new CardData
             {
-                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 1, instantTrickAmount = 3 }),
+                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 1, instantTrickAmount = 2 }),
                 cost = 0,
                 temporary = true,
                 singleUse = true
             },
             Upgrade.A => new CardData
             {
-                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 1, instantTrickAmount = 3 }),
+                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 2, instantTrickAmount = 2 }),
                 cost = 0,
                 temporary = true,
                 singleUse = true,
-                retain = true
             },
             Upgrade.B => new CardData
             {
-                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 1, instantTrickAmount = 4 }),
+                description = VionheartScarlet.Instance.Localizations.Localize(["card", "Flicker", "description"], new { fadeAmount = 1, instantTrickAmount = 3 }),
                 cost = 0,
                 temporary = true,
                 singleUse = true
@@ -72,7 +71,7 @@ public class Flicker : Card, IRegisterable
                 },
                 new AInstantTrick
                 {
-                    amount = 3,
+                    amount = 2,
                     isTeleport = true
                 }
             ],
@@ -82,12 +81,12 @@ public class Flicker : Card, IRegisterable
                 {
                     status = VionheartScarlet.Instance.Fade.Status,
                     targetPlayer = true,
-                    statusAmount = 1,
+                    statusAmount = 2,
                     mode = AStatusMode.Set
                 },
                 new AInstantTrick
                 {
-                    amount = 3,
+                    amount = 2,
                     isTeleport = true
                 }
             ],
@@ -102,7 +101,7 @@ public class Flicker : Card, IRegisterable
                 },
                 new AInstantTrick
                 {
-                    amount = 4,
+                    amount = 3,
                     isTeleport = true
                 }
             ],

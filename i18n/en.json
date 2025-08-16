@@ -12,7 +12,7 @@
     },
     "TrickAction": {
       "name": "TRICKSTER",
-      "description": "If you end your turn with more than 0 <c=energy>ENERGY</c>, perform 1 <c=action>TRICK</c>."
+      "description": "If you end your turn with more than 0 <c=energy>ENERGY</c>, perform 1 <c=action>TRICK</c>.\nOnce per turn, whenever you <c=action>INSTANT TRICK</c> or <c=action>TRICK</c>, the card is <c=downside>randomly</c> <c=keyword>upgraded</c>."
     },
     "CardEngine": {
       "name": "CARD ENGINE",
@@ -172,6 +172,9 @@
     "Freestyle": {
       "name": "Freestyle"
     },
+    "TrickBarrelRoll": {
+      "name": "Stunt"
+    },
     "Trickstab": {
       "name": "Trickstab"
     },
@@ -198,6 +201,10 @@
     "Saturation": {
       "name": "Saturation",
       "description": "When this ship reaches <c=keyword>2</c> Saturation, it takes <c=damage>1</c> damage!"
+    },
+    "BarrelRoll": {
+      "name": "Barrel Roll",
+      "description": "This ship becomes <c=keyword>inverted</c>, flipping and reversing the order of parts. <c=downside>Decreases by 1 at start of next turn.</c>"
     }
   },
   "midrow": {

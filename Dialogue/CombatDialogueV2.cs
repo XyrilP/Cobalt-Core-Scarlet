@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Threading;
 using Nanoray.PluginManager;
 using Nickel;
 using VionheartScarlet;
@@ -22,6 +23,8 @@ internal class CombatDialogueV2 : IRegisterable
                     allPresent = [ Scarlet ],
                     lastTurnPlayerStatuses = [ Fade ],
                     once = true,
+                    whoDidThat = Scarlet_Deck,
+                    priority = true,
                     dialogue =
                     [
                         new(Scarlet, "neutral", "My <c=status>FADE</c> can <c=keyword>dodge</c> through <c=keyword>attacks, missiles and enemy intents</c>!")
@@ -36,6 +39,8 @@ internal class CombatDialogueV2 : IRegisterable
                     allPresent = [ Scarlet ],
                     lastTurnPlayerStatuses = [ SaturationBarrage ],
                     once = true,
+                    whoDidThat = Scarlet_Deck,
+                    priority = true,
                     dialogue =
                     [
                         new(Scarlet, "neutral", "With <c=status>SATURATION BARRAGE</c>, I can <c=keyword>make extra attacks</c> for <c=downside>half damage</c>!")
@@ -94,7 +99,7 @@ internal class CombatDialogueV2 : IRegisterable
                     minDamageDealtToEnemyThisAction = 1,
                     dialogue =
                     [
-                        new(Scarlet, "neutral", "Oh, how I strike.")
+                        new(Scarlet, "smug", "Oh, how I strike.")
                     ]
                 }
             },
@@ -108,7 +113,7 @@ internal class CombatDialogueV2 : IRegisterable
                     minDamageDealtToEnemyThisAction = 1,
                     dialogue =
                     [
-                        new(Scarlet, "neutral", "Defend yourself.")
+                        new(Scarlet, "smug", "Defend yourself.")
                     ]
                 }
             },
@@ -122,7 +127,7 @@ internal class CombatDialogueV2 : IRegisterable
                     minDamageDealtToEnemyThisAction = 1,
                     dialogue =
                     [
-                        new(Scarlet, "neutral", "See here!")
+                        new(Scarlet, "lockedin", "See here!")
                     ]
                 }
             },
@@ -162,6 +167,7 @@ internal class CombatDialogueV2 : IRegisterable
                     allPresent = [ Scarlet, Riggs ],
                     playerShotJustHit = true,
                     minDamageDealtToEnemyThisAction = 1,
+                    whoDidThat = Scarlet_Deck,
                     dialogue =
                     [
                         new(Scarlet, "happy", "Score! Ya saw that, Riggs?"),
@@ -177,6 +183,7 @@ internal class CombatDialogueV2 : IRegisterable
                     allPresent = [ Scarlet, Riggs ],
                     playerShotJustHit = true,
                     minDamageDealtToEnemyThisAction = 3,
+                    whoDidThat = Riggs_Deck,
                     dialogue =
                     [
                         new(Riggs, "neutral", "Ooooh, that one is a good hit!"),
@@ -192,10 +199,32 @@ internal class CombatDialogueV2 : IRegisterable
                     allPresent = [ Scarlet, Riggs ],
                     playerShotJustHit = true,
                     minDamageDealtToEnemyThisAction = 3,
+                    whoDidThat = Scarlet_Deck,
                     dialogue =
                     [
                         new(Scarlet, "dagger", "You don't stand a chance."),
                         new(Riggs, "gun", "Not in a gazillion years!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Weth_JustHitGeneric_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Riggs ],
+                    playerShotJustHit = true,
+                    minDamageDealtToEnemyThisAction = 1,
+                    whoDidThat = Weth_Deck,
+                    dialogue =
+                    [
+                        new(Weth, "neutral", "That's a hit!"),
+                        new(
+                        [
+                            new(Scarlet, "happy", "Good girl."),
+                            new(Scarlet, "smug", "Outstanding.")
+                        ]
+                        )
                     ]
                 }
             },
@@ -234,7 +263,7 @@ internal class CombatDialogueV2 : IRegisterable
                     minMovesThisTurn = 1,
                     dialogue =
                     [
-                        new(Scarlet, "neutral", "Since you put it like that.")
+                        new(Scarlet, "smug", "Since you put it like that.")
                     ]
                 }
             },
@@ -247,7 +276,7 @@ internal class CombatDialogueV2 : IRegisterable
                     minMovesThisTurn = 3,
                     dialogue =
                     [
-                        new(Scarlet, "neutral", "Stride!")
+                        new(Scarlet, "lockedin", "Stride!")
                     ]
                 }
             },
@@ -273,7 +302,7 @@ internal class CombatDialogueV2 : IRegisterable
                     minMovesThisTurn = 3,
                     dialogue =
                     [
-                        new(Scarlet, "neutral", "Comin' through!")
+                        new(Scarlet, "locked", "Comin' through!")
                     ]
                 }
             },
@@ -286,7 +315,7 @@ internal class CombatDialogueV2 : IRegisterable
                     minMovesThisTurn = 3,
                     dialogue =
                     [
-                        new(Scarlet, "neutral", "Quickly.")
+                        new(Scarlet, "lockedin", "Quickly.")
                     ]
                 }
             },
@@ -371,12 +400,14 @@ internal class CombatDialogueV2 : IRegisterable
                 }
             },
             {
-                "Scarlet_FadeGeneric_0",
+                "Scarlet_Fade_0",
                 new()
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     lastTurnPlayerStatuses = [ Fade ],
+                    oncePerCombatTags = [ "Scarlet_Fade" ],
+                    whoDidThat = Scarlet_Deck,
                     dialogue =
                     [
                         new(Scarlet, "lockedin", "Fading.")
@@ -384,12 +415,14 @@ internal class CombatDialogueV2 : IRegisterable
                 }
             },
             {
-                "Scarlet_FadeGeneric_1",
+                "Scarlet_Fade_1",
                 new()
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     lastTurnPlayerStatuses = [ Fade ],
+                    oncePerCombatTags = [ "Scarlet_Fade" ],
+                    whoDidThat = Scarlet_Deck,
                     dialogue =
                     [
                         new(Scarlet, "lockedin", "Watch this Fade.")
@@ -397,12 +430,14 @@ internal class CombatDialogueV2 : IRegisterable
                 }
             },
             {
-                "Scarlet_FadeGeneric_2",
+                "Scarlet_Fade_2",
                 new()
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     lastTurnPlayerStatuses = [ Fade ],
+                    oncePerCombatTags = [ "Scarlet_Fade" ],
+                    whoDidThat = Scarlet_Deck,
                     dialogue =
                     [
                         new(Scarlet, "lockedin", "They can't hit us.")
@@ -410,12 +445,14 @@ internal class CombatDialogueV2 : IRegisterable
                 }
             },
             {
-                "Scarlet_FadeGeneric_3",
+                "Scarlet_Fade_3",
                 new()
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     lastTurnPlayerStatuses = [ Fade ],
+                    oncePerCombatTags = [ "Scarlet_Fade" ],
+                    whoDidThat = Scarlet_Deck,
                     dialogue =
                     [
                         new(Scarlet, "lockedin", "We are concealed.")
@@ -423,12 +460,14 @@ internal class CombatDialogueV2 : IRegisterable
                 }
             },
             {
-                "Scarlet_FadeGeneric_4",
+                "Scarlet_Fade_4",
                 new()
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     lastTurnPlayerStatuses = [ Fade ],
+                    oncePerCombatTags = [ "Scarlet_Fade" ],
+                    whoDidThat = Scarlet_Deck,
                     dialogue =
                     [
                         new(Scarlet, "lockedin", "We are hidden.")
@@ -436,18 +475,23 @@ internal class CombatDialogueV2 : IRegisterable
                 }
             },
             {
-                "Scarlet_SaturationBarrageGeneric_0",
+                "Scarlet_SaturationBarrage_0",
                 new()
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     lastTurnPlayerStatuses = [ SaturationBarrage ],
+                    oncePerCombatTags = [ "Scarlet_SaturationBarrage" ],
+                    whoDidThat = Scarlet_Deck,
                     dialogue =
                     [
                         new(Scarlet, "lockedin", "Barrage ready!"),
                         new(
                         [
-                            new(Riggs, "neutral", "Get 'em! Get 'em!")
+                            new(Riggs, "neutral", "Get 'em! Get 'em!"),
+                            new(Hyperia, "vengeful", "Unload on them!"),
+                            new(Eunice, "sly", "Atta boy!"),
+                            new(Weth, "lockedin", "Yes! Yes! Yes!")
                         ]
                         )
                     ]
@@ -474,6 +518,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "angry", "No!")
@@ -487,6 +532,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "angry", "You'll pay for that!")
@@ -500,6 +546,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "angry", "THIS IS WHAT HAPPENS WHEN YOU MAKE A MISTAKE.")
@@ -513,9 +560,10 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
-                        new(Scarlet, "angry", "No! Not the ship! Not the ship!!")
+                        new(Scarlet, "squint", "No! Not the ship! Not the ship!!")
                     ]
                 }
             },
@@ -526,9 +574,10 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
-                        new(Scarlet, "angry", "No! We took a hit!")
+                        new(Scarlet, "squint", "No! We took a hit!")
                     ]
                 }
             },
@@ -539,6 +588,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "angry", "Watch the paint!")
@@ -552,6 +602,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "tired", "What are you doin'?")
@@ -565,6 +616,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "tired", "Again with the ship?")
@@ -578,6 +630,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "angry", "What? Again?!")
@@ -591,6 +644,7 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "tired", "Everytime...")
@@ -604,9 +658,10 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
-                        new(Scarlet, "tired", "I sense I've made a mistake of some kind...")
+                        new(Scarlet, "squint", "I sense I've made a mistake of some kind...")
                     ]
                 }
             },
@@ -617,9 +672,31 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
-                        new(Scarlet, "angry", "Aw man!")
+                        new(Scarlet, "squint", "Aw man!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Ruhig_ShipTookDamage_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Ruhig ],
+                    whoDidThat = Ruhig_Deck,
+                    minDamageDealtToPlayerThisTurn = 1,
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "RUHIG!!!"),
+                        new(
+                        [
+                            new(Ruhig, "neutral", "Uh oh."),
+                            new(Ruhig, "neutral", "I'm not in trouble, am I?")
+                        ]
+                        )
                     ]
                 }
             },
@@ -631,6 +708,7 @@ internal class CombatDialogueV2 : IRegisterable
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
                     hasArtifacts = [ $"VanguardBerthing".F() ],
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
                         new(Scarlet, "angry", "What is it with everybody wreckin' my ship?!")
@@ -645,9 +723,10 @@ internal class CombatDialogueV2 : IRegisterable
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
                     hasArtifacts = [ $"VanguardBerthing".F() ],
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
                     [
-                        new(Scarlet, "angry", "Not my ride!")
+                        new(Scarlet, "squint", "Not my ride!")
                     ]
                 }
             },
@@ -658,11 +737,11 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
-                    oncePerCombatTags = [ "Scarlet_PerfectRuined_Combat" ],
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     priority = true,
                     dialogue =
                     [
-                        
+
                         new(Scarlet, "angry", "Welp, there goes trying not to get hit in this fight!")
                     ]
                 }
@@ -674,26 +753,26 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
-                    oncePerCombatTags = [ "Scarlet_PerfectRuined_Combat" ],
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     priority = true,
                     dialogue =
                     [
-                        new(Scarlet, "lockedin", "Don't be sorry. Be better.")
+                        new(Scarlet, "squint", "Don't be sorry. Be better.")
                     ]
                 }
             },
             {
-                "Scarlet_ShipTookDamage_PerfectRuined_Combat_1",
+                "Scarlet_ShipTookDamage_PerfectRuined_Combat_2",
                 new()
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
-                    oncePerCombatTags = [ "Scarlet_PerfectRuined_Combat" ],
+                    oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     priority = true,
                     dialogue =
                     [
-                        new(Scarlet, "tired", "Next time, I will make the right choices.")
+                        new(Scarlet, "tired", "Next time, I'll make the right choices.")
                     ]
                 }
             },
@@ -704,11 +783,11 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
-                    oncePerRunTags = [ "Scarlet_PerfectRuined_Run" ],
+                    oncePerRunTags = [ "Scarlet_ShipTookDamage" ],
                     priority = true,
                     dialogue =
                     [
-                        new(Scarlet, "angry", "So much for trying to not get hit.")
+                        new(Scarlet, "squint", "So much for trying to not get hit.")
                     ]
                 }
             },
@@ -719,11 +798,316 @@ internal class CombatDialogueV2 : IRegisterable
                     type = NodeType.combat,
                     allPresent = [ Scarlet ],
                     minDamageDealtToPlayerThisTurn = 1,
-                    oncePerRunTags = [ "Scarlet_PerfectRuined_Run" ],
+                    oncePerRunTags = [ "Scarlet_ShipTookDamage" ],
                     priority = true,
                     dialogue =
                     [
                         new(Scarlet, "tired", "Maybe we can do better next loop.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Heat_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Status.heat ],
+                    oncePerCombatTags = [ "Scarlet_Heat" ],
+                    dialogue =
+                    [
+                        new(Scarlet, "squint", "Temps in bulkhead are goin' up.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Heat_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Status.heat ],
+                    oncePerCombatTags = [ "Scarlet_Heat" ],
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "Heesh, finally broke a sweat.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Heat_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Status.heat ],
+                    oncePerCombatTags = [ "Scarlet_Heat" ],
+                    dialogue =
+                    [
+                        new(Scarlet, "worried", "Am I sweating?")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Overheat_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    oncePerCombatTags = [ "OverheatGeneric" ],
+                    goingToOverheat = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "scream", "Hot! Hot! Hot! Hot!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Overheat_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    oncePerCombatTags = [ "OverheatGeneric" ],
+                    goingToOverheat = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "scream", "I'm gettin' cooked here!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Overheat_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    oncePerCombatTags = [ "OverheatGeneric" ],
+                    goingToOverheat = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "scream", "Feelin' like in the fryer right now!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Overheat_3",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    oncePerCombatTags = [ "OverheatGeneric" ],
+                    goingToOverheat = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "scream", "I'm gettin' nuked 'ere!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Drake_Overheat_DrakesFault_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Eunice ],
+                    oncePerCombatTags = [ "OverheatDrakesFault" ],
+                    goingToOverheat = true,
+                    whoDidThat = Eunice_Deck,
+                    dialogue =
+                    [
+                        new(Scarlet, "scream", "Eunice! Cool it down, will ya?!"),
+                        new(Eunice, "mad", "Ugh, just open a window or something.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Drake_Overheat_DrakesFault_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Eunice ],
+                    oncePerCombatTags = [ "OverheatDrakesFault" ],
+                    goingToOverheat = true,
+                    whoDidThat = Eunice_Deck,
+                    dialogue =
+                    [
+                        new(Eunice, "sly", "Is it just me or-"),
+                        new(Scarlet, "scream", "Cool it down, Eunice!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Corrosion_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet ],
+                    lastTurnPlayerStatuses = [ Status.corrode ],
+                    oncePerCombatTags = [ "Scarlet_Corrosion" ],
+                    dialogue =
+                    [
+                        new(Scarlet, "squint", "Is it just me or is the cockpit melting?")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Illeana_Corrosion_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Illeana ],
+                    whoDidThat = Illeana_Deck,
+                    lastTurnPlayerStatuses = [ Status.corrode ],
+                    oncePerCombatTags = [ "Scarlet_Illeana_Corrosion" ],
+                    dialogue =
+                    [
+                        new(Scarlet, "angry", "ILLEANA!!!"),
+                        new(
+                        [
+                            new(Illeana, "silly", "Don't worry about it!"),
+                            new(Illeana, "explain", "We'll end up with a net positive, eventually.")
+                        ]
+                        )
+                    ]
+                }
+            },
+            {
+                "Scarlet_AboutToDie_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    oncePerCombatTags = [ "aboutToDie" ],
+                    allPresent = [ Scarlet ],
+                    oncePerRun = true,
+                    enemyShotJustHit = true,
+                    maxHull = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "Not yet... It's not over yet!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_AboutToDie_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    oncePerCombatTags = [ "aboutToDie" ],
+                    allPresent = [ Scarlet ],
+                    oncePerRun = true,
+                    enemyShotJustHit = true,
+                    maxHull = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "Is that all...?")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_AboutToDie_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    oncePerCombatTags = [ "aboutToDie" ],
+                    allPresent = [ Scarlet, Riggs ],
+                    oncePerRun = true,
+                    enemyShotJustHit = true,
+                    maxHull = 1,
+                    dialogue =
+                    [
+                        new(Scarlet, "lockedin", "Not yet, Riggs! It's not over yet!"),
+                        new(Riggs, "sad", "Okay!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Riggs_AboutToDie_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    oncePerCombatTags = [ "aboutToDie" ],
+                    allPresent = [ Scarlet, Riggs ],
+                    oncePerRun = true,
+                    enemyShotJustHit = true,
+                    maxHull = 1,
+                    dialogue =
+                    [
+                        new(Riggs, "serious", "It's okay Scarlet, this happens all the time."),
+                        new(Scarlet, "tired", "Right...")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Ruhig_Drake_Present_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Ruhig, Eunice ],
+                    oncePerRun = true,
+                    dialogue =
+                    [
+                        new(Scarlet, "squint", "You two dragons. Behave."),
+                        new(Ruhig, "neutral", "Aye, aye."),
+                        new(Eunice, "sly", "Of course.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Illeana_Present_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Illeana ],
+                    oncePerRunTags = [ "Scarlet_Illeana_Present" ],
+                    dialogue =
+                    [
+                        new(Scarlet, "tired", "Illeana..."),
+                        new(Illeana, "silly", "Hi Scarlet, it's me again!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Illeana_Present_Vanguard_0",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Illeana ],
+                    oncePerRunTags = [ "Scarlet_Illeana_Present" ],
+                    hasArtifacts = [ $"VanguardBerthing".F() ],
+                    dialogue =
+                    [
+                        new(Scarlet, "squint", "No."),
+                        new(Illeana, "explains", "I haven't even asked yet.")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Illeana_Present_Vanguard_1",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Illeana ],
+                    oncePerRunTags = [ "Scarlet_Illeana_Present" ],
+                    hasArtifacts = [ $"VanguardBerthing".F() ],
+                    dialogue =
+                    [
+                        new(Illeana, "salavating", "Oh my."),
+                        new(Scarlet, "angry", "Oh no you will not mess up my ship!")
+                    ]
+                }
+            },
+            {
+                "Scarlet_Illeana_Present_Vanguard_2",
+                new()
+                {
+                    type = NodeType.combat,
+                    allPresent = [ Scarlet, Illeana ],
+                    oncePerRunTags = [ "Scarlet_Illeana_Present" ],
+                    hasArtifacts = [ $"VanguardBerthing".F() ],
+                    dialogue =
+                    [
+                        new(Illeana, "giggle", "Scarlet can I? Scarlet can I? Scarlet can I?"),
+                        new(Scarlet, "tired", "Sigh.")
                     ]
                 }
             }

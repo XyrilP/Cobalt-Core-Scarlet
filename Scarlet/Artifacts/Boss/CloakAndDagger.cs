@@ -11,12 +11,16 @@ public class CloakAndDagger : Artifact, IRegisterable
 {
     bool usedCloakAndDagger_Fade;
     bool usedCloakAndDagger_Attack;
-    private static Spr spriteOn;
-    private static Spr spriteOff;
+    private static Spr spriteCloakAndDagger;
+    private static Spr spriteCloakAnd;
+    private static Spr spriteAndDagger;
+    private static Spr spriteAnd;
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        spriteOn = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/cloak_and_dagger.png")).Sprite;
-        spriteOff = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/cloak_and_dagger_off.png")).Sprite;
+        spriteCloakAndDagger = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/cloak_and_dagger.png")).Sprite;
+        spriteCloakAnd = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/cloak_and_dagger-off.png")).Sprite;
+        spriteAndDagger = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/cloak-off_and_dagger.png")).Sprite;
+        spriteAnd = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/cloak-off_and_dagger-off.png")).Sprite;
         helper.Content.Artifacts.RegisterArtifact(new ArtifactConfiguration
         {
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -65,7 +69,6 @@ public class CloakAndDagger : Artifact, IRegisterable
                 }
             );
             ship.Add(VionheartScarlet.Instance.Fade.Status, -1);
-            VionheartScarlet.Instance.Helper.ModData.SetModData(ship, "fadeUsedThisTurn", true);
             usedCloakAndDagger_Attack = true;
             return true;
         }
@@ -76,11 +79,19 @@ public class CloakAndDagger : Artifact, IRegisterable
     }
     public override Spr GetSprite()
     {
-        if (usedCloakAndDagger_Attack)
+        if (!usedCloakAndDagger_Fade && !usedCloakAndDagger_Attack)
         {
-            return spriteOff;
+            return spriteCloakAndDagger;
         }
-        return spriteOn;
+        else if (usedCloakAndDagger_Fade && !usedCloakAndDagger_Attack)
+        {
+            return spriteAndDagger;
+        }
+        else if (!usedCloakAndDagger_Fade && usedCloakAndDagger_Attack)
+        {
+            return spriteCloakAnd;
+        }
+        else return spriteAnd;
     }
     public override int ModifyBaseDamage(int baseDamage, Card? card, State state, Combat? combat, bool fromPlayer)
     {
@@ -92,19 +103,16 @@ public class CloakAndDagger : Artifact, IRegisterable
         }
         return 0;
     }
-    public override void OnReceiveArtifact(State state)
-    {
-        VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "hasCloakAndDagger", true);
-    }
-    public override void OnRemoveArtifact(State state)
-    {
-        VionheartScarlet.Instance.Helper.ModData.SetModData(state.ship, "hasCloakAndDagger", false);
-    }
     public override List<Tooltip>? GetExtraTooltips()
     {
         var fadeStatus = VionheartScarlet.Instance.Fade.Status;
         List<Tooltip> tooltips = [];
         tooltips.AddRange(StatusMeta.GetTooltips(fadeStatus, 1));
         return tooltips;
+    }
+    public override void OnCombatEnd(State state)
+    {
+        usedCloakAndDagger_Fade = false;
+        usedCloakAndDagger_Attack = false;
     }
 }

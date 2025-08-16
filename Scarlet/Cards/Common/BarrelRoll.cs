@@ -56,11 +56,18 @@ public class BarrelRoll : Card, IRegisterable
                     dir = -1,
                     targetPlayer = true
                 },
-                new AStatus()
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
+                    statusAmount = 1,
+                    mode = AStatusMode.Set
+                },
+                new AStatus
                 {
                     status = Status.tempShield,
-                    statusAmount = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    statusAmount = 2
                 },
                 new AMove()
                 {
@@ -75,10 +82,17 @@ public class BarrelRoll : Card, IRegisterable
                     dir = -1,
                     targetPlayer = true
                 },
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
+                    statusAmount = 2,
+                    mode = AStatusMode.Set
+                },
                 new AStatus()
                 {
                     status = Status.tempShield,
-                    statusAmount = 4,
+                    statusAmount = 2,
                     targetPlayer = true
                 },
                 new AMove()
@@ -95,11 +109,12 @@ public class BarrelRoll : Card, IRegisterable
                     targetPlayer = true,
                     isRandom = true
                 },
-                new AStatus()
+                new AStatus
                 {
-                    status = Status.tempShield,
-                    statusAmount = 2,
-                    targetPlayer = true
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
+                    statusAmount = 1,
+                    mode = AStatusMode.Set
                 },
                 new AStatus()
                 {

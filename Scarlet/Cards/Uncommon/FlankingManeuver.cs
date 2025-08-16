@@ -104,10 +104,6 @@ public class FlankingManeuver : Card, IRegisterable
                 {
                     amount = 1
                 },
-                new ATrickDraw
-                {
-                    amount = 2
-                },
                 new ADrawCard
                 {
                     count = 2

@@ -93,6 +93,7 @@ internal class VionheartScarlet : SimpleMod
     internal IStatusEntry Fade { get; }
     internal IStatusEntry SaturationBarrage { get; }
     internal IStatusEntry Saturation { get; }
+    internal IStatusEntry BarrelRoll { get; }
 
     internal ISpriteEntry TrickDagger { get; }
     internal ISpriteEntry TrickDagger_Icon { get; }
@@ -108,6 +109,7 @@ internal class VionheartScarlet : SimpleMod
     internal ISpriteEntry Fade_Icon { get; }
     internal ISpriteEntry SaturationBarrage_Icon { get; }
     internal ISpriteEntry Saturation_Icon { get; }
+    internal ISpriteEntry BarrelRoll_Icon { get; }
     private static List<Type> Scarlet_Common_Card_Types = [
         /* Scarlet's common cards. */
         typeof(DriveBy),
@@ -122,8 +124,9 @@ internal class VionheartScarlet : SimpleMod
         /* Trick Cards */
         typeof(DriftLeft),
         typeof(DriftRight),
-        typeof(TrickAfterburn),
-        typeof(Freestyle)
+        // typeof(TrickAfterburn),
+        // typeof(Freestyle),
+        typeof(TrickBarrelRoll)
         /* Trick Cards */
     ];
     private static List<Type> Scarlet_Uncommon_Card_Types = [
@@ -139,7 +142,7 @@ internal class VionheartScarlet : SimpleMod
         typeof(DefensivePiloting),
         /* Trick Cards */
         typeof(Veer),
-        typeof(MantaDodge),
+        // typeof(MantaDodge),
         typeof(Trickstab)
         /* Trick Cards */
     ];
@@ -359,7 +362,8 @@ internal class VionheartScarlet : SimpleMod
         }
         );
         _ = new FadeManager(package, helper);
-        /* Scarlet Barrage status */
+        /* Fade status */
+        /* Saturation Barrage status */
         SaturationBarrage_Icon = RegisterSprite(package, "assets/icons/Scarlet-Barrage.png");
         SaturationBarrage = helper.Content.Statuses.RegisterStatus("Scarlet Barrage", new StatusConfiguration
         {
@@ -375,6 +379,7 @@ internal class VionheartScarlet : SimpleMod
         }
         );
         _ = new scarletBarrageManager(package, helper);
+        /* Saturation Barrage status */
         /* Saturation status */
         Saturation_Icon = RegisterSprite(package, "assets/icons/Saturation.png");
         Saturation = helper.Content.Statuses.RegisterStatus("Saturation", new StatusConfiguration
@@ -395,6 +400,24 @@ internal class VionheartScarlet : SimpleMod
         } 
         );
         _ = new SaturationManager(package, helper);
+        /* Saturation status */
+        /* Barrel Roll status */
+        BarrelRoll_Icon = RegisterSprite(package, "assets/icons/BarrelRoll.png");
+        BarrelRoll = helper.Content.Statuses.RegisterStatus("BarrelRoll", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                affectedByTimestop = true,
+                color = new Color("BC2C3D"),
+                icon = BarrelRoll_Icon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "BarrelRoll", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "BarrelRoll", "description"]).Localize
+        }
+        );
+        _ = new BarrelRollManager(package, helper);
+        /* Barrel Roll status */
         /* Trick Dagger midrow + icon */
         TrickDagger = RegisterSprite(package, "assets/midrow/Trick-Dagger.png");
         TrickDagger_Icon = RegisterSprite(package, "assets/icons/Trick-Dagger_Icon.png");

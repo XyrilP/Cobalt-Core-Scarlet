@@ -3,6 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -40,7 +41,6 @@ public class DriftRight : Card, IRegisterable
             Upgrade.A => new CardData
             {
                 cost = 0,
-                retain = true,
                 temporary = true,
                 singleUse = true
             },
@@ -69,7 +69,7 @@ public class DriftRight : Card, IRegisterable
             [
                 new AMove
                 { 
-                    dir = 1,
+                    dir = 2,
                     targetPlayer = true
                 }
             ],
@@ -77,8 +77,12 @@ public class DriftRight : Card, IRegisterable
             [
                 new AMove
                 {
-                    dir = 2,
+                    dir = 1,
                     targetPlayer = true
+                },
+                new AInstantTrick
+                {
+                    amount = 1
                 }
             ],
             _ => []

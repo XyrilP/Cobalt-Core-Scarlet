@@ -106,7 +106,7 @@ public class DefensivePiloting : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.shield,
-                    statusAmount = 3,
+                    statusAmount = 1,
                     targetPlayer = true
                 },
                 new AStatus

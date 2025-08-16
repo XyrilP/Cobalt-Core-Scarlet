@@ -33,4 +33,10 @@ internal static class CommonDefinitions
     internal static string Ratzo => "knight";
     internal static string Wizbo => "wizard";
     internal static string Cleo => "nerd";
+    internal static string Illeana = "urufudoggo.Illeana::illeana";
+    internal static Deck Illeana_Deck = VionheartScarlet.Instance.Helper.Content.Decks.LookupByUniqueName(Illeana)!.Deck;
+    internal static string Ruhig = "havmir.RuhigMod::Demo";
+    internal static Deck Ruhig_Deck = VionheartScarlet.Instance.Helper.Content.Decks.LookupByUniqueName(Ruhig)!.Deck;
+    internal static string Weth = "urufudoggo.Weth::weth";
+    internal static Deck Weth_Deck = VionheartScarlet.Instance.Helper.Content.Decks.LookupByUniqueName(Weth)!.Deck;
 }

@@ -33,16 +33,19 @@ public class AileronRoll : Card, IRegisterable
             Upgrade.None => new CardData
             {
                 cost = 2,
-                exhaust = true
+                retain = true,
+                infinite = true
             },
             Upgrade.A => new CardData
             {
                 cost = 1,
-                exhaust = true
+                retain = true,
+                infinite = true
             },
             Upgrade.B => new CardData
             {
                 cost = 3,
+                retain = true,
                 exhaust = true
             },
             _ => new CardData{}
@@ -56,44 +59,44 @@ public class AileronRoll : Card, IRegisterable
             [
                 new AMove
                 {
-                    dir = -1,
-                    targetPlayer = true
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
                 },
                 new AStatus
                 {
-                    status = Status.perfectShield,
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
                     statusAmount = 1,
+                    mode = AStatusMode.Set
+                },
+                new AStatus
+                {
+                    status = Status.tempShield,
+                    statusAmount = 2,
                     targetPlayer = true
                 },
-                new AMove
-                {
-                    dir = 2,
-                    targetPlayer = true
-                },
-                new AEndTurn
-                {
-                }
             ],
             Upgrade.A =>
             [
                 new AMove
                 {
-                    dir = -1,
-                    targetPlayer = true
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true
                 },
                 new AStatus
                 {
-                    status = Status.perfectShield,
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
                     statusAmount = 1,
-                    targetPlayer = true
+                    mode = AStatusMode.Set
                 },
-                new AMove
+                new AStatus
                 {
-                    dir = 2,
+                    status = Status.tempShield,
+                    statusAmount = 2,
                     targetPlayer = true
-                },
-                new AEndTurn
-                {
                 }
             ],
             Upgrade.B =>
@@ -104,16 +107,17 @@ public class AileronRoll : Card, IRegisterable
                     targetPlayer = true,
                     isRandom = true
                 },
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
+                    statusAmount = 1,
+                    mode = AStatusMode.Set
+                },
                 new AStatus()
                 {
                     status = Status.perfectShield,
                     statusAmount = 1,
-                    targetPlayer = true
-                },
-                new AStatus()
-                {
-                    status = Status.evade,
-                    statusAmount = 2,
                     targetPlayer = true
                 }
             ],

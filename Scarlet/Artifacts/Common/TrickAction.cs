@@ -10,6 +10,7 @@ namespace VionheartScarlet.Artifacts;
 
 public class TrickAction : Artifact, IRegisterable
 {
+    public bool tricksterUpgrade;
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
         helper.Content.Artifacts.RegisterArtifact(new ArtifactConfiguration
@@ -43,6 +44,10 @@ public class TrickAction : Artifact, IRegisterable
             );
         }
     }
+    public override void OnTurnStart(State state, Combat combat)
+    {
+        tricksterUpgrade = true;
+    }
     public override List<Tooltip>? GetExtraTooltips()
     {
         List<Tooltip> tooltips =
@@ -54,6 +59,13 @@ public class TrickAction : Artifact, IRegisterable
                 Title = VionheartScarlet.Instance.Localizations.Localize(["action", "ATrickDraw", "name"]),
                 Description = string.Format(VionheartScarlet.Instance.Localizations.Localize(["action", "ATrickDraw", "description"]), $"{1}")
             },
+            new GlossaryTooltip("actionTooltip.AInstantTrick")
+            {
+                Icon = VionheartScarlet.Instance.InstantTrick_Icon.Sprite,
+                TitleColor = Colors.action,
+                Title = VionheartScarlet.Instance.Localizations.Localize(["action", "AInstantTrick", "name"]),
+                Description = string.Format(VionheartScarlet.Instance.Localizations.Localize(["action", "AInstantTrick", "description"]), $"{1}")
+            }
         ];
         return tooltips;
     }

@@ -83,11 +83,7 @@ public class Trickstab : Card, IRegisterable
             [
                 new AInstantTrick
                 {
-                    amount = 1
-                },
-                new ABackstab
-                {
-                    damage = GetDmg(s, 0)
+                    amount = 2
                 },
                 new ABackstab
                 {

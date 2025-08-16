@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FSPRO;
 using Nickel;
+using VionheartScarlet.Artifacts;
 using VionheartScarlet.Cards;
 
 namespace VionheartScarlet.Actions;
@@ -21,11 +22,20 @@ public class AInstantTrick : CardAction
             if (rng >= 0 && rng < 0.25) { trickCard = new DriftLeft(); }
             else if (rng >= 0.25 && rng < 0.50) { trickCard = new DriftRight(); }
             // else if (rng >= 0.50 && rng < 0.75) { trickCard = new TrickAfterburn(); }
-            else if (rng >= 0.50 && rng < 0.75) { trickCard = new Freestyle(); }
+            // else if (rng >= 0.50 && rng < 0.75) { trickCard = new Freestyle(); }
+            else if (rng >= 0.50 && rng < 0.75) { trickCard = new TrickBarrelRoll(); }
             else if (rng >= 0.75 && rng < 0.85) { trickCard = new Trickstab(); }
             //else if (rng >= 0.75 && rng < 0.85) { trickCard = new MantaDodge(); }
             else if (rng >= 0.85 && rng < 0.95) { trickCard = new Veer(); }
             else if (rng >= 0.95) { trickCard = new Flicker(); }
+            Artifact _ = s.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new TrickAction().Key());
+            if (_ is TrickAction artifact)
+            {
+                rng = s.rngActions.Next();
+                if (rng >= 0 && rng < 0.33) { trickCard.upgrade = Upgrade.None; }
+                else if (rng >= 0.33 && rng < 0.66 && artifact.tricksterUpgrade) { trickCard.upgrade = Upgrade.A; artifact.tricksterUpgrade = false; artifact.Pulse(); }
+                else if (rng > 0.66 && artifact.tricksterUpgrade) { trickCard.upgrade = Upgrade.B; artifact.tricksterUpgrade = false; artifact.Pulse(); }
+            }
             trickActionList.AddRange(trickCard.GetActions(s, c));
             if (isTeleport) // Make AMove actions make isTeleport true
             {

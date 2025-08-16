@@ -1,9 +1,57 @@
-Scarlet 1.4.4 Reowkr Playtest
+Scarlet 1.4.4 Rework Playtest
+- New Content
+    * Status
+        * Barrel Roll
+            - Inverts the ship, reversing and flipping the order of parts. Decreases by 1 at start of next turn
+    * Cards
+        * Tricks
+            * Stunt
+                - Replaces Freestyle; Floppable: Barrel Roll = 1 and 1 Instant Trick | Barrel Roll = 0 and 1 Instant Trick
 - Card changes
+    * Adjust Throttle
+        - Removed Fade
+        - Upgrade A: No longer 0E, now does 2 Instant Trick or 2 Engine Stall
+        - Upgrade B: Now 0E, same effects as base
+    * Barrel Roll
+        - Now has Barrel Roll = 1 (replacing 1 Shield)
+        - Upgrade A: Barrel Roll = 2
+        - Upgrade B: Now has 1 Move Random and 1 Evade
+    * Hide and Sneak
+        - Upgrade A: No longer 0E
+        - Upgrade B: Now 0E, same effects as base and exhaust
     * Patience
         - Is now Draw Next Turn 1 (from 3)
         - Upgrade A becomes Draw Next Turn 2 (No longer 0E)
         - Upgrade B becomes 0E, Exhaust
+    * Sneak Attack
+        - No longer has Fade
+    * Step Away
+        - Now 2E
+        - Upgrade A: Becomes 1E
+        - Upgrade B: Now does 3 Instant Tricks and 1 Trick
+    * Defense Piloting
+        - Upgrade B: Now does 1 Shield (from 3)
+    * Flanking Maneuver
+        - Upgrade B: Now does 1 Instant Trick (from 2)
+    * Uncanny Dodge
+        - Is now 2E
+        - Upgrade A: Becomes 1E, same effects as base
+        - Upgrade B: Now has retain and exhaust
+    * Aileron Roll
+        - Is now 1 Move Random, Barrel Roll = 1, 2 Temp. Shield, retain, infinite
+        - Upgrade A: Is now 1E
+        - Upgrade B: Is now 1 Perfect Shield (replacing Temp. Shield). Loses infinite, gains exhaust
+    * Fade Away
+        - No longer ends your turn
+- Artifact changes
+    * Trickster
+        * Added additional function
+            - Once per turn when you INSTANT TRICK or TRICK, the card is randomly upgraded
+- More story stuff!
+    * Dialogue
+        - Added some cross-mod dialogue
+        - Reintroduced and freshened up some old dialogue (Heat, Overheat)
+        - New dialogue (Scarlet complaining about getting the ship damaged)
 Scarlet 1.4.3 Rework Playtest
 - Tricks
     * Trickstab

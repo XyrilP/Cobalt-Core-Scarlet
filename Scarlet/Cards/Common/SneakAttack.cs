@@ -64,13 +64,6 @@ public class SneakAttack : Card, IRegisterable
                 new ABackstab
                 {
                     damage = GetDmg(s, 1)
-                },
-                new AStatus
-                {
-                    status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 1,
-                    targetPlayer = true,
-                    mode = AStatusMode.Set
                 }
             ],
             Upgrade.A =>
@@ -83,13 +76,6 @@ public class SneakAttack : Card, IRegisterable
                 new ABackstab
                 {
                     damage = GetDmg(s, 2)
-                },
-                new AStatus
-                {
-                    status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 1,
-                    targetPlayer = true,
-                    mode = AStatusMode.Set
                 }
             ],
             Upgrade.B =>
@@ -106,13 +92,6 @@ public class SneakAttack : Card, IRegisterable
                 new ABackstab
                 {
                     damage = GetDmg(s, 1)
-                },
-                new AStatus
-                {
-                    status = VionheartScarlet.Instance.Fade.Status,
-                    statusAmount = 1,
-                    targetPlayer = true,
-                    mode = AStatusMode.Set
                 }
             ],
             _ => []

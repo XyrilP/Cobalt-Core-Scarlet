@@ -3,6 +3,7 @@ using Nickel;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -50,7 +51,6 @@ public class Veer : Card, IRegisterable
                 temporary = true,
                 singleUse = true,
                 flippable = true,
-                retain = true
             },
             Upgrade.B => new CardData
             {
@@ -79,7 +79,7 @@ public class Veer : Card, IRegisterable
             [
                 new AMove
                 {
-                    dir = 2,
+                    dir = 3,
                     targetPlayer = true,
                 }
             ],
@@ -87,8 +87,12 @@ public class Veer : Card, IRegisterable
             [
                 new AMove
                 {
-                    dir = 3,
+                    dir = 2,
                     targetPlayer = true
+                },
+                new AInstantTrick
+                {
+                    amount = 1
                 }
             ],
             _ => []

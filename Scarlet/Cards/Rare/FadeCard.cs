@@ -78,9 +78,6 @@ public class FadeCard : Card, IRegisterable
                 {
                     status = Status.lockdown,
                     statusAmount = 1
-                },
-                new AEndTurn
-                {
                 }
             ],
             Upgrade.A =>
@@ -103,9 +100,6 @@ public class FadeCard : Card, IRegisterable
                 {
                     status = Status.lockdown,
                     statusAmount = 1
-                },
-                new AEndTurn
-                {
                 }
             ],
             Upgrade.B =>

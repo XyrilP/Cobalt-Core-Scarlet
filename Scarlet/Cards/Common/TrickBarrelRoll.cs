@@ -1,19 +1,20 @@
 using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
-public class AdjustThrottle : Card, IRegisterable
+public class TrickBarrelRoll : Card, IRegisterable
 {
     private static ISpriteEntry? FlippedArt1 { get; set; }
     private static ISpriteEntry? FlippedArt2 { get; set; }
     public static void Register(IPluginPackage<IModManifest> package, IModHelper helper)
     {
-        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/AdjustThrottle_Up.png"));
-        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/AdjustThrottle_Down.png"));
+        FlippedArt1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/TrickBarrelRoll_Up.png"));
+        FlippedArt2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/TrickBarrelRoll_Down.png"));
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
@@ -21,11 +22,10 @@ public class AdjustThrottle : Card, IRegisterable
             {
                 deck = VionheartScarlet.Instance.Scarlet_Deck.Deck,
                 rarity = Rarity.common,
-                dontOffer = false,
+                dontOffer = true,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "AdjustThrottle", "name"]).Localize,
-            Art = null
+            Name = VionheartScarlet.Instance.AnyLocalizations.Bind(["card", "TrickBarrelRoll", "name"]).Localize,
         }
         );
     }
@@ -36,24 +36,26 @@ public class AdjustThrottle : Card, IRegisterable
             Upgrade.None => new CardData
             {
                 art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                floppable = true,
-                retain = true,
+                cost = 0,
+                temporary = true,
+                singleUse = true,
+                floppable = true
             },
             Upgrade.A => new CardData
             {
                 art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                floppable = true,
-                retain = true
+                cost = 0,
+                temporary = true,
+                singleUse = true,
+                floppable = true
             },
             Upgrade.B => new CardData
             {
                 art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
                 cost = 0,
-                floppable = true,
-                retain = true,
-                exhaust = true
+                temporary = true,
+                singleUse = true,
+                floppable = true
             },
             _ => new CardData{}
         };
@@ -64,6 +66,14 @@ public class AdjustThrottle : Card, IRegisterable
         {
             Upgrade.None =>
             [
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
+                    statusAmount = 1,
+                    mode = AStatusMode.Set,
+                    disabled = flipped
+                },
                 new AInstantTrick
                 {
                     amount = 1,
@@ -72,22 +82,31 @@ public class AdjustThrottle : Card, IRegisterable
                 new ADummyAction
                 {
                 },
+                new AInstantTrick
+                {
+                    amount = 1,
+                    disabled = !flipped
+                },
                 new AStatus
                 {
-                    status = Status.engineStall,
-                    statusAmount = 1,
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
                     targetPlayer = true,
+                    statusAmount = 0,
+                    mode = AStatusMode.Set,
                     disabled = !flipped
                 }
             ],
             Upgrade.A =>
             [
-                new AInstantTrick
+                new AStatus
                 {
-                    amount = 1,
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
+                    statusAmount = 2,
+                    mode = AStatusMode.Set,
                     disabled = flipped
                 },
-                new ATrickDraw
+                new AInstantTrick
                 {
                     amount = 1,
                     disabled = flipped
@@ -95,29 +114,49 @@ public class AdjustThrottle : Card, IRegisterable
                 new ADummyAction
                 {
                 },
+                new AInstantTrick
+                {
+                    amount = 1,
+                    disabled = !flipped
+                },
                 new AStatus
                 {
-                    status = Status.engineStall,
-                    statusAmount = 2,
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
                     targetPlayer = true,
+                    statusAmount = 0,
+                    mode = AStatusMode.Set,
                     disabled = !flipped
                 }
             ],
             Upgrade.B =>
             [
+                new AStatus
+                {
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
+                    targetPlayer = true,
+                    statusAmount = 1,
+                    mode = AStatusMode.Set,
+                    disabled = flipped
+                },
                 new AInstantTrick
                 {
-                    amount = 1,
+                    amount = 2,
                     disabled = flipped
                 },
                 new ADummyAction
                 {
                 },
+                new AInstantTrick
+                {
+                    amount = 2,
+                    disabled = !flipped
+                },
                 new AStatus
                 {
-                    status = Status.engineStall,
-                    statusAmount = 1,
+                    status = VionheartScarlet.Instance.BarrelRoll.Status,
                     targetPlayer = true,
+                    statusAmount = 0,
+                    mode = AStatusMode.Set,
                     disabled = !flipped
                 }
             ],
