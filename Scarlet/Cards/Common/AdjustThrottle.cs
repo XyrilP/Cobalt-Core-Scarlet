@@ -37,23 +37,19 @@ public class AdjustThrottle : Card, IRegisterable
             {
                 art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
                 cost = 1,
-                floppable = true,
-                retain = true,
+                floppable = true
             },
             Upgrade.A => new CardData
             {
                 art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 1,
-                floppable = true,
-                retain = true
+                cost = 0,
+                floppable = true
             },
             Upgrade.B => new CardData
             {
                 art = !flipped ? FlippedArt1?.Sprite : FlippedArt2?.Sprite,
-                cost = 0,
-                floppable = true,
-                retain = true,
-                exhaust = true
+                cost = 2,
+                floppable = true
             },
             _ => new CardData{}
         };
@@ -64,9 +60,11 @@ public class AdjustThrottle : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AInstantTrick
+                new AStatus
                 {
-                    amount = 1,
+                    status = Status.evade,
+                    statusAmount = 1,
+                    targetPlayer = true,
                     disabled = flipped
                 },
                 new ADummyAction
@@ -82,32 +80,11 @@ public class AdjustThrottle : Card, IRegisterable
             ],
             Upgrade.A =>
             [
-                new AInstantTrick
-                {
-                    amount = 1,
-                    disabled = flipped
-                },
-                new ATrickDraw
-                {
-                    amount = 1,
-                    disabled = flipped
-                },
-                new ADummyAction
-                {
-                },
                 new AStatus
                 {
-                    status = Status.engineStall,
-                    statusAmount = 2,
+                    status = Status.evade,
+                    statusAmount = 1,
                     targetPlayer = true,
-                    disabled = !flipped
-                }
-            ],
-            Upgrade.B =>
-            [
-                new AInstantTrick
-                {
-                    amount = 1,
                     disabled = flipped
                 },
                 new ADummyAction
@@ -117,6 +94,26 @@ public class AdjustThrottle : Card, IRegisterable
                 {
                     status = Status.engineStall,
                     statusAmount = 1,
+                    targetPlayer = true,
+                    disabled = !flipped
+                }
+            ],
+            Upgrade.B =>
+            [
+                new AStatus
+                {
+                    status = Status.evade,
+                    statusAmount = 2,
+                    targetPlayer = true,
+                    disabled = flipped
+                },
+                new ADummyAction
+                {
+                },
+                new AStatus
+                {
+                    status = Status.engineStall,
+                    statusAmount = 2,
                     targetPlayer = true,
                     disabled = !flipped
                 }

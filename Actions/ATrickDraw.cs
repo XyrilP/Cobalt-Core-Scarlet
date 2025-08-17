@@ -26,7 +26,7 @@ public class ATrickDraw : CardAction
             //else if (rng >= 0.75 && rng < 0.85) { trickCard = new MantaDodge(); }
             else if (rng >= 0.85 && rng < 0.95) { trickCard = new Veer(); }
             else if (rng >= 0.95) { trickCard = new Flicker(); }
-            Artifact _ = s.EnumerateAllArtifacts().First((Artifact _) => _.Key() == new TrickAction().Key());
+            Artifact? _ = s.EnumerateAllArtifacts().FirstOrDefault(_ => _?.Key() == new TrickAction().Key(), null);
             if (_ is TrickAction artifact)
             {
                 rng = s.rngActions.Next();

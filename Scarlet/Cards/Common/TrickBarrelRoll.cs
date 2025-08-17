@@ -66,6 +66,13 @@ public class TrickBarrelRoll : Card, IRegisterable
         {
             Upgrade.None =>
             [
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true,
+                    disabled = flipped
+                },
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.BarrelRoll.Status,
@@ -74,18 +81,8 @@ public class TrickBarrelRoll : Card, IRegisterable
                     mode = AStatusMode.Set,
                     disabled = flipped
                 },
-                new AInstantTrick
-                {
-                    amount = 1,
-                    disabled = flipped
-                },
                 new ADummyAction
                 {
-                },
-                new AInstantTrick
-                {
-                    amount = 1,
-                    disabled = !flipped
                 },
                 new AStatus
                 {
@@ -94,10 +91,24 @@ public class TrickBarrelRoll : Card, IRegisterable
                     statusAmount = 0,
                     mode = AStatusMode.Set,
                     disabled = !flipped
-                }
+                },
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true,
+                    disabled = !flipped
+                },
             ],
             Upgrade.A =>
             [
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true,
+                    disabled = flipped
+                },
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.BarrelRoll.Status,
@@ -106,18 +117,8 @@ public class TrickBarrelRoll : Card, IRegisterable
                     mode = AStatusMode.Set,
                     disabled = flipped
                 },
-                new AInstantTrick
-                {
-                    amount = 1,
-                    disabled = flipped
-                },
                 new ADummyAction
                 {
-                },
-                new AInstantTrick
-                {
-                    amount = 1,
-                    disabled = !flipped
                 },
                 new AStatus
                 {
@@ -126,10 +127,22 @@ public class TrickBarrelRoll : Card, IRegisterable
                     statusAmount = 0,
                     mode = AStatusMode.Set,
                     disabled = !flipped
-                }
+                },
+                new AMove
+                {
+                    dir = 1,
+                    targetPlayer = true,
+                    isRandom = true,
+                    disabled = !flipped
+                },
             ],
             Upgrade.B =>
             [
+                new AInstantTrick
+                {
+                    amount = 1,
+                    disabled = flipped
+                },
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.BarrelRoll.Status,
@@ -138,18 +151,8 @@ public class TrickBarrelRoll : Card, IRegisterable
                     mode = AStatusMode.Set,
                     disabled = flipped
                 },
-                new AInstantTrick
-                {
-                    amount = 2,
-                    disabled = flipped
-                },
                 new ADummyAction
                 {
-                },
-                new AInstantTrick
-                {
-                    amount = 2,
-                    disabled = !flipped
                 },
                 new AStatus
                 {
@@ -157,6 +160,11 @@ public class TrickBarrelRoll : Card, IRegisterable
                     targetPlayer = true,
                     statusAmount = 0,
                     mode = AStatusMode.Set,
+                    disabled = !flipped
+                },
+                new AInstantTrick
+                {
+                    amount = 1,
                     disabled = !flipped
                 }
             ],

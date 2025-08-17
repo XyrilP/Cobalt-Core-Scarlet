@@ -1,3 +1,26 @@
+Scarlet 1.4.5 Rework Playtest
+- Changes
+    * Cards
+        * Stunt
+            - Base: Removed Fade
+            - Upgrade A: Removed Fade
+            - Upgrade B: Is now Fade 1 (from 2)
+        * Adjust Throttle
+            - Now does Evade (from Instant Trick and Trick)
+        * Barrel Roll
+            - No longer Instant Moves
+        * Step Away
+            - Base: Lowered Trick by 1
+            - Upgrade A: Lowered Trick by 1
+            - Upgrade B: Lowered Instant Trick by 1
+        * Defensive Piloting
+            - Now does Trick (from Shield)
+        * Uncanny Dodge
+            - Upgrade B: No longer has retain
+        * Fade Away
+            - Base: Now does 3 Move Random (from 6)
+            - Upgrade A: Now does 3 Move Random (from 6)
+            - Upgrade B: Now does 3 Instant Move, flippable
 Scarlet 1.4.4 Rework Playtest
 - New Content
     * Status

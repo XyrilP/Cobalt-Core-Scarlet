@@ -36,7 +36,7 @@ public class BarrelRoll : Card, IRegisterable
             },
             Upgrade.A => new CardData
             {
-                cost = 1
+                cost = 0
             },
             Upgrade.B => new CardData
             {
@@ -51,11 +51,6 @@ public class BarrelRoll : Card, IRegisterable
         {
             Upgrade.None =>
             [
-                new AMove()
-                {
-                    dir = -1,
-                    targetPlayer = true
-                },
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.BarrelRoll.Status,
@@ -68,37 +63,22 @@ public class BarrelRoll : Card, IRegisterable
                     status = Status.tempShield,
                     targetPlayer = true,
                     statusAmount = 2
-                },
-                new AMove()
-                {
-                    dir = 2,
-                    targetPlayer = true
                 }
             ],
             Upgrade.A =>
             [
-                new AMove()
-                {
-                    dir = -1,
-                    targetPlayer = true
-                },
                 new AStatus
                 {
                     status = VionheartScarlet.Instance.BarrelRoll.Status,
                     targetPlayer = true,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     mode = AStatusMode.Set
                 },
-                new AStatus()
+                new AStatus
                 {
                     status = Status.tempShield,
-                    statusAmount = 2,
-                    targetPlayer = true
-                },
-                new AMove()
-                {
-                    dir = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    statusAmount = 2
                 }
             ],
             Upgrade.B =>
@@ -119,7 +99,7 @@ public class BarrelRoll : Card, IRegisterable
                 new AStatus()
                 {
                     status = Status.evade,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     targetPlayer = true
                 }
             ],

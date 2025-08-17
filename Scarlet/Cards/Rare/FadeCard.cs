@@ -70,7 +70,7 @@ public class FadeCard : Card, IRegisterable
                 },
                 new AMove
                 {
-                    dir = 6,
+                    dir = 3,
                     targetPlayer = true,
                     isRandom = true
                 },
@@ -92,7 +92,7 @@ public class FadeCard : Card, IRegisterable
                 },
                 new AMove
                 {
-                    dir = 6,
+                    dir = 3,
                     targetPlayer = true,
                     isRandom = true
                 },
@@ -114,25 +114,13 @@ public class FadeCard : Card, IRegisterable
                 },
                 new AMove()
                 {
-                    dir = 2,
+                    dir = 3,
                     targetPlayer = true,
-                },
-                new AMove()
-                {
-                    dir = 4,
-                    targetPlayer = true,
-                    isRandom = true
                 },
                 new AStatus()
                 {
                     status = Status.lockdown,
                     statusAmount = 1
-                },
-                new AStatus()
-                {
-                    status = Status.evade,
-                    statusAmount = 2,
-                    targetPlayer = true
                 }
             ],
             _ => []

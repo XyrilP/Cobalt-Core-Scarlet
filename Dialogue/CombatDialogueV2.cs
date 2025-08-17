@@ -844,7 +844,7 @@ internal class CombatDialogueV2 : IRegisterable
                     oncePerCombatTags = [ "Scarlet_Heat" ],
                     dialogue =
                     [
-                        new(Scarlet, "worried", "Am I sweating?")
+                        new(Scarlet, "nervous", "Am I sweating?")
                     ]
                 }
             },

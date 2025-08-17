@@ -73,7 +73,7 @@ public class AileronRoll : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.tempShield,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     targetPlayer = true
                 },
             ],
@@ -95,7 +95,7 @@ public class AileronRoll : Card, IRegisterable
                 new AStatus
                 {
                     status = Status.tempShield,
-                    statusAmount = 2,
+                    statusAmount = 1,
                     targetPlayer = true
                 }
             ],

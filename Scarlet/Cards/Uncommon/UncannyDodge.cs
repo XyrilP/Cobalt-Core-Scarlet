@@ -42,7 +42,6 @@ public class UncannyDodge : Card, IRegisterable
             Upgrade.B => new CardData
             {
                 cost = 2,
-                retain = true,
                 exhaust = true
             },
             _ => new CardData{}

@@ -1,23 +1,21 @@
 1. Saturation Barrage changes
-    * Saturation Barrage prioritizes midrow targets
-        - When making a Saturation Barrage attack, will randomly target midrow objects first before targeting the opposing ship
-    * Make Saturation Barrage oscillate instead
-2. Rework Scarlet's entire deck
-    * Fade
-        - Reduce the amount of "Fade as a bonus" cards. Retain Fade-focused cards
+    - Make Saturation Barrage oscillate instead
+    - Change description to be more definitive
 3. Scarlet's memories
-    - Run Win 1:
-        * Scarlet confronts the void entity and questions what he can or should do
-    - Memory 1:
-        * T+? Days -- Scarlet meets a recently-arrested and broken-out Riggs in a fastfood joint. Riggs claimed to be a pilot and Scarlet offered her food before being arrested again. Scarlet pays her bail.
-    - Run Win 2:
-        * Scarlet insists that he will do anything to help, even if it means sacrificing himself if necessary. He was turned down and told that he just has to do what he does best... He mentions how he hates how cryptic these "smartasses" are. (Is that allowed?)
-    - Memory 2:
-        * T+?? Days -- Scarlet and Riggs spend some time together in a ship. Despite it being Scarlet's memory, Riggs began to vent about how traumatized she was about the Cobalt incident, that she's still in a timeloop. Regardless, timeloop or not, she doesn't want to die because she doesn't want to lose and start over with Scarlet. Scarlet reassures her that he'll always be with her, no matter what.
-    - Run Win 3:
-        * Scarlet complies with the void entity, but gets witty. He calls the Void Entity as "Triune", prompting a silent response from the void entity.
-    - Memory 3:
-        * T+??? Days -- Scarlet and Riggs go on missions together. Here, they are tasked with sabotaging the Paragon Core, Riggs' prior experience with the Cobalt made her come up with a plan to disable it but it was too late and the Core underwent critical state. Riggs offered her crystal necklace to Scarlet before he refuses, they embrace together before the Paragon Core explodes. Scarlet's proximity to Riggs' necklace sends him back in time to the timeloops of Cobalt Core. Riggs is implied to be Pirate Boss Riggs. T-0 SECONDS.
+    * Run Win 1:
+        - Scarlet confronts the void entity and questions what he can or should do
+    * Memory 1:
+        - T+? Days -- Scarlet meets a recently-arrested and broken-out Riggs in a fastfood joint. Riggs claimed to be a pilot and Scarlet offered her food before being arrested again. Scarlet pays her bail.
+    * Run Win 2:
+        - Scarlet insists that he will do anything to help, even if it means sacrificing himself if necessary. He was turned down and told that he just has to do what he does best... He mentions how he hates how cryptic these "smartasses" are. (Is that allowed?)
+    * Memory 2:
+        - T+?? Days -- Scarlet and Riggs spend some time together in a ship. Despite it being Scarlet's memory, Riggs began to vent about how traumatized she was about the Cobalt incident, that she's still in a timeloop. Regardless, timeloop or not, she doesn't want to die because she doesn't want to lose and start over with Scarlet. Scarlet reassures her that he'll always be with her, no matter what.
+    * Run Win 3:
+        - Scarlet complies with the void entity, but gets witty. He calls the Void Entity as "Triune", prompting a silent response from the void entity.
+    * Memory 3:
+        - T+??? Days -- Scarlet and Riggs go on missions together. Here, they are tasked with sabotaging the Paragon Core, Riggs' prior experience with the Cobalt made her come up with a plan to disable it but it was too late and the Core underwent critical state. Riggs offered her crystal necklace to Scarlet before he refuses, they embrace together before the Paragon Core explodes. Scarlet's proximity to Riggs' necklace sends him back in time to the timeloops of Cobalt Core. Riggs is implied to be Pirate Boss Riggs. T-0 SECONDS.
 4. Scarlet Dagger rework
     - Make Scarlet's daggers split bullets, halving the damage and redirecting it -1 and +1 spaces away
     - Damage halved to 0 applies Saturation instead
+5. Scarlet's missing dialogue
+    - Card dialogue

@@ -2,6 +2,7 @@ using Nanoray.PluginManager;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using VionheartScarlet.Actions;
 
 namespace VionheartScarlet.Cards;
 
@@ -59,11 +60,9 @@ public class DefensivePiloting : Card, IRegisterable
                     targetPlayer = true,
                     mode = AStatusMode.Set
                 },
-                new AStatus
+                new ATrickDraw
                 {
-                    status = Status.shield,
-                    statusAmount = 1,
-                    targetPlayer = true
+                    amount = 1
                 },
                 new AStatus
                 {
@@ -81,11 +80,9 @@ public class DefensivePiloting : Card, IRegisterable
                     targetPlayer = true,
                     mode = AStatusMode.Set
                 },
-                new AStatus
+                new ATrickDraw
                 {
-                    status = Status.shield,
-                    statusAmount = 1,
-                    targetPlayer = true
+                    amount = 1
                 },
                 new AStatus
                 {
@@ -103,11 +100,9 @@ public class DefensivePiloting : Card, IRegisterable
                     targetPlayer = true,
                     mode = AStatusMode.Set
                 },
-                new AStatus
+                new ATrickDraw
                 {
-                    status = Status.shield,
-                    statusAmount = 1,
-                    targetPlayer = true
+                    amount = 1
                 },
                 new AStatus
                 {

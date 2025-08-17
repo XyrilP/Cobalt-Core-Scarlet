@@ -62,7 +62,7 @@ public class StepAway : Card, IRegisterable
                 },
                 new ATrickDraw
                 {
-                    amount = 2
+                    amount = 1
                 }
             ],
             Upgrade.A =>
@@ -73,14 +73,14 @@ public class StepAway : Card, IRegisterable
                 },
                 new ATrickDraw
                 {
-                    amount = 3
+                    amount = 2
                 }
             ],
             Upgrade.B =>
             [
                 new AInstantTrick
                 {
-                    amount = 3
+                    amount = 2
                 },
                 new ATrickDraw
                 {
