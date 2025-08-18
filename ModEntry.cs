@@ -89,6 +89,7 @@ internal class VionheartScarlet : SimpleMod
             .Concat(Dialogue_Types);
     /* Vionheart Content */
     /* Scarlet Content */
+    internal IPlayableCharacterEntryV2 Scarlet;
     internal IDeckEntry Scarlet_Deck; //Scarlet's Deck of Cards
     internal IStatusEntry Fade { get; }
     internal IStatusEntry SaturationBarrage { get; }
@@ -302,7 +303,7 @@ internal class VionheartScarlet : SimpleMod
                 /* Scarlet NERVOUS */
         RegisterAnimation(package, "nervous", "assets/characters/scarlet_nervous_", 4);
             /* Register Scarlet as a Playable Character plus his Deck */
-        helper.Content.Characters.V2.RegisterPlayableCharacter("Scarlet", new PlayableCharacterConfigurationV2
+        Scarlet = helper.Content.Characters.V2.RegisterPlayableCharacter("Scarlet", new PlayableCharacterConfigurationV2
         {
             Deck = Scarlet_Deck.Deck,
             BorderSprite = RegisterSprite(package, "assets/characters/char_scarlet.png").Sprite,

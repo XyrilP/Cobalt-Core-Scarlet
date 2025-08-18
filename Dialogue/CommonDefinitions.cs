@@ -1,16 +1,19 @@
 using System.Linq;
 using VionheartScarlet;
 using Nickel;
+using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace VionheartScarlet.Dialogue;
 
 internal static class CommonDefinitions
 {
     internal static VionheartScarlet Instance => VionheartScarlet.Instance;
-    internal static string Scarlet => VionheartScarlet.Instance.Scarlet_Deck.UniqueName;
+    internal static string Scarlet => Instance.Scarlet_Deck.UniqueName;
     internal static Deck Scarlet_Deck => Instance.Scarlet_Deck.Deck;
-    internal static Status Fade => VionheartScarlet.Instance.Fade.Status;
-    internal static Status SaturationBarrage => VionheartScarlet.Instance.SaturationBarrage.Status;
+    internal static Status Fade => Instance.Fade.Status;
+    internal static Status SaturationBarrage => Instance.SaturationBarrage.Status;
+    internal static Status Missing_Scarlet => Instance.Scarlet.MissingStatus.Status;
     internal static string Dizzy => Deck.dizzy.Key();
     internal static Deck Dizzy_Deck => Deck.dizzy;
     internal static string Riggs => Deck.riggs.Key();
@@ -34,9 +37,20 @@ internal static class CommonDefinitions
     internal static string Wizbo => "wizard";
     internal static string Cleo => "nerd";
     internal static string Illeana = "urufudoggo.Illeana::illeana";
-    internal static Deck Illeana_Deck = VionheartScarlet.Instance.Helper.Content.Decks.LookupByUniqueName(Illeana)!.Deck;
     internal static string Ruhig = "havmir.RuhigMod::Demo";
-    internal static Deck Ruhig_Deck = VionheartScarlet.Instance.Helper.Content.Decks.LookupByUniqueName(Ruhig)!.Deck;
     internal static string Weth = "urufudoggo.Weth::weth";
-    internal static Deck Weth_Deck = VionheartScarlet.Instance.Helper.Content.Decks.LookupByUniqueName(Weth)!.Deck;
+    internal static Deck TryGetDeck(this string who)
+    {
+        IDeckEntry who_Deck = VionheartScarlet.Instance.Helper.Content.Decks.LookupByUniqueName(who)!;
+        if (who_Deck is not null) return who_Deck.Deck;
+        else return Deck.colorless;
+    }
+    internal static Status TryGetMissing(this string who)
+    {
+        if (who is not null && VionheartScarlet.Instance.Helper.Content.Characters.V2.LookupByUniqueName(who) is IPlayableCharacterEntryV2 entry)
+        {
+            return entry.MissingStatus.Status;
+        }
+        return Missing_Scarlet;
+    }
 }

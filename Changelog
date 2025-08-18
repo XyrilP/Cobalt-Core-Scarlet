@@ -2,9 +2,9 @@ Scarlet 1.4.5 Rework Playtest
 - Changes
     * Cards
         * Stunt
-            - Base: Removed Fade
-            - Upgrade A: Removed Fade
-            - Upgrade B: Is now Fade 1 (from 2)
+            - Base: Removed Instant Trick
+            - Upgrade A: Removed Instant Trick
+            - Upgrade B: Is now Instant Trick 1 (from 2)
         * Adjust Throttle
             - Now does Evade (from Instant Trick and Trick)
         * Barrel Roll

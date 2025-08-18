@@ -212,10 +212,10 @@ internal class CombatDialogueV2 : IRegisterable
                 new()
                 {
                     type = NodeType.combat,
-                    allPresent = [ Scarlet, Riggs ],
+                    allPresent = [ Scarlet, Weth ],
                     playerShotJustHit = true,
                     minDamageDealtToEnemyThisAction = 1,
-                    whoDidThat = Weth_Deck,
+                    whoDidThat = Weth.TryGetDeck(),
                     dialogue =
                     [
                         new(Weth, "neutral", "That's a hit!"),
@@ -685,7 +685,7 @@ internal class CombatDialogueV2 : IRegisterable
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet, Ruhig ],
-                    whoDidThat = Ruhig_Deck,
+                    whoDidThat = Ruhig.TryGetDeck(),
                     minDamageDealtToPlayerThisTurn = 1,
                     oncePerCombatTags = [ "Scarlet_ShipTookDamage" ],
                     dialogue =
@@ -956,7 +956,7 @@ internal class CombatDialogueV2 : IRegisterable
                 {
                     type = NodeType.combat,
                     allPresent = [ Scarlet, Illeana ],
-                    whoDidThat = Illeana_Deck,
+                    whoDidThat = Illeana.TryGetDeck(),
                     lastTurnPlayerStatuses = [ Status.corrode ],
                     oncePerCombatTags = [ "Scarlet_Illeana_Corrosion" ],
                     dialogue =
